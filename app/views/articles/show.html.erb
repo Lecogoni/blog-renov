@@ -11,6 +11,16 @@
 
   <%= link_to 'Edit', edit_article_path(@article) %>
 
+  <p>
+    <%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%>
+  </p>
+
+  <% if current_user.id != @article.user.id %>
+    <p>
+      <%= button_to 'Like', article_likes_path(@article), method: :post %>
+    </p>
+  <% end %>
+
   <hr>
 
   <h6>Autres création de <%= @article.user.full_name %></h6>
