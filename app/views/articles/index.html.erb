@@ -16,31 +16,19 @@
           <div class="card-body">
             <h5 class="card-title"><%= article.title %></h5>
             <h5 class="card-title"><%= article.user.full_name %></h5>
-            <p class="card-text"><%= article.description %></p>
+            <p>
+              <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
             <p class="card-text">
               <%= link_to 'Edit', edit_article_path(article) %>
               <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
             </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       <% end %>
     </div>
     <% end %>
   </div>
-    
 
- 
-
-
-      
-        
-          
-
-      
-
-
-  <br>
-
-  <%= link_to 'New Article', new_article_path %>
 </div>

@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.all.order("created_at DESC")
   end
 
   # GET /articles/1 or /articles/1.json
@@ -24,15 +24,12 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
 
-    respond_to do |format|
-      if @article.save
-        format.html { redirect_to @article, notice: "Article was successfully created." }
-        format.json { render :show, status: :created, location: @article }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    if @article.save
+      redirect_to @article, notice: "Votre article a été enregistré !"
+    else
+      render :new, status: :unprocessable_entity 
     end
+
   end
 
   # PATCH/PUT /articles/1 or /articles/1.json
@@ -65,6 +62,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.fetch(:article, {})
+      params.require(:article).permit(:title, :description, :user_id)
     end
 end

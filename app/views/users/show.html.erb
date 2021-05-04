@@ -6,8 +6,16 @@
     <%= @user.first_name %> a <%= pluralize @user.articles.count, 'création' %>
   </p>
 
-
   <hr>
+
+  <% if current_user.id == @user.id %>
+    <div>
+        <%= link_to 'New Article', new_article_path %>
+    </div>
+    <hr>
+  <% end %>
+
+  
 
   <div class="row">
     <% @articles.each do |article| %>
