@@ -9,16 +9,27 @@
     <p><%= @article.description %></p>
   </div>
 
-  <%= link_to 'Edit', edit_article_path(@article) %>
+  
 
-
+  <hr>
+  
   <p>
-    <%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%>
+    <span class="badge bg-light text-dark"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></span>
   </p>
 
+  
+
   <% if current_user.id != @article.user.id %>
+      <hr>
       <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
         <i class="bi bi-hand-thumbs-up"> Like</i>
+      <% end %>
+  <% end %>
+
+  <% if current_user.id == @article.user.id %>
+      <hr>
+      <%= button_to edit_article_path(@article), class:"btn btn-outline-primary" do %>
+        <i class="bi bi-pen"> Edit</i>
       <% end %>
   <% end %>
 
