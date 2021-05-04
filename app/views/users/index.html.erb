@@ -1,4 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+
+  <div>
+    <p>
+      user_signed_in? : <%= user_signed_in? %><br><br>
+      current_user : <%= current_user %><br>
+      session['session_id'] : <%=  session['session_id'] %><br><br>
+      session[:current_user_id] : <%= session[:current_user_id] %><br>
+    </p>
+  </div>
+
 
 <h1>Users</h1>
 
@@ -23,3 +33,4 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+</div>
