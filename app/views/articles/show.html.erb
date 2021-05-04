@@ -1,4 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+  <div>
+    <h5><%= @article.upcase_title %></h5>
+    <h6>création de <%= @article.user.full_name %></h6>
+  </div>
+
+  <div>
+    <p><%= @article.description %></p>
+  </div>
+
+  <%= link_to 'Edit', edit_article_path(@article) %>
+
+  <hr>
+
+  <h6>Autres création de <%= @article.user.full_name %></h6>
+
+  <div class="row">
+    <% @other_articles.each do |article| %>
+
+      <div class="col-4">
+          <%= link_to (article) do %>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= article.titleize_title%></h5>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+    <% end %>
+  </div>
+  
+</div>
+

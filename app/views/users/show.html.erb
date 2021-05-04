@@ -1,34 +1,37 @@
 <div class="container">
-  <h3><%= @user.first_name %></h3>
-  <h3><%= @user.last_name %></h3>
-  <h3><%= @user.email %></h3><br><br>
 
-  <h3><%= @user.full_name %></h3><br><br>
+  <h3>profil de : <%= @user.full_name %></h3>
+  <h4><%= @user.email %></h4>
+  <p>
+    <%= @user.first_name %> a <%= pluralize @user.articles.count, 'création' %>
+  </p>
 
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Back', users_path %>
 
   <hr>
 
   <div class="row">
-  <% @articles.each do |article| %>
-  <div class="card" style="width: 18rem;">
-    <%
-=begin%>
- <img src="..." class="card-img-top" alt="..."> 
-<%
-=end%>
-    <div class="card-body">
-      <h5 class="card-title"><%= article.title %></h5>
-      <p class="card-text">
-        <%= link_to 'Show', article %>
-        <%= link_to 'Edit', edit_article_path(article) %>
-        <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+    <% @articles.each do |article| %>
+      <div class="col-6">
+        <%= link_to (article) do %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= article.title %></h5>
+              <p class="card-text">
+                <%= link_to 'Edit', edit_article_path(article) %>
+                <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-  <% end %>
-  </div>
+
+  <hr>
+  <br>
+
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', users_path %>
 
 </div>
