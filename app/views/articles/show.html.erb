@@ -11,14 +11,15 @@
 
   <%= link_to 'Edit', edit_article_path(@article) %>
 
+
   <p>
     <%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%>
   </p>
 
   <% if current_user.id != @article.user.id %>
-    <p>
-      <%= button_to 'Like', article_likes_path(@article), method: :post %>
-    </p>
+      <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
+        <i class="bi bi-hand-thumbs-up"> Like</i>
+      <% end %>
   <% end %>
 
   <hr>
