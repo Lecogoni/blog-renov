@@ -1,7 +1,10 @@
 <div class="container">
   <h3><%= @user.first_name %></h3>
   <h3><%= @user.last_name %></h3>
-  <h3><%= @user.email %></h3>
+  <h3><%= @user.email %></h3><br><br>
+
+  <h3><%= @user.full_name %></h3><br><br>
+
   <%= link_to 'Edit', edit_user_path(@user) %> |
   <%= link_to 'Back', users_path %>
 

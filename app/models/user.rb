@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :articles, dependent: :destroy
+
+  def full_name
+    full_name = [first_name.capitalize, last_name.capitalize].join(' ')
+  end
+
 end
