@@ -1,5 +1,7 @@
 <div class="container">
 
+  <!-- ARTICLE -->
+
   <div>
     <h5><%= @article.upcase_title %></h5>
     <h6>création de <%= @article.user.full_name %></h6>
@@ -40,7 +42,33 @@
 
   <% end %>
 
+
+  <!-- COMMENT -->
   <hr>
+
+  <div class="card my-1">
+    <div class="card-body">
+      <p class="font-weight-bold">Commentaires</p>
+      <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="form-group">
+          <%= f.label 'nouveau commentaires' %>
+          <%= f.text_area :body, class: 'form-control' %>
+        </div>
+        <%= f.submit 'publier', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+
+
+    <%= render 'comments' %>
+
+
+  </div>
+
+
+  <hr>
+
+  <!-- OTHER USER ARTICLE -->
 
   <h6>Autres création de <%= @article.user.full_name %></h6>
 

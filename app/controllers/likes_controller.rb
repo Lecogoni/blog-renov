@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :find_post
+  before_action :find_article
 
   def create
 
@@ -17,7 +17,7 @@ class LikesController < ApplicationController
 
   private
 
-  def find_post
+  def find_article
     @article = Article.find(params[:article_id])
   end
 

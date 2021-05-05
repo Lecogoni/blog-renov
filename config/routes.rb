@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/destroy'
   resources :articles
 
   resources :articles do
     resources :likes
+  end
+
+  resources :articles do
+    resources :comments
   end
 
   devise_for :users
