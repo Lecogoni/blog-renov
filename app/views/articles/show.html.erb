@@ -27,10 +27,17 @@
   <% end %>
 
   <% if current_user.id == @article.user.id %>
+
       <hr>
-      <%= button_to edit_article_path(@article), class:"btn btn-outline-primary" do %>
-        <i class="bi bi-pen"> Edit</i>
+
+      <%= button_to edit_article_path(@article), class:"btn btn-outline-primary", method: :get do %>
+        <i class="bi bi-pen"> Modifier</i>
       <% end %>
+
+      <br>
+
+      <%= link_to 'Supprimer', @article, class:"btn btn-outline-danger", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } %>
+
   <% end %>
 
   <hr>
