@@ -1,10 +1,9 @@
   <% @comments = @article.comments %>
   <% @comments.each do |comment| %>
     <% unless !comment.persisted? %>
-      <div class="card">
-        <div class="card-body">
-          <%= comment.body %><br>
-          <%= comment.user.full_name %>
+      <div class="p-3">
+        <div class="p-1">
+          <%= comment.user.full_name %> : <%= comment.body %><br>
         </div>
       </div>
     <% end %>
