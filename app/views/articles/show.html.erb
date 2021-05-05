@@ -21,14 +21,14 @@
 
   
 
-  <% if current_user.id != @article.user.id %>
+  <% if user_signed_in? && current_user.id != @article.user.id %>
       <hr>
       <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
         <i class="bi bi-hand-thumbs-up"> Like</i>
       <% end %>
   <% end %>
 
-  <% if current_user.id == @article.user.id %>
+  <% if user_signed_in? && current_user.id == @article.user.id %>
 
       <hr>
 
@@ -47,17 +47,20 @@
   <hr>
 
   <div class="card my-1">
-    <div class="card-body">
-      <p class="font-weight-bold">Commentaires</p>
-      <%= form_with(model: [@article, @article.comments.build]) do |f| %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <div class="form-group">
-          <%= f.label 'nouveau commentaires' %>
-          <%= f.text_area :body, class: 'form-control' %>
-        </div>
-        <%= f.submit 'publier', class: 'btn btn-primary' %>
-      <% end %>
-    </div>
+      <div class="card-body">
+        <p class="font-weight-bold">Commentaires</p>
+    <% if user_signed_in? %>
+        <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+          
+            <%= f.hidden_field :user_id, value: current_user.id %>
+          <div class="form-group">
+            <%= f.label 'nouveau commentaires' %>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <%= f.submit 'publier', class: 'btn btn-primary' %>
+        <% end %>
+    <% end %>
+      </div>
 
 
     <%= render 'comments' %>
