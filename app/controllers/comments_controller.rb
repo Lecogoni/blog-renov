@@ -12,6 +12,16 @@ class CommentsController < ApplicationController
 
   end
 
+  def new
+
+    puts "in the new controller ----------------"
+    puts "in the new controller ----------------"
+    
+    @comment = @article.comments.new(parent_id: params[:parent_id], user_id: curent_user.id)
+    
+    puts "----------------"
+  end
+
   def destroy
   end
 

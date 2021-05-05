@@ -1,10 +1,37 @@
   <% @comments = @article.comments %>
   <% @comments.each do |comment| %>
     <% unless !comment.persisted? %>
+
+    <hr>
+
+      <% @article = comment.article %>
+
       <div class="p-3">
         <div class="p-1">
           <%= comment.user.full_name %> : <%= comment.body %><br>
+          <%= link_to 'répondre', new_article_comment_path(@article, parent_id: comment.id), remote: true, class: 'd-block' %>
+
         </div>
+
+        <div>
+          les reply sont là 
+
+            <% if comment.replies.any? %>
+              <% comment.replies.each do |reply| %> 
+                <%= render partial: 'comments/reply', locals: { reply: reply } %>
+              <% end %>
+            <% end %>
+        </div>
+
+        <div>
+          les replies form
+            <div id="reply_form-<%= comment.id %>"></div>
+        </div>
+
+
+
+
+
       </div>
     <% end %>
   <% end %>
