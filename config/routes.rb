@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+
   get 'comments/create'
   get 'comments/destroy'
+
   resources :articles
+  resources :categories
 
   resources :articles do
     resources :likes

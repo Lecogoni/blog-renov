@@ -19,22 +19,37 @@ User.create(
 puts "marie create"
 
 User.create(
-  first_name: "jacqueline",
+  first_name: "didier",
   phone_number: "0622334455",
-  email: "jacqueline@yopmail.com",
+  email: "didier@yopmail.com",
   password: "000000",
 )
 
 puts "jacqueline create"
 
 User.create(
-  first_name: "laurence",
+  first_name: "francine",
   phone_number: "0766778899",
-  email: "laurence@yopmail.com",
+  email: "francine@yopmail.com",
   password: "000000",
 )
 
 puts "laurence create"
+
+
+
+article_category = ["chaise", "cocktail", "bridge", "fauteuil", 
+  "canapé", "banquette" ]
+
+for i in 0..article_category.length do
+  Category.create(
+    name: article_category[i],
+    display: true
+  )
+end
+
+puts "#{article_category.length} category créées"
+
 
 article_title = ["fauteil louis XV", "Chaise vintage", "chaine de table", "tabouret", 
   "chaise", "banquette", "banquette ancienne", "banquette ancienne", "chaise d'époque", 
@@ -44,6 +59,7 @@ article_title = ["fauteil louis XV", "Chaise vintage", "chaine de table", "tabou
   Article.create(
     title: article_title.sample,
     user_id: User.all.sample.id,
+    category_id: Category.all.sample.id,
   )
 end
 
