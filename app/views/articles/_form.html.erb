@@ -22,7 +22,7 @@
       </div>
 
       <div class="field">
-        <%= f.select :category_id, Category.pluck(:name, :id) %>
+        <%= f.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie' %>
       </div>
 
       <div class="control">
