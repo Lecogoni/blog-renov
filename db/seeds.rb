@@ -64,3 +64,23 @@ article_title = ["fauteil louis XV", "Chaise vintage", "chaine de table", "tabou
 end
 
 puts "12 article"
+
+Post.create(
+  title: "mon premier post",
+  body: "ceci est le message de mon premier post",
+  user_id: User.all.sample.id,
+)
+
+Post.create(
+  title: "post numéro 2",
+  body: "ceci est le message de mon second post",
+  user_id: User.all.sample.id,
+)
+
+Post.create(
+  title: "mon troisième post",
+  body: "ceci est le message de mon troisième post",
+  user_id: User.all.sample.id,
+)
+
+puts "3 posts"

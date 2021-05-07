@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :posts
   get 'comments/create'
   get 'comments/destroy'
 
