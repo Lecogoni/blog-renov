@@ -1,19 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+  <p>
+    <h1>Titre : <strong><%= @post.title %></strong></h1>
+    <br>
+    annonce de : <strong><%= @post.user.full_name %></strong>
+  </p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
+  <p>
+    <%= @post.body %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+  <%= link_to 'Back', posts_path %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+</div>

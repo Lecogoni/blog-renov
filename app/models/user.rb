@@ -7,7 +7,8 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-
+  has_many :posts, dependent: :destroy
+  
   def full_name
     full_name = [first_name.capitalize, last_name.capitalize].join(' ')
   end
