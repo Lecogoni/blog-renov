@@ -15,8 +15,14 @@
      <div class="section">
     <%= simple_form_for article do |f| %>
 
+
+
       <div class="field">
         <%= f.hidden_field :user_id, :value => current_user.id %>
+      </div>
+
+      <div class="field">
+        <%= f.select :category_id, Category.pluck(:name, :id) %>
       </div>
 
       <div class="control">
