@@ -7,11 +7,11 @@
   <div class="form-inputs">
 
     <div class="field">
-      <%= f.select :column_id, Column.pluck(:name, :id), :include_blank => 'choississez la rubrique de votre annonce' %>
+      <%= f.select :column_id, Column.pluck(:name, :id), :include_blank => 'choississez la rubrique de votre annonce', required: true %>
     </div>
     <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.input :title %>
-    <%= f.input :body %>
+    <%= f.input :title, required: true %>
+    <%= f.input :body, required: true %>
   </div>
 
   <div class="form-actions">
