@@ -14,6 +14,9 @@
             <div class="badge bg-warning text-wrap">
               publié le <%= post.created_at %>
             </div>
+            <div class="badge bg-info text-wrap">
+              <%= post.column.name %>
+            </div>
             <% if user_signed_in? && current_user.id != post.user.id %>
               <%= link_to 'Show', post %>
               <%= link_to 'Edit', edit_post_path(post) %>

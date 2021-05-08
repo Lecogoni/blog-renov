@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_170618) do
+ActiveRecord::Schema.define(version: 2021_05_08_092128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(version: 2021_05_07_170618) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.boolean "display", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "columns", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -58,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_05_07_170618) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "column_id", null: false
+    t.index ["column_id"], name: "index_posts_on_column_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -82,5 +90,6 @@ ActiveRecord::Schema.define(version: 2021_05_07_170618) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "articles"
   add_foreign_key "likes", "users"
+  add_foreign_key "posts", "columns"
   add_foreign_key "posts", "users"
 end

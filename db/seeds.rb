@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+Category.destroy_all
 
 User.create(
   first_name: "marie",
@@ -20,6 +21,7 @@ puts "marie create"
 
 User.create(
   first_name: "didier",
+  last_name: "treillard",
   phone_number: "0622334455",
   email: "didier@yopmail.com",
   password: "000000",
@@ -29,6 +31,7 @@ puts "jacqueline create"
 
 User.create(
   first_name: "francine",
+  last_name: "bauer",
   phone_number: "0766778899",
   email: "francine@yopmail.com",
   password: "000000",
@@ -84,3 +87,14 @@ Post.create(
 )
 
 puts "3 posts"
+
+post_column = ["annonce club", "vente", "recherche", "fourniture", 
+  "divers", "billet d'humeur" ]
+
+for i in 0..post_column.length do
+  Column.create(
+    name: post_column[i],
+  )
+end
+
+puts "#{post_column.length} rubriques créées"
