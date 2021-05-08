@@ -20,7 +20,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><%= user.full_name%></h5>
-              <h6 class="card-subtitle mb-2 text-muted"><%= pluralize user.articles.count, 'création' %></h6>
+              <h6 class="card-subtitle mb-2 text-muted"><%= pluralize user.articles.count, 'création' %> | <%= pluralize user.posts.count, 'annonce' %> </h6>
               
               <p class="card-text"></p>
               

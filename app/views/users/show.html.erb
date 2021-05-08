@@ -34,6 +34,10 @@
                     <%= link_to 'Edit', edit_article_path(article) %>
                     <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
                   </p>
+                  <p>
+                    <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
+                    <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+                  </p>
                   <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
               </div>
