@@ -8,6 +8,7 @@
 
 User.destroy_all
 Category.destroy_all
+Column.destroy_all
 
 User.create(
   first_name: "marie",
@@ -44,10 +45,10 @@ puts "laurence create"
 article_category = ["chaise", "cocktail", "bridge", "fauteuil", 
   "canapé", "banquette" ]
 
-for i in 0..article_category.length do
+for i in 0...article_category.length do
   Category.create(
     name: article_category[i],
-    display: true
+    display: false
   )
 end
 
@@ -68,33 +69,36 @@ end
 
 puts "12 article"
 
-Post.create(
-  title: "mon premier post",
-  body: "ceci est le message de mon premier post",
-  user_id: User.all.sample.id,
-)
-
-Post.create(
-  title: "post numéro 2",
-  body: "ceci est le message de mon second post",
-  user_id: User.all.sample.id,
-)
-
-Post.create(
-  title: "mon troisième post",
-  body: "ceci est le message de mon troisième post",
-  user_id: User.all.sample.id,
-)
-
-puts "3 posts"
-
 post_column = ["annonce club", "vente", "recherche", "fourniture", 
   "divers", "billet d'humeur" ]
-
-for i in 0..post_column.length do
-  Column.create(
-    name: post_column[i],
+  
+  for i in 0...post_column.length do
+    Column.create(
+      name: post_column[i],
+    )
+  end
+  
+  puts "#{post_column.length} rubriques créées"
+  
+  Post.create(
+    title: "mon premier post",
+    body: "ceci est le message de mon premier post",
+    user_id: User.all.sample.id,
+    column_id: Column.all.sample.id,
   )
-end
-
-puts "#{post_column.length} rubriques créées"
+  
+  Post.create(
+    title: "post numéro 2",
+    body: "ceci est le message de mon second post",
+    user_id: User.all.sample.id,
+    column_id: Column.all.sample.id,
+  )
+  
+  Post.create(
+    title: "mon troisième post",
+    body: "ceci est le message de mon troisième post",
+    user_id: User.all.sample.id,
+    column_id: Column.all.sample.id,
+  )
+  
+  puts "3 posts"
