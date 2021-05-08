@@ -8,7 +8,8 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    @articles = @user.articles
+    @articles = @user.articles.order("created_at DESC")
+    @posts = @user.posts.order("created_at DESC")
   end
 
   # GET /users/new

@@ -28,7 +28,7 @@ User.create(
   password: "000000",
 )
 
-puts "jacqueline create"
+puts "didier create"
 
 User.create(
   first_name: "francine",
@@ -38,7 +38,7 @@ User.create(
   password: "000000",
 )
 
-puts "laurence create"
+puts "francine create"
 
 
 
