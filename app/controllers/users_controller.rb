@@ -3,7 +3,17 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+
+    @users = User.all.order("first_name ASC")
+
+    if params[:order] == 'name'
+        @users = User.all.order("first_name ASC")
+    elsif params[:order] == 'lastname'
+        @users = User.all.order("last_name ASC")
+    else
+      @users = User.all.order("first_name ASC")
+    end 
+
   end
 
   # GET /users/1 or /users/1.json

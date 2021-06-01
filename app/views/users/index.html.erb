@@ -10,6 +10,13 @@
   </div>
 
 
+  <div>
+    <p>Sort by: 
+      <%= link_to "prénom", users_path(order: 'name') %>,
+      <%= link_to "nom de famille", users_path(order: 'lastname') %>,
+    </p>
+  </div>
+
   <h1>Users</h1>
 
   <div class="row">
@@ -36,12 +43,29 @@
     <% end %>
   </div>
 
-    
+  
+  <br>
 
-   
+  <%= link_to 'New User', new_user_path %>
 
+  <br>
 
-<br>
+  <table>
+    <tr>
+      <th><%= link_to "prénom", users_path(order: 'name') %></th>
+      <th><%= link_to "nom de famille", users_path(order: 'lastname') %></th>
+      <th>téléphone</th>
+      <th>info</th>
+    </tr>
 
-<%= link_to 'New User', new_user_path %>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name.capitalize %></td>
+      <td><%= user.last_name.capitalize %></td>
+      <td><%= user.phone_number %></td>
+      <td class="card-subtitle mb-2 text-muted"><%= pluralize user.articles.count, 'création' %> | <%= pluralize user.posts.count, 'annonce' %></td>
+    </tr>
+    <% end %>
+
+  </table>
 </div>
