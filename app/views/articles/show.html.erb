@@ -12,7 +12,24 @@
     <p><%= @article.description %></p>
   </div>
 
-  
+  <div>
+    <% if @article.images.attached? %>
+
+      <div class="row">
+        <% (0...@article.images.count).each do |image| %>
+          <div class="col-3">
+            <%= image_tag(@article.images[image]) %>
+          </div>
+        <% end %>
+      </div>
+
+      <%
+=begin%>
+ <%= image_tag @article.image, style: "width: 40px; display: block" %> 
+<%
+=end%>
+    <% end %>
+  </div>
 
   <hr>
   

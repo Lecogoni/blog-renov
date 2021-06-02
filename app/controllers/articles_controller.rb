@@ -28,6 +28,8 @@ class ArticlesController < ApplicationController
 
   # POST /articles or /articles.json
   def create
+
+    
     @article = Article.new(article_params)
 
     if @article.save
@@ -42,6 +44,7 @@ class ArticlesController < ApplicationController
   def update
 
     if @article.update(article_params)
+
       redirect_to @article, notice: "Votre article est modifié !"
     else
       render :edit, status: :unprocessable_entity
@@ -63,6 +66,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :description, :user_id, :category_id)
+      params.require(:article).permit(:title, :description, :user_id, :category_id, images: [])
     end
 end

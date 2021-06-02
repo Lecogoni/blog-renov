@@ -1,3 +1,7 @@
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar, style: "width: 200px; display: block" %>
+  <% end %>
+
 <h3>Mon espace</h3>
 <%= link_to 'Ajouter une nouvelle création', new_article_path %>
 <br>

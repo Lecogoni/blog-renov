@@ -12,10 +12,8 @@
   <% end %>
 
 
-     <div class="section">
-    <%= simple_form_for article do |f| %>
-
-
+    <div class="section">
+      <%= simple_form_for article do |f| %>
 
       <div class="field">
         <%= f.hidden_field :user_id, :value => current_user.id %>
@@ -27,13 +25,33 @@
 
       <div class="control">
         <%= f.input :title, input_html: {class: 'input'}, wrapper: false, label_html: {class: 'label'} %>
+      </div>
 
-    </div>
-    <div class="field">
-
+      <div class="field">
         <%= f.input :description, input_html: {class: 'textarea'}, wrapper: false, label_html: {class: 'label'} %>
+      </div>
+  
 
-    </div>
+      <div class="form-group m-3">
+
+        <% if article.images.attached? %>
+
+          <% (0...@article.images.count).each do |image| %>
+            <%= image_tag(@article.images[image]) %>
+          <% end %>
+
+        <% end %>
+
+        <br>
+        
+        <%= form.label :image %>
+        <%= form.file_field :images, multiple:true, class: "form-control" %>
+
+      </div>
+
+
+    <br>
+
     <div class="field">
       <%= f.button :submit, 'Valider', class: 'btn btn-primary' %>
     </div>

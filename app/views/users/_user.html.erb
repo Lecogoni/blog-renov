@@ -1,6 +1,9 @@
 <h3>profil de : <%= @user.full_name %></h3>
 <div>
   <h4><%= @user.email %></h4>
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar, style: "width: 200px; display: block" %>
+  <% end %>
   <p>
     <%= @user.first_name %> a <%= pluralize @user.articles.count, 'création' %>
   </p>
