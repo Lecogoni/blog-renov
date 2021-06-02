@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   def index
     if params.has_key?(:category)
       @category = Category.find_by_name(params[:category])
-      @articles = Article.where(category: @category)
+      @articles = Article.where(category: @category).order("created_at DESC")
     else
       @articles = Article.all.order("created_at DESC")
     end
