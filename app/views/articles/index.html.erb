@@ -6,19 +6,15 @@
 
   <br>
   <hr>
-  <br>
+  <%= link_to 'tous', articles_path %>
   <% Category.all.each do |cat| %>
     <%= link_to cat.name, articles_path(category: cat.name) %>
   <% end %>
-  <br>
-  <hr>
-  <br>
+
   <% Category.where(display: true).each do |cat| %>
     <%= link_to cat.name, articles_path(category: cat.name) %>
   <% end %>
-  <br>
-  <%= link_to 'All', articles_path %>
-  <br>
+ 
   <hr>
   <br>
 
