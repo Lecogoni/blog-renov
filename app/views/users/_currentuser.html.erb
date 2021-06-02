@@ -1,3 +1,11 @@
 <h3>Mon espace</h3>
-<%= link_to 'New Article', new_article_path %>
+<%= link_to 'Ajouter une nouvelle création', new_article_path %>
+<br>
+<%= link_to 'Créer une nouvelle annonce', new_post_path %>
+<hr>
 <p>modifier mes informations</p>
+<div>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', users_path %>
+</div>
+<hr>
