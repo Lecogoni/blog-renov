@@ -1,20 +1,12 @@
 <div class="container">
 
-  <h3>profil de : <%= @user.full_name %></h3>
+  
 
   <div>
-    <h4><%= @user.email %></h4>
-    <p>
-      <%= @user.first_name %> a <%= pluralize @user.articles.count, 'création' %>
-    </p>
-
-    <hr>
-
     <% if user_signed_in? && current_user.id == @user.id %>
-      <div>
-          <%= link_to 'New Article', new_article_path %>
-      </div>
-      <hr>
+      <%= render "users/currentuser" %>
+    <% else %>
+      <%= render "users/user" %>
     <% end %>
   </div>
 
@@ -30,10 +22,12 @@
               <div class="card mb-1">
                 <div class="card-body">
                   <h5 class="card-title"><%= article.title %></h5>
-                  <p class="card-text">
-                    <%= link_to 'Edit', edit_article_path(article) %>
-                    <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
-                  </p>
+                  <% if user_signed_in? && current_user.id == @user.id %>
+                    <p class="card-text">
+                      <%= link_to 'Edit', edit_article_path(article) %>
+                      <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </p>
+                <% end %>
                   <p>
                     <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
                     <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
