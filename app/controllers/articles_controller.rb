@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
     else
       @articles = Article.all.order("created_at DESC")
     end
+    @last_articles = Article.order("created_at DESC").first(2)
   end
 
   # GET /articles/1 or /articles/1.json
