@@ -55,7 +55,7 @@
         <div class="card" style="width: 18rem;">
           <% if article.images.attached? %>
             <div class="card-img-top" alt="...">
-              <%= image_tag article.images.first.variant(resize_to_limit: [200, 200]) %>
+              <%= image_tag article.images.first.variant(resize_to_limit: [150, 150]) %>
             </div>
           <% end %>
           <div class="card-body">

@@ -21,13 +21,17 @@
             <%= link_to (article) do %>
               <div class="card mb-1">
                 <div class="card-body">
+                  <% if article.images.attached? %>
+                    <div class="card-img-top" alt="...">
+                      <%= image_tag article.images.first.variant(resize_to_limit: [150, 150]) %>
+                    </div>
+                  <% end %>
                   <h5 class="card-title"><%= article.title %></h5>
                   <h6 class="card-title">Catégorie : <%= article.category.name %></h6>
                   <p>
                     <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
                     <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
                   </p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
                   <% if user_signed_in? && current_user.id == @user.id %>
                     <p class="card-text">
                       <%= link_to 'Edit', edit_article_path(article) %>
