@@ -64,7 +64,7 @@
     <tr>
       <td>
         <% if user.avatar.attached? %>
-          <%= image_tag user.avatar, style: "width: 40px; display: block" %>
+          <%= image_tag user.avatar.variant(resize_to_limit: [50, 50]) %>
         <% end %>
       </td>
       <td style="width:20%"><%= user.first_name.capitalize %></td>
