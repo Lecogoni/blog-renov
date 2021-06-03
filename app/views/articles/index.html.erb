@@ -1,4 +1,6 @@
-<div class="jumbotron">
+<%
+=begin%>
+ <div class="jumbotron">
   <h1>Découvrez les x dernières créations</h1>
   <div class="row">
     <% @last_articles.each do |article| %>
@@ -22,13 +24,15 @@
     </div>
     <% end %>
   </div>
-</div>
+</div> 
+<%
+=end%>
 
 <div class="container">
   <p id="notice"><%= notice %></p>
 
   <h1>Articles</h1>
-  <h2><%= link_to 'New Category', new_category_path %></h2>
+
 
   <br>
   <hr>
@@ -49,11 +53,11 @@
     <div class="col-4 mb-2">
       <%= link_to (article) do %>
         <div class="card" style="width: 18rem;">
-    <%
-=begin%>
- <img src="..." class="card-img-top" alt="..."> 
-<%
-=end%>
+          <% if article.images.attached? %>
+            <div class="card-img-top" alt="...">
+              <%= image_tag article.images.first.variant(resize_to_limit: [200, 200]) %>
+            </div>
+          <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= article.title %></h5>
             <h5 class="card-title"><%= article.user.full_name %></h5>

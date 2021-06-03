@@ -10,7 +10,7 @@ User.destroy_all
 Category.destroy_all
 Column.destroy_all
 
-User.create(
+user = User.create(
   first_name: "marie",
   last_name: "angot",
   phone_number: "061234675678",
@@ -20,7 +20,7 @@ User.create(
 
 puts "marie create"
 
-User.create(
+user2 = User.create(
   first_name: "didier",
   last_name: "treillard",
   phone_number: "0622334455",
@@ -30,7 +30,7 @@ User.create(
 
 puts "didier create"
 
-User.create(
+user3 = User.create(
   first_name: "francine",
   last_name: "bauer",
   phone_number: "0766778899",
@@ -39,7 +39,6 @@ User.create(
 )
 
 puts "francine create"
-
 
 
 article_category = ["chaise", "cocktail", "bridge", "fauteuil", 
@@ -65,9 +64,10 @@ article_title = ["fauteil louis XV", "Chaise vintage", "chaine de table", "tabou
     user_id: User.all.sample.id,
     category_id: Category.all.sample.id,
   )
+  
 end
 
-puts "12 article"
+puts "12 articles"
 
 post_column = ["annonce club", "vente", "recherche", "fourniture", 
   "divers", "billet d'humeur" ]
@@ -100,5 +100,5 @@ post_column = ["annonce club", "vente", "recherche", "fourniture",
     user_id: User.all.sample.id,
     column_id: Column.all.sample.id,
   )
-  
+
   puts "3 posts"

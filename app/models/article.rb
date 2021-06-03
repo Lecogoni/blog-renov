@@ -7,7 +7,7 @@ class Article < ApplicationRecord
   
   has_many_attached :images, dependent: :purge_later
   
-  validates :images, presence: true
+  # validates :images, presence: true
 
   def upcase_title
     title = self.title.upcase

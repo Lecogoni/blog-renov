@@ -16,9 +16,9 @@
     <% if @article.images.attached? %>
 
       <div class="row">
-        <% (0...@article.images.count).each do |image| %>
+        <% @article.images.each do |image| %>
           <div class="col-3">
-            <%= image_tag(@article.images[image]) %>
+            <%= image_tag image %>
           </div>
         <% end %>
       </div>

@@ -9,42 +9,7 @@
     </p>
   </div>
 
-
-  <div>
-    <p>Sort by: 
-      <%= link_to "prénom", users_path(order: 'name') %>,
-      <%= link_to "nom de famille", users_path(order: 'lastname') %>,
-    </p>
-  </div>
-
-  <h1>Users</h1>
-
-  <div class="row">
-    <% @users.each do |user| %>
-
-      <div class="col-4">
-        <%= link_to (user) do %>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= user.full_name%></h5>
-              <h6 class="card-subtitle mb-2 text-muted"><%= pluralize user.articles.count, 'création' %> | <%= pluralize user.posts.count, 'annonce' %> </h6>
-              
-              <p class="card-text"></p>
-              
-              <p>
-                <%= link_to 'Edit', edit_user_path(user) %>
-                <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-
-    <% end %>
-  </div>
-
-  
-  <br>
+  <h1>Membre</h1>
 
   <%= link_to 'New User', new_user_path %>
 
