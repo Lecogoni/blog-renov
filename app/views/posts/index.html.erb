@@ -2,6 +2,14 @@
 
   <h1>Annonces</h1>
 
+  <hr>
+  <%= link_to 'tous', posts_path %>
+  <% Column.all.each do |rubrique| %>
+    <%= link_to rubrique.name, posts_path(column: rubrique.name) %>
+  <% end %>
+  <hr>
+  <br>
+
     <% @posts.each do |post| %>
 
         <div class="card mb-1">

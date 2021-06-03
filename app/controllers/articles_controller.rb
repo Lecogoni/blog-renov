@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
         @articles = Article.all.order("created_at DESC")
         flash.now[:notice] = "Il n'y a aucune création enregistrées dans cette catégorie"
       else
-        @articles = Article.where(category: @category)
+        @articles = Article.where(category: @category).order("created_at DESC")
       end
       #@articles = Article.where(category: @category).order("created_at DESC")
     else

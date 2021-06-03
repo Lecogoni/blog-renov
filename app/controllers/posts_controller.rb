@@ -3,7 +3,22 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.order("created_at DESC")
+    
+
+
+    if params.has_key?(:column)
+      @column = Column.find_by_name(params[:column])
+      if Post.where(column: @column).count == 0
+        @posts = Post.all.order("created_at DESC")
+        flash.now[:notice] = "Il n'y a aucune annonces dans cette catégorie"
+      else
+        @posts = Post.where(column: @column).order("created_at DESC")
+      end
+      #@articles = Article.where(category: @category).order("created_at DESC")
+    else
+      @posts = Post.all.order("created_at DESC")
+    end
+
   end
 
   # GET /posts/1 or /posts/1.json
