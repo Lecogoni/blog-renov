@@ -17,7 +17,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # ACTIVE STORAGE change le comportement par default de active Storage / ajoute au lieu de remplace les images
+  # ACTIVE STORAGE change le comportement par default de active Storage / ajoute au lieu de remplacer les images
   config.active_storage.replace_on_assign_to_many = false
 
   # Enable/disable caching. By default caching is disabled.
