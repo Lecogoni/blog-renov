@@ -58,6 +58,13 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: "L'article a été supprimer"
   end
 
+  # allow to purge active storage files
+  def delete_file
+    file = ActiveStorage::Attachment.find(params[:id])
+    file.purge
+    redirect_back(fallback_location: articles_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article

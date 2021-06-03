@@ -15,6 +15,12 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :articles do
+    member do
+      delete :delete_file
+    end
+  end
+
   devise_for :users
   resources :users
 

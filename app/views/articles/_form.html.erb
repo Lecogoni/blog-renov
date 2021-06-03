@@ -34,12 +34,11 @@
 
       <div class="form-group m-3">
 
-        <% if article.images.attached? %>
-
-          <% (0...@article.images.count).each do |image| %>
-            <%= image_tag(@article.images[image]) %>
-          <% end %>
-
+        <% @article.images.each do |image| %>
+          <div>
+            <%= image_tag(image) %>
+            <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
+          </div>
         <% end %>
 
         <br>
