@@ -31,7 +31,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h1>Articles</h1>
+  <h1>Créations</h1>
 
 
   <br>
@@ -60,7 +60,16 @@
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= article.title %></h5>
-            <h5 class="card-title"><%= article.user.full_name %></h5>
+            <div class="row">
+              <% if article.user.avatar.attached? %>
+                <div class="col-4">
+                  <%= image_tag article.user.avatar.variant(resize_to_limit: [50, 50]) %>
+                </div>
+              <% end %>
+              <div class="col-8">
+                <h5 class="card-title"><%= article.user.full_name %></h5>
+              </div>
+            </div>
             <h6 class="card-title">Catégorie : <%= article.category.name %></h6>
             <p>
               <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
