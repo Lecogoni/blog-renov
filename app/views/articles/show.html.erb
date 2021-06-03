@@ -3,13 +3,16 @@
   <!-- ARTICLE -->
 
   <div>
-    <h5><%= @article.upcase_title %></h5>
-    <h6>création de <%= @article.user.full_name %></h6>
+    <h1><%= @article.upcase_title %></h1>
+    <h3>création de <%= @article.user.full_name %></h3>
     <h6>catégorie <%= @article.category.name %></h6>
   </div>
 
   <div>
     <p><%= @article.description %></p>
+    <p>
+      <span class="badge bg-light text-dark"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+    </p>
   </div>
 
   <div>
@@ -22,33 +25,18 @@
           </div>
         <% end %>
       </div>
-
-      <%
-=begin%>
- <%= image_tag @article.image, style: "width: 40px; display: block" %> 
-<%
-=end%>
     <% end %>
   </div>
 
   <hr>
-  
-  <p>
-    <span class="badge bg-light text-dark"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></span>
-  </p>
-
-  
 
   <% if user_signed_in? && current_user.id != @article.user.id %>
-      <hr>
       <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
         <i class="bi bi-hand-thumbs-up"> Like</i>
       <% end %>
   <% end %>
 
   <% if user_signed_in? && current_user.id == @article.user.id %>
-
-      <hr>
 
       <%= button_to edit_article_path(@article), class:"btn btn-outline-primary", method: :get do %>
         <i class="bi bi-pen"> Modifier</i>
@@ -65,33 +53,30 @@
   <hr>
 
   <div class="card my-1">
-      <div class="card-body">
-        <p class="font-weight-bold">Commentaires</p>
-    <% if user_signed_in? %>
-        <%= form_with(model: [@article, @article.comments.build]) do |f| %>
-          
-            <%= f.hidden_field :user_id, value: current_user.id %>
-          <div class="form-group">
-            <%= f.label 'nouveau commentaires' %>
-            <%= f.text_area :body, class: 'form-control' %>
-          </div>
-          <%= f.submit 'publier', class: 'btn btn-primary' %>
-        <% end %>
-    <% end %>
-      </div>
+    <div class="card-body">
+      <p class="font-weight-bold">Commentaires</p>
+      <% if user_signed_in? %>
+          <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+            <div class="form-group">
+              <%= f.label 'nouveau commentaires' %>
+              <%= f.text_area :body, class: 'form-control' %>
+            </div>
+            <%= f.submit 'publier', class: 'btn btn-primary mt-1' %>
+          <% end %>
+      <% end %>
+    </div>
 
-
+  <!-- COMMENT PARTIAL -->
     <%= render 'comments' %>
 
-
   </div>
-
 
   <hr>
 
   <!-- OTHER USER ARTICLE -->
 
-  <h6>Autres création de <%= @article.user.full_name %></h6>
+  <h2>Autres création de <%= @article.user.full_name %></h2>
 
   <div class="row">
     <% @other_articles.each do |article| %>

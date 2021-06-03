@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_article
-  before_action :comment_params
+  before_action :comment_params, only: %i[ show edit update ]
 
   def create
 
@@ -13,6 +13,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    redirect_to @article, notice: 'Votre commentaire a été supprimé.'
   end
 
   private
@@ -22,7 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :user_id)
+    params.require(:comment).permit(:body, :user_id,)
   end
 
 end
