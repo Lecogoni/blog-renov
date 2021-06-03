@@ -5,11 +5,17 @@ class ArticlesController < ApplicationController
   def index
     if params.has_key?(:category)
       @category = Category.find_by_name(params[:category])
-      @articles = Article.where(category: @category).order("created_at DESC")
+      if Article.where(category: @category).count == 0
+        @articles = Article.all.order("created_at DESC")
+        flash.now[:notice] = "Il n'y a aucune création enregistrées dans cette catégorie"
+      else
+        @articles = Article.where(category: @category)
+      end
+      #@articles = Article.where(category: @category).order("created_at DESC")
     else
       @articles = Article.all.order("created_at DESC")
     end
-    @last_articles = Article.order("created_at DESC").first(2)
+    # @last_articles = Article.order("created_at DESC").first(2)
   end
 
   # GET /articles/1 or /articles/1.json
