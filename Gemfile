@@ -5,6 +5,7 @@ ruby '2.7.2'
 
 gem 'devise'
 gem 'simple_form', '~> 5.1'
+gem 'rails-i18n'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'

@@ -18,5 +18,9 @@ module RenovBlog
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # i18n default locals
+    config.i18n.available_locales = [:fr, :en] 
+    config.i18n.default_locale = :fr
   end
 end

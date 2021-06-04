@@ -8,6 +8,10 @@
     <h6>catégorie <%= @article.category.name %></h6>
   </div>
 
+  <h1>
+    <%= t'welcome' %>
+  </h1>
+
   <div>
     <p><%= @article.description %></p>
     <p>
@@ -50,12 +54,11 @@
 
 
   <!-- COMMENT -->
-  <hr>
 
+      <% if user_signed_in? %>
   <div class="card my-1">
     <div class="card-body">
       <p class="font-weight-bold">Commentaires</p>
-      <% if user_signed_in? %>
           <%= form_with(model: [@article, @article.comments.build]) do |f| %>
               <%= f.hidden_field :user_id, value: current_user.id %>
             <div class="form-group">
@@ -64,24 +67,23 @@
             </div>
             <%= f.submit 'publier', class: 'btn btn-primary mt-1' %>
           <% end %>
-      <% end %>
     </div>
 
   <!-- COMMENT PARTIAL -->
     <%= render 'comments' %>
 
   </div>
+      <% end %>
 
-  <hr>
 
   <!-- OTHER USER ARTICLE -->
 
-  <h2>Autres création de <%= @article.user.full_name %></h2>
+  <h2><%= (@article.user.articles.count) <= 3 ? 'autre création' : 'autres créations'%> de <%= @article.user.first_name %></h2>
 
   <div class="row">
     <% @other_articles.each do |article| %>
 
-      <div class="col-4">
+      <div class="col-4 mb-3">
           <%= link_to (article) do %>
             <div class="card">
               <% if article.images.attached? %>

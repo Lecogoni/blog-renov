@@ -6,7 +6,7 @@ class Comment < ApplicationRecord
   def comment_time
     time = Time.now
     if time.year == self.created_at.year
-      self.created_at.strftime("%d %B") 
+      self.created_at.strftime('%d %B') 
     else
       self.created_at.strftime("%d %B %Y")
     end

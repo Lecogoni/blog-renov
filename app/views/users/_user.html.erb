@@ -5,6 +5,6 @@
     <%= image_tag @user.avatar, style: "width: 200px; display: block" %>
   <% end %>
   <p>
-    <%= @user.first_name %> a <%= pluralize @user.articles.count, 'création' %>
+    <%= @user.first_name.capitalize %> a <%= pluralize @user.articles.count, 'création' %> <% if @user.posts.count > 0 %> et il a posté <%= pluralize @user.posts.count, 'annonce' %><% end %>
   </p>
 </div>
