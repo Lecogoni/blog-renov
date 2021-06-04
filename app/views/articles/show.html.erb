@@ -7,10 +7,14 @@
     <h3>création de <%= @article.user.full_name %></h3>
     <h6>catégorie <%= @article.category.name %></h6>
   </div>
-
+<%
+=begin%>
+ 
   <h1>
-    <%= t'welcome' %>
-  </h1>
+    <%= t'welcome' %> <%= @article.images.count %>
+  </h1> 
+<%
+=end%>
 
   <div>
     <p><%= @article.description %></p>

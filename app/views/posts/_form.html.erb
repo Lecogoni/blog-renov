@@ -12,9 +12,11 @@
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.input :title, required: true %>
     <%= f.input :body, required: true %>
+    <%= f.label :picture %>
+    <%= f.file_field :picture, class: "form-control" %>
   </div>
 
-  <div class="form-actions">
+  <div class="form-actions mt-2">
     <%= f.button :submit, 'Poster mon annonce', class: "btn-primary" %>
   </div>
 <% end %>

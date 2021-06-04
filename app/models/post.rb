@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :column
+
+  has_one_attached :picture, dependent: :purge_later
+
   validates :title, presence: true
   validates :body, presence: true
 

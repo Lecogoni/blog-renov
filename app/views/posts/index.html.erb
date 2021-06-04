@@ -19,6 +19,11 @@
             <p>
               <%= post.body %>
             </p>
+            <% if post.picture.attached? %>
+              <p>
+                <%= image_tag post.picture %>
+              </p>
+            <% end %>
             <div class="badge bg-warning text-wrap">
               publié le <%=l post.created_at, :format => ("%d %B %Y") %><br>
             </div>
