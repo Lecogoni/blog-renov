@@ -1,6 +1,6 @@
 fr:
   welcome: "Salut monde"
-  
+
   activerecord:
     errors:
       messages:
@@ -44,7 +44,6 @@ fr:
     formats:
       default: "%d/%m/%Y"
       long: "%e %B %Y"
-      short: "%e %b"
     month_names:
     - 
     - janvier
@@ -218,3 +217,5 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
+
+  

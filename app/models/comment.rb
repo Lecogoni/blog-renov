@@ -5,11 +5,14 @@ class Comment < ApplicationRecord
 
   def comment_time
     time = Time.now
-    if time.year == self.created_at.year
-      self.created_at.strftime('%d %B') 
+    date = self.created_at
+    if time.year == date.year
+      I18n.localize Date.today, format: :short
     else
-      self.created_at.strftime("%d %B %Y")
+      self.created_at
     end
   end
 
 end
+
+

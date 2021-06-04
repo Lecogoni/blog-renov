@@ -59,7 +59,7 @@
                 <%= post.body %>
               </p>
               <div class="badge bg-warning text-wrap">
-                publié le <%= post.created_at %>
+                publié le <%=l post.created_at, :format => ("%d %B %Y") %>
               </div>
               <div class="badge bg-info text-wrap">
                 <%= post.column.name %>

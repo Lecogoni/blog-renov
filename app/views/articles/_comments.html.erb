@@ -3,7 +3,7 @@
     <% unless !comment.persisted? %>
       <div class="p-3">
           <%= comment.user.full_name %> : <%= comment.body %><br>
-          <%= comment.comment_time %><br>
+          <%=l comment.created_at, :format => ("%d %B %Y") %><br>
           <%= link_to 'Supprimer mon commentaires', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     <% end %>
