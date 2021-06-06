@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @users = User.all.order("last_name ASC")
     else
       @users = User.all.order("first_name ASC")
-    end 
+    end
 
   end
 
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def show
     @articles = @user.articles.order("created_at DESC")
     @posts = @user.posts.order("created_at DESC")
+    @guests = Guest.all.order("first_name ASC")
   end
 
   # GET /users/new

@@ -1,5 +1,12 @@
 <div class="container">
 
+
+    <div>
+    <% if user_signed_in? && current_user.id == @user.id %>
+      <%= render "users/user_admin" %>
+    <% end %>
+  </div>
+
   
 
   <div>

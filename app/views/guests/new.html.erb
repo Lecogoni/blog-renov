@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>New Guest</h1>
+
+  <p>
+    Afin de créer votre compte merci de remplir le formulaire ci-dessous.
+    Votre demande sera adressé au gestionnaire de "Rénov blog". Une fois votre demande validée
+    vous recevrez à l'adresse indiquée un courriel de confirmation avec un lien pour finaliser votre inscription et définir votre mot de passe.
+    <br>
+    vous pourrez ensuite profitez pleinement de l'ensemble des fonctionnalités du site.
+
+    partager vos créations
+    poster des annonces, répondre à celle des autres membres du club
+    créer et découvrir des tutorials
+  </p>
+
+  <%= render 'form', guest: @guest %>
+
+  <%= link_to 'Back', guests_path %>
+</div>

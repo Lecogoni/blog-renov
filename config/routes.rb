@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :articles
   resources :categories
+  resources :guests
 
   resources :articles do
     resources :likes

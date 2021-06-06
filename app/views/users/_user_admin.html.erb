@@ -1,0 +1,30 @@
+<table>
+    <tr>
+      <th>prénom</th>
+      <th>nom de famille</th>
+      <th>email</th>
+      <th>téléphone</th>
+      <th></th>
+    </tr>
+
+    <% @guests.each do |guest| %>
+    <tr>
+      <td style="width:20%"><%= guest.first_name.capitalize %></td>
+      <td style="width:20%"><%= guest.last_name.capitalize %></td>
+      <td style="width:30%"><%= guest.email %></td>
+      <td style="width:30%"><%= guest.phone_number %></td>
+      <%
+=begin%>
+ <td><%= link_to 'voir', user_path(user) %></td> 
+<%
+=end%>
+    </tr>
+    <% end %>
+
+  </table>
+
+  <br>
+  <br>
+  <hr>
+  <br>
+  <br>

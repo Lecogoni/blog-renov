@@ -1,0 +1,43 @@
+<div class="container">
+  <%= form_with(model: guest) do |form| %>
+    <% if guest.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(guest.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+          <% guest.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="section">
+      <%= simple_form_for guest do |f| %>
+
+        <div class="control">
+          <%= f.input :first_name, input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+        </div>
+
+        <div class="control">
+          <%= f.input :last_name, input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+        </div>
+
+        <div class="control">
+          <%= f.input :email, input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+        </div>
+
+        <div class="control">
+          <%= f.input :phone_number, input_html: {class: 'input'}, wrapper: false, label_html: {class: 'label'} %>
+        </div>
+
+        <div class="field">
+          <%= f.button :submit, 'Valider', class: 'btn btn-primary' %>
+        </div>
+
+      <% end %>
+    </div>
+
+    
+  <% end %>
+</div>
