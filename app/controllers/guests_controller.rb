@@ -35,6 +35,7 @@ class GuestsController < ApplicationController
         if @guest.save
           # send a email to the new guest
           UserMailer.registration_email(@guest).deliver_now
+          UserMailer.new_registration_member(@guest).deliver_now
 
           format.html { redirect_to root_path, notice: "Votre demande à bien été enregistré. Une fois examiné par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe" }
           format.json { render :show, status: :created, location: @guest }
@@ -43,7 +44,7 @@ class GuestsController < ApplicationController
           format.json { render json: @guest.errors, status: :unprocessable_entity }
         end
       end
-      
+
     end
       
   end
