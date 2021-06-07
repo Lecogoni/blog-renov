@@ -33,6 +33,9 @@ class GuestsController < ApplicationController
       
       respond_to do |format|
         if @guest.save
+          # send a email to the new guest
+          UserMailer.registration_email(@guest).deliver_now
+
           format.html { redirect_to root_path, notice: "Votre demande à bien été enregistré. Une fois examiné par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe" }
           format.json { render :show, status: :created, location: @guest }
         else
@@ -40,6 +43,8 @@ class GuestsController < ApplicationController
           format.json { render json: @guest.errors, status: :unprocessable_entity }
         end
       end
+      
+    end
       
   end
 
@@ -54,6 +59,7 @@ class GuestsController < ApplicationController
       end
     end
   end
+
 
   # DELETE /users/1 or /users/1.json
   def destroy
@@ -74,5 +80,6 @@ class GuestsController < ApplicationController
     def guest_params
       params.require(:guest).permit(:first_name, :last_name, :phone_number, :email)
     end
+
 
 end
