@@ -22,19 +22,25 @@ class GuestsController < ApplicationController
 
   def create
 
-    guest_email_exist?
+    if Guest.where(email: guest_params[:email]).count >= 1
+      redirect_to root_path, notice: "Votre demande ne peut aboutir. Une demande de création de compte est déjà enregistrée avec l'email : #{guest_params[:email]}"
 
-    # @guest = Guest.new(guest_params)
-
-    # respond_to do |format|
-    #   if @guest.save
-    #     format.html { redirect_to root_path, notice: "Votre demande à bien été enregistré. Une fois examiné par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe" }
-    #     format.json { render :show, status: :created, location: @guest }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @guest.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    elsif User.where(email: guest_params[:email]).count >= 1
+      redirect_to root_path, notice: "Votre demande ne peut aboutir. Un profil est déjà enregistrée avec l'email : #{guest_params[:email]}"
+    
+    else
+      @guest = Guest.new(guest_params)
+      
+      respond_to do |format|
+        if @guest.save
+          format.html { redirect_to root_path, notice: "Votre demande à bien été enregistré. Une fois examiné par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe" }
+          format.json { render :show, status: :created, location: @guest }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @guest.errors, status: :unprocessable_entity }
+        end
+      end
+      
   end
 
   def update
@@ -67,14 +73,6 @@ class GuestsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def guest_params
       params.require(:guest).permit(:first_name, :last_name, :phone_number, :email)
-    end
-
-    def guest_email_exist?
-      if Guest.where(email: guest_params[:email]).count >= 1
-        redirect_to root_path, notice: "Votre demande ne peut aboutir. Une demande de création de compte est déjà enregistrée avec l'email : #{guest_params[:email]}"
-      elsif User.where(email: guest_params[:email]).count >= 1
-        redirect_to root_path, notice: "Votre demande ne peut aboutir. Un profil est déjà enregistrée avec l'email : #{guest_params[:email]}"
-      end
     end
 
 end
