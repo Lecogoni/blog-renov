@@ -2,6 +2,7 @@ class UserMailer < ApplicationMailer
 
   default from: 'no-reply@monsite.fr'
 
+  # email when a guest apply to be a member
   def registration_email(guest)
     #on récupère l'instance guest pour ensuite pouvoir la passer à la view en @user
     @guest = guest
@@ -14,11 +15,29 @@ class UserMailer < ApplicationMailer
   end
 
 
+  # email to website manager to alert of new member request
   def new_registration_member(guest)
     @guest = guest
     @url  = 'http://monsite.fr/login' 
     mail(to: "francine@yopmail.com", subject: 'Nouvelle demande de membre') 
   end
+
+  # email to confirm guest their application
+  def confirm_registration_member(user, raw)
+    @user = user
+    @url  = 'http://monsite.fr/login'
+    @raw = raw
+    @link  = edit_user_password_url(reset_password_token: @raw)
+    mail(to: user.email, subject: "Confirmation d'insciption à paye ton site!") 
+  end
+
+    # email to alert guest that is membership request had been refuse
+    def refuse_guest_registration(guest)
+      @guest = guest
+      @url  = 'http://monsite.fr/login' 
+      mail(to: "francine@yopmail.com", subject: "Votre demande sur le ...... a été refusée") 
+    end
+
 
 end
 

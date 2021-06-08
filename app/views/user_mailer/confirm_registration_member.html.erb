@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @user.first_name %></h1>
+    <p>
+      ta demande a été validé. clic sur le lien ci dessous pour accéder à ton espace. 
+      Afin de valider définitivement ton compte, tu devras définir un mot de passe.
+    </p>
+    <p>
+    <%= link_to 'ici', @link %>
+    </p>
+  </body>
+</html>

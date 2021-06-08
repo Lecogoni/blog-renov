@@ -1,11 +1,11 @@
 <div class="container">
 
 
+  <% if user_signed_in? && current_user.id == @user.id && @user.guest_request?%>
     <div>
-    <% if user_signed_in? && current_user.id == @user.id %>
       <%= render "users/user_admin" %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   
 

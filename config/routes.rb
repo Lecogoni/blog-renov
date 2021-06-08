@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :posts
   get 'comments/create'
   get 'comments/destroy'
+  
+  
+  devise_for :users
+  resources :users
 
   resources :articles
   resources :categories
@@ -22,9 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
-  resources :users
-
+  resources :guests do
+    member do
+      post:confirm_guest_to_user
+      post:refuse_guest
+    end
+  end
 
   root 'articles#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
