@@ -1,22 +1,6 @@
 <div class="container">
 
-  <div>
-    <p>
-      user_signed_in? : <%= user_signed_in? %><br><br>
-      current_user : <%= current_user %><br>
-      session['session_id'] : <%=  session['session_id'] %><br><br>
-      session[:current_user_id] : <%= session[:current_user_id] %><br>
-    </p>
-    <p>
-      I18n.available_locales : <%= I18n.available_locales %>
-    </p>
-  </div>
-
-  <h1>Membre</h1>
-
-  <%= link_to 'New User', new_user_path %>
-
-  <br>
+ <h1>Annuaires des membres</h1>
 
   <table>
     <tr>

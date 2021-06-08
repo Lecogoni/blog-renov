@@ -32,7 +32,7 @@ puts "didier create"
 
 user3 = User.create(
   first_name: "francine",
-  last_name: "bauer",
+  last_name: "amsellen",
   phone_number: "0766778899",
   email: "francine@yopmail.com",
   password: "000000",

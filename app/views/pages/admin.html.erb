@@ -1,0 +1,112 @@
+<div class="container">
+
+  <h1>demande de membre</h1>
+
+  <% if is_member_request? %>
+    <table>
+      <tr>
+        <th>prénom</th>
+        <th>nom de famille</th>
+        <th>email</th>
+        <th>téléphone</th>
+        <th></th>
+      </tr>
+
+      <% @guests.each do |guest| %>
+        <tr>
+          <td style="width:20%"><%= guest.first_name.capitalize %></td>
+          <td style="width:20%"><%= guest.last_name.capitalize %></td>
+          <td style="width:20%"><%= guest.email %></td>
+          <td style="width:20%"><%= guest.phone_number %></td>
+          <td style="width:20%">
+            <%= link_to 'valider la demande', confirm_guest_to_user_page_path(guest.id), method: 'post' %> | 
+            <%= link_to 'refuser la demande', refuse_guest_page_path(guest.id), method: 'post', data: { confirm: 'Êtes vous certain de vouloir supprimer cette demande ? Cela est définitive et les infos liée seront supprimées' } %> | 
+          envoie email 
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>
+      Auncune demande en attente
+    </p>
+  <% end %>
+
+
+  <br>
+  <hr>
+  <br>
+
+   <h1>Annuaire des membres</h1>
+
+  <div>
+    <table>
+      <tr>
+        <th></th>
+        <th><%= link_to "prénom", pages_admin_path(order: 'name') %></th>
+        <th><%= link_to "nom de famille", pages_admin_path(order: 'lastname') %></th>
+        <th>téléphone</th>
+        <th>email</th>
+        <th>info</th>
+        <th></th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <% if user.avatar.attached? %>
+              <%= image_tag user.avatar.variant(resize_to_limit: [50, 50]) %>
+            <% end %>
+          </td>
+          <td style="width:15%"><%= user.first_name.capitalize %></td>
+          <td style="width:15%"><%= user.last_name.capitalize %></td>
+          <td style="width:15%"><%= user.phone_number %></td>
+          <td style="width:15%"><%= user.email %></td>
+          <td><%= link_to 'voir', user_path(user) %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br>
+    <hr>
+    <br>
+
+    <div>
+      envoyer un email à tous les membres
+      <h2><%= link_to 'New Category', new_category_path %></h2>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+    
+    <div>
+      <%= link_to 'Enregister un nouveau membre', new_user_path %>
+    </div>
+
+  </div>
+
+  <br>
+  <hr>
+  <br>
+
+  <div>
+    <p>
+      user_signed_in? : <%= user_signed_in? %><br><br>
+      current_user : <%= current_user %><br>
+      session['session_id'] : <%=  session['session_id'] %><br><br>
+      session[:current_user_id] : <%= session[:current_user_id] %><br>
+    </p>
+    <p>
+      I18n.available_locales : <%= I18n.available_locales %>
+    </p>
+  </div>
+
+  <p>
+    https://www.clubchevry2.com/
+  </p>
+
+  <br>
+
+
+</div>

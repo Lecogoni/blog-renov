@@ -46,34 +46,6 @@ class GuestsController < ApplicationController
     end
   end
 
-
-  def confirm_guest_to_user
-    # create new user
-    @guest = Guest.find(params[:guest])
-    @user = User.find(params[:id])
-    @new_user = User.create(first_name: @guest.first_name, last_name: @guest.last_name, email: @guest.email, phone_number: @guest.phone_number, password: "000000" )
-    
-    # generating a devise reset password token
-    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
-
-    user = User.find_by(email: @new_user.email)
-    user.reset_password_token = hashed
-    user.reset_password_sent_at = Time.now.utc
-    user.save
-    
-    # destroy guest, redirect, email new user
-    @guest.destroy
-    redirect_to @user, notice: "demande d'invitation validée ! #{@guest.first_name} a été notifié par email"
-    UserMailer.confirm_registration_member(user, raw).deliver_now
-  end
-
-  def refuse_guest
-    @guest = Guest.find(params[:guest])
-    UserMailer.refuse_guest_registration(@guest).deliver_now
-    @guest.destroy
-    redirect_to current_user
-  end
-
   def update
     respond_to do |format|
       if @user.update(guest_params)
@@ -94,8 +66,6 @@ class GuestsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

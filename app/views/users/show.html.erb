@@ -1,14 +1,5 @@
 <div class="container">
 
-
-  <% if user_signed_in? && current_user.id == @user.id && @user.guest_request?%>
-    <div>
-      <%= render "users/user_admin" %>
-    </div>
-  <% end %>
-
-  
-
   <div>
     <% if user_signed_in? && current_user.id == @user.id %>
       <%= render "users/currentuser" %>
@@ -17,7 +8,6 @@
     <% end %>
   </div>
 
-  
 
   <div class="row">
   <!-- CREATION -->

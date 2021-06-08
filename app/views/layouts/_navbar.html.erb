@@ -30,7 +30,7 @@
               <li><hr class="dropdown-divider"></li>
               <li class="dropdown-item"><%= link_to 'Mon espace', user_path(current_user) %></li>
               <% if is_admin? %>
-                <li class="dropdown-item">admin user</li>
+                <li class="dropdown-item"><%= link_to 'Admin', pages_admin_path %></li>
               <% end %>
               <li class="dropdown-item"><li><hr class="dropdown-divider"></li>
               <li class="dropdown-item"><%= link_to "Modifier email / mot de passe", edit_user_registration_path %></li>
