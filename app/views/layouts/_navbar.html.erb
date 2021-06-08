@@ -40,9 +40,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
               <li class="dropdown-item"><%= link_to "Se connecter", new_user_session_path %></li>
-              <li class="dropdown-item"><%= link_to "S'inscrire", new_user_registration_path %></li>
-              <li class="dropdown-item"><li><hr class="dropdown-divider"></li>
-              <li class="dropdown-item"><%= link_to "REGISTRATION", new_guest_path %></li>
+              <li class="dropdown-item"><%= link_to "S'inscrire", new_guest_path %></li>
             </ul>
           </li>
         <% end %>
