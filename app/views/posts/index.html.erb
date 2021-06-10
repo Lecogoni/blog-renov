@@ -2,6 +2,10 @@
 
   <h1>Annonces</h1>
 
+  <% if user_signed_in? %>
+    <%= link_to 'poster une nouvelle annonce', new_post_path %>
+  <% end %>
+
   <hr>
   <%= link_to 'tous', posts_path %>
   <% Column.all.each do |rubrique| %>
@@ -39,13 +43,5 @@
         </div>
       
     <% end %>
- 
-  <br>
-
-  
-  <% if user_signed_in? %>
-    <%= link_to 'poster une nouvelle annonce', new_post_path %>
-  <% end %>
-
 
 </div>

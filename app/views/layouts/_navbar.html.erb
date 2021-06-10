@@ -29,7 +29,7 @@
               <li class="dropdown-item"><%= link_to "Se déconnecter", destroy_user_session_path, method: :delete %></li>
               <li><hr class="dropdown-divider"></li>
               <li class="dropdown-item"><%= link_to 'Mon espace', user_path(current_user) %></li>
-              <% if is_admin? %>
+              <% if current_user_is_admin? %>
                 <li class="dropdown-item"><%= link_to 'Admin', pages_admin_path %></li>
               <% end %>
               <li class="dropdown-item"><li><hr class="dropdown-divider"></li>

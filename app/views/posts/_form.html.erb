@@ -7,8 +7,13 @@
   <div class="form-inputs">
 
     <div class="field">
-      <%= f.select :column_id, Column.pluck(:name, :id), :include_blank => 'choississez la rubrique de votre annonce', required: true %>
+      <% if current_user_is_admin? %>
+        <%= f.select :column_id, Column.order(name: :asc).pluck(:name, :id), :prompt => 'choississez la rubrique de votre annonce', required: true %>
+      <% else %>
+        <%= f.select :column_id, Column.where.not(name: "annonce club").order("name ASC").map { |c| [c.name, c.id]}, :include_blank => 'choississez la rubrique de votre annonce', required: true %>
+      <% end %>
     </div>
+
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.input :title, required: true %>
     <%= f.input :body, required: true %>
