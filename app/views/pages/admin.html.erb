@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h1>demande de membre</h1>
+  <h1>Demande de membre</h1>
 
   <% if is_member_request? %>
     <table>
@@ -84,6 +84,19 @@
       <%= link_to 'Enregister un nouveau membre', new_user_path %>
     </div>
 
+  </div>
+
+  <br>
+  <hr>
+  <br>
+
+  <div>
+    <ul>
+      <li>il y a <%= number_of_members %> membres</li>
+      <li>il y a <%= number_of_articles %> créations</li>
+      <li>il y a <%= number_of_posts %> posts</li>
+      <li>soit une moyenne de <%= number_of_articles / number_of_members %> créations postées par membres</li>
+    </ul>
   </div>
 
   <br>
