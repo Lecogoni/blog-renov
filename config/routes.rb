@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :posts
-  get 'comments/create'
-  get 'comments/destroy'
-  
-  
-  devise_for :users
-  resources :users
-
   resources :articles
   resources :categories
   resources :guests
+  resources :posts
+  devise_for :users
+  resources :users
+
+  root 'articles#index'
+
+  get 'comments/create'
+  get 'comments/destroy'
+  
 
   resources :articles do
     resources :likes
@@ -20,13 +21,18 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :users do
+    member do
+      delete :delete_avatar_attachment
+    end
+  end
+
   resources :articles do
     member do
       delete :delete_file
     end
   end
 
-  root 'articles#index'
 
   get 'pages/admin'
   get 'pages/about'

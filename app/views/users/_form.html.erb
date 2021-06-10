@@ -36,6 +36,8 @@
     <div class="form-group mt-2">
       <% if user.avatar.attached? %>
         <%= image_tag user.avatar, style: "width: 200px; display: block" %>
+        <%= user.avatar.filename%>
+        <%= link_to 'Remove', delete_avatar_attachment_user_path(user.avatar.id), method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
       <%= form.label :avatar %>
       <%= form.file_field :avatar, class: "form-control" %>
@@ -45,7 +47,7 @@
       <%= form.label "afficher mes coordonnées dans l'annuaire des membres" %>
       <%= form.check_box :show_data %>
     </div>
-  
+    
     <div class="actions mt-2">
       <%= form.submit %>
     </div>
