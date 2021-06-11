@@ -36,8 +36,8 @@
 
   <br>
   <hr>
-  <%= link_to 'tous', articles_path %>
-  <% Category.all.each do |cat| %>
+  <%= link_to 'TOUT', articles_path %>
+  <% Category.all.order("name ASC").each do |cat| %>
     <%= link_to cat.name, articles_path(category: cat.name) %>
   <% end %>
 

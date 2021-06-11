@@ -97,6 +97,11 @@
       <li>il y a <%= number_of_posts %> posts</li>
       <li>soit une moyenne de <%= number_of_articles / number_of_members %> créations postées par membres</li>
     </ul>
+    <ul>
+      <% @categories.each do |cat| %>
+        <li><%= pluralize cat.articles.count, cat.name %></li>
+      <% end %>
+    </ul>
   </div>
 
   <br>

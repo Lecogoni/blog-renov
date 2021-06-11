@@ -17,6 +17,8 @@ class PagesController < ApplicationController
       @users = User.all.order("first_name ASC")
     end
 
+    @categories = Category.all.order("name ASC")
+
   end
 
   def about
