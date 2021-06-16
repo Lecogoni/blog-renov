@@ -1,55 +1,55 @@
-<div class="container">
-  <%= form_with(model: user) do |form| %>
-    <% if user.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-        <ul>
-          <% user.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<%= user.first_name %>
 
-    
-    <div class="form_group">
-      <%= form.label :first_name %>
-      <%= form.text_field :first_name, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= form.label :last_name %>
-      <%= form.text_field :last_name, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= form.label :téléphone %>
-      <%= form.text_field :phone_number, class: "form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= form.label :email %>
-      <%= form.text_field :email, class: "form-control" %>
-    </div>
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-    <div class="form-group mt-2">
-      <% if user.avatar.attached? %>
-        <%= image_tag user.avatar, style: "width: 200px; display: block" %>
-        <%= user.avatar.filename%>
-        <%= link_to 'Remove', delete_avatar_attachment_user_path(user.avatar.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-      <%= form.label :avatar %>
-      <%= form.file_field :avatar, class: "form-control" %>
-    </div>
-
-    <div class="field">
-      <%= form.label "afficher mes coordonnées dans l'annuaire des membres" %>
-      <%= form.check_box :show_data %>
-    </div>
-    
-    <div class="actions mt-2">
-      <%= form.submit %>
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-</div>
+
+  <p>
+  en tant qu'administrateur vous créer le compte de nouveau membre. Veuillez compléter les champs obligatoire. Une fois valider le nouveau membre sera notifié par email de la création de son espace.
+  Un lien l'invitera a créer son mot de passe afin de rendre son compte entièrement opérationnel.
+  </p>
+  
+  <div class="form_group">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, required: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, required: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :téléphone %>
+    <%= form.text_field :phone_number, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, required: true, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :password, :value => "000000" %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :show_data, :value => true %>
+  </div>
+  
+  <div class="actions mt-2">
+    <%= form.submit %>
+  </div>
+
+<% end %>
+
