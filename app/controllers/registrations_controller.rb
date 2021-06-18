@@ -11,13 +11,18 @@ class RegistrationsController < Devise::RegistrationsController
 
     @user = User.new(user_params)
 
-    puts "-----------"
-    puts "create"
-    puts @user.first_name
-    puts "-----------"
-
     respond_to do |format|
       if @user.save
+        # generating a devise reset password token
+        raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
+
+        user = User.find_by(email: @user.email)
+        user.reset_password_token = hashed
+        user.reset_password_sent_at = Time.now.utc
+        user.save
+
+        UserMailer.invited_user_by_admin_email(user, raw).deliver_now
+
         format.html { redirect_to pages_admin_path, notice: "le compte de #{@user.first_name.capitalize} a bien été créé. Un email avec l'ensemble des informations lui a été envoyé" }
         #format.json { render :show, status: :created, location: @user }
       else

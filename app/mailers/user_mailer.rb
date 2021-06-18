@@ -31,12 +31,21 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: "Confirmation d'insciption à paye ton site!") 
   end
 
-    # email to alert guest that is membership request had been refuse
-    def refuse_guest_registration(guest)
-      @guest = guest
-      @url  = 'http://monsite.fr/login' 
-      mail(to: "francine@yopmail.com", subject: "Votre demande sur le ...... a été refusée") 
-    end
+  # email to alert guest that its membership request had been refused
+  def refuse_guest_registration(guest)
+    @guest = guest
+    @url  = 'http://monsite.fr/login' 
+    mail(to: "francine@yopmail.com", subject: "Votre demande sur le ...... a été refusée") 
+  end
+  
+  # email when a user is created by an admin user
+  def invited_user_by_admin_email(user, raw)
+    @user = user
+    @url  = 'http://monsite.fr/login'
+    @raw = raw
+    @link  = edit_user_password_url(reset_password_token: @raw)
+    mail(to: "francine@yopmail.com", subject: "Invitation au site paye ton site") 
+  end
 
 
 end
