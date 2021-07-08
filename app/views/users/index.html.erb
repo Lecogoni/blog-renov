@@ -16,9 +16,7 @@
     <% @users.each do |user| %>
       <tr>
         <td>
-          <% if user.avatar.attached? %>
-            <%= image_tag user.avatar.variant(resize_to_limit: [50, 50]) %>
-          <% end %>
+          <%= image_tag avatar_for(user), style: "width: 40px; display: block", class: "rounded-circle" %>
         </td>
         <td style="width:15%"><%= user.first_name.capitalize %></td>
         <td style="width:15%"><%= user.last_name.capitalize %></td>

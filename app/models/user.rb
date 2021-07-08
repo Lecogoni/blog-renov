@@ -20,4 +20,14 @@ class User < ApplicationRecord
     Guest.all.count != 0
   end
 
+  def user_pluralize_article
+    num = self.articles.count
+    num > 1 ? "#{num} creations" : "#{num} creation"
+  end
+
+  def user_pluralize_post
+    num = self.articles.count
+    num > 1 ? "#{num} annonces" : "#{num} annonce"
+  end
+
 end

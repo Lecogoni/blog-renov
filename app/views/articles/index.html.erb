@@ -67,7 +67,7 @@
             <div class="row">
               <% if article.user.avatar.attached? %>
                 <div class="col-4">
-                  <%= image_tag article.user.avatar.variant(resize_to_limit: [50, 50]) %>
+                  <%= image_tag article.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
                 </div>
               <% end %>
               <div class="col-8">

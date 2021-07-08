@@ -23,7 +23,7 @@
   <div>
     <p><%= @article.description %></p>
     <p>
-      <span class="badge bg-light text-dark"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+      <span class="badge bg-light text-dark"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></span>
     </p>
   </div>
 
