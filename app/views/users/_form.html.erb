@@ -15,7 +15,7 @@
 
   
   <div>
-    <%= image_tag avatar_for(user, 100), class: "rounded-circle" %>
+    <%= image_tag avatar_for(user), style: "width: 150px; display: block", class: "rounded-circle" %>
     <br>
     <br>
     <%= form.file_field :avatar %>
