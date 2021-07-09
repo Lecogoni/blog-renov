@@ -1,9 +1,6 @@
+<%= image_tag avatar_for(@user), style: "width: 200px; display: block", class: "rounded-circle" %>
 <h3>profil de : <%= @user.full_name %></h3>
 <div>
-  <h4><%= @user.email %></h4>
-  <% if @user.avatar.attached? %>
-    <%= image_tag @user.avatar, style: "width: 200px; display: block" %>
-  <% end %>
   <p>
     <%= @user.first_name.capitalize %> a <%= @user.user_pluralize_article %> et il a posté <%= @user.user_pluralize_post %>
   </p>

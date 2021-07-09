@@ -34,8 +34,8 @@
             <div class="badge bg-info text-wrap">
               <%= post.column.name %>
             </div>
-            <% if user_signed_in? && current_user.id == post.user.id %>
               <%= link_to 'Show', post %>
+            <% if user_signed_in? && current_user.id == post.user.id %>
               <%= link_to 'Edit', edit_post_path(post) %>
               <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>

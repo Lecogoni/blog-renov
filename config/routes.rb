@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :articles do
     member do
       delete :delete_file
+      delete :admin_delete_article
     end
   end
 

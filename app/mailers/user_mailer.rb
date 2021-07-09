@@ -48,5 +48,12 @@ class UserMailer < ApplicationMailer
   end
 
 
+  # email when an admin delete a user article or post_url
+  def admin_delete_article_email(article)
+    @article = article
+    @user = @article.user
+    mail(to: @user.email, subject: "Renov Blog : suppression de l'une de vos publications")
+  end
+
 end
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bonjour <%= @user.first_name %></h1>
+    <p>
+      Un administrateurs du site Renov Blog a décidé de supprimer ta publication "<%= @article.title.capitalize %>"</h1>
+    </p>
+    <p>Votre publication à été supprimer pour l'une des raisons suivantes 
+    <ul>
+      <li>aucun de lien avec la thématique du site</li>
+      <li>résentant un caractère offensant, pornographique </li>
+      <li>vocabulaire injurieux</li>
+    </ul>
+    Cette décision n'affecte en rien vos autres publications ni ne restreint vos possibilités d'utilisation du site  
+    </p>
+
+    <p>L'équipe de Renov Blog vous remercie pour votre compréhension</p>
+
+  
+  </body>
+</html>

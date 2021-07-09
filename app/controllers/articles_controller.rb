@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :set_article, only: %i[ show edit update destroy admin_delete_article]
 
   # GET /articles or /articles.json
   def index
@@ -69,6 +69,12 @@ class ArticlesController < ApplicationController
     file = ActiveStorage::Attachment.find(params[:id])
     file.purge
     redirect_back(fallback_location: articles_path)
+  end
+
+  def admin_delete_article
+    UserMailer.admin_delete_article_email(@article).deliver_now
+    @article.destroy
+    redirect_to articles_url, notice: "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"    
   end
 
   private
