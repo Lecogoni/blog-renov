@@ -22,6 +22,14 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :posts do
+    resources :answers
+  end
+
+  resources :answers do
+    resources :answers
+  end
+
   resources :users do
     member do
       delete :delete_avatar_attachment
