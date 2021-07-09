@@ -10,9 +10,9 @@ class AnswersController < ApplicationController
       @answer = @answerable.answers.new(answer_params)
 
       if @answer.save
-        redirect_to :back, notice: 'Your answer was successfully posted!'
+        redirect_back fallback_location: root_path, notice: 'Your answer was successfully posted!'
       else
-        redirect_to :back, notice: "Your answer wasn't posted!"
+        redirect_back fallback_location: root_path, notice: "Your answer wasn't posted!"
       end
     end
 
