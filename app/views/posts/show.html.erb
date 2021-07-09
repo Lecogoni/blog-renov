@@ -3,6 +3,9 @@
   <p>
     <h1>Titre : <strong><%= @post.title %></strong></h1>
     <br>
+    <% if @post.user.avatar.attached? %>
+        <%= image_tag @post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+    <% end %>
     annonce de : <strong><%= @post.user.full_name %></strong>
   </p>
 
@@ -16,7 +19,11 @@
     </p>
   <% end %>
 
-  <%= link_to 'Edit', edit_post_path(@post) %> |
+  <% if user_signed_in? && current_user.id == @post.user.id %>
+    <%= link_to 'Edit', edit_post_path(@post) %> |
+  <% end %>
+
+
   <%= link_to 'Back', posts_path %>
 
 
@@ -24,8 +31,16 @@
 
   <% if current_user_is_admin? && current_user.id != @post.user.id %>
   <hr>
-    <p>admin section : delete a post</p>
+    <p>admin section</p>
+<%
+=begin%>
+ 
+    <%= link_to 'Supprimer cette annonce', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %>
+     
+<%
+=end%>
   <% end %>
+  
   
 
 </div>

@@ -111,8 +111,11 @@
 
   <% if current_user_is_admin? && current_user.id != @article.user.id %>
   <hr>
-    <p>admin section : delete a post</p>
-    <%= link_to 'Supprimer', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %>
+    <p>admin section</p>
+
+
+  <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+
   <% end %>
   
 </div>

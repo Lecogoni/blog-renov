@@ -19,6 +19,9 @@
         <div class="card mb-1">
           <div class="card-body">
             <h4 class="card-title"><%= post.title %></h4>
+            <% if post.user.avatar.attached? %>
+              <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+            <% end %>
             <h5 class="card-subtitle mb-2 text-muted"><%= post.user.full_name %></h5>
             <p>
               <%= post.body %>
