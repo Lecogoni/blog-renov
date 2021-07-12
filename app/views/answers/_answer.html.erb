@@ -1,11 +1,13 @@
   <li>
-    <%= answer.body %> -
-    <small>Submitted <%= time_ago_in_words(answer.created_at) %> ago</small>
+    <small><%= answer.user.full_name %> </small> - <small>il y a <%= time_ago_in_words(answer.created_at) %></small><br>
+    <%= answer.body %>
+    
 
     <%= form_for [answer, Answer.new] do |f| %>
-        <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-        <%= f.submit "Reply"  %>
-        <% end %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
+      <%= f.submit "répondre"  %>
+    <% end %>
 
     <ul>
         <%= render answer.answers %>

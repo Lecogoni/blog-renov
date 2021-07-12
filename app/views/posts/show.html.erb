@@ -31,14 +31,18 @@
 
 <!-- ANSWER SECTION -->
 
-<h3>Réponses</h3>
+<h3>Répondre à l'annonce</h3>
 
     <%= form_for [@post, Answer.new] do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.text_area :body, placeholder: "Add a comment" %><br/>
     <%= f.submit "Posté votre réponse" %>
   <% end %>
 
+  <hr>
+
   <ul>
+  <h4>Historique des réponses</h4>
     <%= render @post.answers %>
   </ul>
 
