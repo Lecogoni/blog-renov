@@ -37,6 +37,11 @@
             <div class="badge bg-info text-wrap">
               <%= post.column.name %>
             </div>
+            <% if post.answers.count > 0 %>
+              <div class="badge bg-light text-dark">
+                <%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%>
+              </div>
+            <% end %>
               <%= link_to 'Show', post %>
             <% if user_signed_in? && current_user.id == post.user.id %>
               <%= link_to 'Edit', edit_post_path(post) %>

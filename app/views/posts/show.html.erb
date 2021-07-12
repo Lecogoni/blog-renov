@@ -50,15 +50,9 @@
 <!-- ADMIN SECTION -->
 
   <% if current_user_is_admin? && current_user.id != @post.user.id %>
-  <hr>
+    <hr>
     <p>admin section</p>
-<%
-=begin%>
- 
-    <%= link_to 'Supprimer cette annonce', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %>
-     
-<%
-=end%>
+    <%= link_to 'Supprimer cette annonce', admin_delete_post_post_url(@post), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette annonce. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
   <% end %>
   
   

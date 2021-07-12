@@ -43,6 +43,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :posts do
+    member do
+      delete :admin_delete_post
+    end
+  end
+
 
   get 'pages/admin'
   get 'pages/about'

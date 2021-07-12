@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy admin_delete_post ]
 
   # GET /posts or /posts.json
   def index
@@ -69,6 +69,12 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def admin_delete_post
+    UserMailer.admin_delete_post_email(@post).deliver_now
+    @post.destroy
+    redirect_to posts_url, notice: "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"    
   end
 
   private

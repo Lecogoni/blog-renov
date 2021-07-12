@@ -4,7 +4,7 @@ class Post < ApplicationRecord
 
   has_one_attached :picture, dependent: :purge_later
 
-  has_many :answers, as: :answerable
+  has_many :answers, as: :answerable, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true
