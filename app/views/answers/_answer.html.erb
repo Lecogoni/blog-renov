@@ -1,4 +1,9 @@
   <li>
+    <% if answer.user.avatar.attached? %>
+        <div class="col-4">
+          <%= image_tag answer.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+        </div>
+      <% end %>
     <small><%= answer.user.full_name %> </small> - <small>il y a <%= time_ago_in_words(answer.created_at) %></small><br>
     <%= answer.body %>
     
