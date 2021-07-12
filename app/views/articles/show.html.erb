@@ -109,7 +109,9 @@
 
   <!-- ADMIN SECTION -->
 
-  <% if current_user_is_admin? && current_user.id != @article.user.id %>
+
+  
+  <% if user_signed_in? && current_user_is_admin? && current_user.id != @article.user.id %>
   <hr>
     <p>admin section</p>
 
