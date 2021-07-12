@@ -6,7 +6,10 @@
     <%= form_for [answer, Answer.new] do |f| %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-      <%= f.submit "répondre"  %>
+      <%= f.submit "répondre", class:"btn btn-outline-info"  %>
+      <% if answer.user.id == current_user.id %>
+        <%= link_to 'Supprimer ma réponse', [answer.answerable, answer],  class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer votre réponses." } %> 
+      <% end %>
     <% end %>
 
     <ul>

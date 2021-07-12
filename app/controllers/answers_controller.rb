@@ -16,6 +16,12 @@ class AnswersController < ApplicationController
       end
     end
 
+    def destroy
+      @answerable = Answer.find_by_id(params[:id])
+      @answerable.destroy
+      redirect_back fallback_location: root_path, notice: "votre réponse a été supprimée."
+    end
+
     private
 
     def answer_params

@@ -29,22 +29,25 @@
 
   <%= link_to 'Back', posts_path %>
 
-<!-- ANSWER SECTION -->
+<!-- ANSWER SECTION : post answer -->
 
-<h3>Répondre à l'annonce</h3>
+  <h3>Répondre à l'annonce</h3>
 
-    <%= form_for [@post, Answer.new] do |f| %>
+  <%= form_for [@post, Answer.new] do |f| %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.text_area :body, placeholder: "Add a comment" %><br/>
     <%= f.submit "Posté votre réponse" %>
   <% end %>
 
-  <hr>
+<!-- ANSWER SECTION : see answers-->
 
-  <ul>
-  <h4>Historique des réponses</h4>
-    <%= render @post.answers %>
-  </ul>
+  <% if @post.answers.count > 0 %>
+    <ul>
+      <hr>
+      <h4>Historique des réponses</h4>
+      <%= render @post.answers %>
+    </ul>
+  <% end %>
 
 
 <!-- ADMIN SECTION -->
