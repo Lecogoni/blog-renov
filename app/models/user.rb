@@ -16,7 +16,6 @@ class User < ApplicationRecord
     full_name = [first_name.capitalize, last_name.capitalize].join(' ')
   end
 
-
   def guest_request?
     Guest.all.count != 0
   end

@@ -31,29 +31,31 @@
         <%= f.input :description, input_html: {class: 'textarea'}, required: true, wrapper: false, label_html: {class: 'label'} %>
       </div>
   
+      <% if article.images.attached? %>
+        <div class="form-group m-3">
+
+          <% @images.each do |image| %>
+            <div>
+              <%= image_tag(image) %>
+              <br>
+              <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
+
+              <div class="form-group">
+                <%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %>
+              </div>
+
+            </div>
+          <% end %> 
+        </div>
+      <% end %>
 
       <div class="form-group m-3">
 
-        <% @images.each do |image| %>
-          <div>
-            <%= image_tag(image) %>
-            <br>
-            <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
-
-            <div class="form-group">
-              <%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true) %>
-            </div>
-
-
-          </div>
-        <% end %>
-
-        <br>
-        
         <%= form.label :image %>
         <%= form.file_field :images, multiple:true, class: "form-control" %>
 
       </div>
+    
 
     <br>
 

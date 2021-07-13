@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy admin_delete_article]
+  before_action :downcase_fields, only: %i[ create update ]
+  before_action :check_cover_img_if_one_img, only: %i[ edit ]
 
   # GET /articles or /articles.json
   def index
@@ -37,7 +39,6 @@ class ArticlesController < ApplicationController
   # POST /articles or /articles.json
   def create
 
-    
     @article = Article.new(article_params)
 
     if @article.save
@@ -99,4 +100,18 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :description, :user_id, :category_id, images: [])
     end
+
+    def downcase_fields
+      article_params[:title].downcase!
+    end
+
+    # when user press on article edit it check if there is only one image, if yes it set image.cover_img to true
+    def check_cover_img_if_one_img
+      if @article.images.count == 1
+        attachement = ActiveStorage::Attachment.where(record_id: @article.id, record_type: "Article").first
+        attachement.cover_img = true
+        attachement.save
+      end
+    end
+
 end
