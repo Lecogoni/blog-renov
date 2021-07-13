@@ -8,16 +8,6 @@
     <h6>catégorie <%= @article.category.name %></h6>
   </div>
 
- <% if @article.images.attached? %>
-  <% @pictures = @article.images %>
-  <p>
-  <% @pictures.each do |pic|%>
-    <%= pic.record_type %><br>
-  <% end %>
-  </p>
-  <% end %>
-  
-
   <div>
     <p><%= @article.description %></p>
     <p>
@@ -27,11 +17,11 @@
 
   <div>
     <% if @article.images.attached? %>
-
       <div class="row">
         <% @article.images.each do |image| %>
           <div class="col-3">
             <%= image_tag image %>
+            <%= image.record_type %> <%= image.record_id %>
           </div>
         <% end %>
       </div>
