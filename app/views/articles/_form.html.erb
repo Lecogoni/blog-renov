@@ -34,10 +34,17 @@
 
       <div class="form-group m-3">
 
-        <% @article.images.each do |image| %>
+        <% @images.each do |image| %>
           <div>
             <%= image_tag(image) %>
+            <br>
             <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
+
+            <div class="form-group">
+              <%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true) %>
+            </div>
+
+
           </div>
         <% end %>
 
@@ -48,7 +55,6 @@
 
       </div>
 
-
     <br>
 
     <div class="field">
@@ -57,5 +63,4 @@
     <% end %>
   </div>
 
-  <hr>
 <% end %>

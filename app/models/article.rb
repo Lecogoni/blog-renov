@@ -17,4 +17,19 @@ class Article < ApplicationRecord
     title = self.title.titleize
   end
 
+  # display on article#index or the first article images or the cover_img == true if it has one
+  def display_cover_img
+    @picture = []
+    if self.images.any?{|pic| pic.cover_img == true}
+      self.images.each do |pic|
+        if pic.cover_img == true
+          @picture << pic
+        end
+      end
+    else
+      @picture << self.images.first
+    end
+    return @picture.first.variant(resize_to_limit: [150, 150])
+  end
+
 end

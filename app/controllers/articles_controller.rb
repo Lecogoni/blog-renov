@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1 or /articles/1.json
   def show
     @other_articles = Article.where(user_id: @article.user_id).where.not(id: @article.id)
+    @images = @article.images.order("created_at ASC")
   end
 
   # GET /articles/new
@@ -30,6 +31,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    @images = @article.images.order("created_at ASC")
   end
 
   # POST /articles or /articles.json
@@ -48,6 +50,16 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+
+    @article.images.each do |image|
+      image.cover_img = false
+      image.save
+    end
+
+    attachment = ActiveStorage::Attachment.find(params[:article][:img_id])
+    attachment.cover_img = true
+    attachment.save
+
 
     if @article.update(article_params)
 

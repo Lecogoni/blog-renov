@@ -41,13 +41,6 @@
     <%= link_to cat.name, articles_path(category: cat.name) %>
   <% end %>
 
-  <%
-=begin%>
- <% Category.where(display: true).each do |cat| %>
-    <%= link_to cat.name, articles_path(category: cat.name) %>
-  <% end %> 
-<%
-=end%>
  
   <hr>
   <br>
@@ -58,11 +51,13 @@
       <%= link_to (article) do %>
         <div class="card" style="width: 18rem;">
           <h5 class="card-title"><%= article.title %></h5>
+
           <% if article.images.attached? %>
             <div class="card-img-top" alt="...">
-              <%= image_tag article.images.first.variant(resize_to_limit: [150, 150]) %>
+            <%= image_tag article.display_cover_img %>
             </div>
           <% end %>
+
           <div class="card-body">
             <div class="row">
               <% if article.user.avatar.attached? %>
