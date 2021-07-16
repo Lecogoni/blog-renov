@@ -32,4 +32,13 @@ class Article < ApplicationRecord
     return @picture.first.variant(resize_to_limit: [150, 150])
   end
 
+  def who_likes_article
+    @likes = self.likes.to_a
+    @liker = []
+    @likes.each do |like|
+      @liker << like.user.full_name
+    end
+    return @liker.join(", ")
+  end
+
 end

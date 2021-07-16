@@ -4,10 +4,10 @@ class LikesController < ApplicationController
   def create
 
     if already_liked?
-      flash[:notice] = "vous ne pouvez Liké qu'une seul fois !"
+      flash[:alert] = "vous avez déjà Liké cette publication !"
     else
       @article.likes.create(user_id: current_user.id)
-      flash[:notice] = "Merci pour votre like !"
+      flash[:success] = "Merci pour votre like !"
     end
     redirect_to article_path(@article)
 
