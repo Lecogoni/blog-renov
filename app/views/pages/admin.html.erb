@@ -20,7 +20,7 @@
           <td style="width:20%"><%= guest.phone_number %></td>
           <td style="width:20%">
             <%= link_to 'valider la demande', confirm_guest_to_user_page_path(guest.id), method: 'post' %> | 
-            <%= link_to 'refuser la demande', refuse_guest_page_path(guest.id), method: 'post', data: { confirm: 'Êtes vous certain de vouloir supprimer cette demande ? Cela est définitive et les infos liée seront supprimées' } %> | 
+            <%= link_to 'refuser la demande', refuse_guest_page_path(guest.id), method: 'post', data: { confirm: 'Êtes vous certain de vouloir refuser cette demande ?' } %> | 
           envoie email 
           </td>
         </tr>

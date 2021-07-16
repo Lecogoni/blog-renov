@@ -1,38 +1,6 @@
-<%
-=begin%>
- <div class="jumbotron">
-  <h1>Découvrez les x dernières créations</h1>
-  <div class="row">
-    <% @last_articles.each do |article| %>
-    <div class="col-4 mb-2">
-      <%= link_to (article) do %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= article.title %></h5>
-            <h5 class="card-title"><%= article.user.full_name %></h5>
-            <h6 class="card-title">Catégorie : <%= article.category.name %></h6>
-            <p>
-              <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
-              <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            <p class="card-text">
-            </p>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-</div> 
-<%
-=end%>
-
 <div class="container">
-  <p id="notice"><%= notice %></p>
 
   <h1>Créations</h1>
-
 
   <br>
   <hr>

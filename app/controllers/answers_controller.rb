@@ -10,16 +10,19 @@ class AnswersController < ApplicationController
       @answer = @answerable.answers.new(answer_params)
 
       if @answer.save
-        redirect_back fallback_location: root_path, notice: 'Your answer was successfully posted!'
+        redirect_back fallback_location: root_path
+        flash[:success] = "votre réponse a bien été enregistrée" 
       else
-        redirect_back fallback_location: root_path, notice: "Your answer wasn't posted!"
+        redirect_back fallback_location: root_path
+        flash[:error] = "votre réponse n'a pas été enregistrée."
       end
     end
 
     def destroy
       @answerable = Answer.find_by_id(params[:id])
       @answerable.destroy
-      redirect_back fallback_location: root_path, notice: "votre réponse a été supprimée."
+      redirect_back fallback_location: root_path
+      flash[:success] = "votre réponse a été supprimée." 
     end
 
     private

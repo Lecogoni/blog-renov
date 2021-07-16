@@ -10,7 +10,7 @@ class PostsController < ApplicationController
       @column = Column.find_by_name(params[:column])
       if Post.where(column: @column).count == 0
         @posts = Post.all.order("created_at DESC")
-        flash.now[:notice] = "Il n'y a aucune annonces dans cette catégorie"
+        flash.now[:notice] = "Il n'y a aucune annonce dans cette catégorie"
       else
         @posts = Post.where(column: @column).order("created_at DESC")
       end
@@ -40,7 +40,8 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to posts_path, notice: "Votre annonce est bien enregistrée" }
+        format.html { redirect_to posts_path }
+        flash[:success] = "Votre annonce est bien enregistrée"
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +54,8 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "Votre annonce a correctement été modifiée" }
+        format.html { redirect_to @post }
+        flash[:success] = "Votre annonce a correctement été modifiée"
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +68,9 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.html { redirect_to posts_url }
+      flash[:success] = "votre annonce a bien été supprimée" 
+      
       format.json { head :no_content }
     end
   end
@@ -74,7 +78,8 @@ class PostsController < ApplicationController
   def admin_delete_post
     UserMailer.admin_delete_post_email(@post).deliver_now
     @post.destroy
-    redirect_to posts_url, notice: "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"    
+    redirect_to posts_url
+    flash[:alert] = "Cette annonce a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"     
   end
 
   private

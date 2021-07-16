@@ -1,6 +1,4 @@
 
-<%= user.first_name %>
-
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
@@ -14,11 +12,7 @@
     </div>
   <% end %>
 
-  <p>
-  en tant qu'administrateur vous créer le compte de nouveau membre. Veuillez compléter les champs obligatoire. Une fois valider le nouveau membre sera notifié par email de la création de son espace.
-  Un lien l'invitera a créer son mot de passe afin de rendre son compte entièrement opérationnel.
-  </p>
-  
+
   <div class="form_group">
     <%= form.label :prénom %>
     <%= form.text_field :first_name, required: true, class: "form-control" %>

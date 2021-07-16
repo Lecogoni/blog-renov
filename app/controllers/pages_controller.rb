@@ -39,7 +39,8 @@ class PagesController < ApplicationController
     
     # destroy guest, redirect, email new user
     @guest.destroy
-    redirect_to pages_admin_path, notice: "demande d'invitation validée ! #{@guest.first_name} a été notifié par email"
+    redirect_to pages_admin_path
+    flash[:success] = "demande d'invitation validée ! #{@guest.first_name} a été notifié par email"
     UserMailer.confirm_registration_member(user, raw).deliver_now
   end
 
@@ -48,6 +49,7 @@ class PagesController < ApplicationController
     UserMailer.refuse_guest_registration(@guest).deliver_now
     @guest.destroy
     redirect_to pages_admin_path
+    flash[:alert] = "demande d'invitation refusée ! #{@guest.first_name} a été notifié par email"
   end
 
 

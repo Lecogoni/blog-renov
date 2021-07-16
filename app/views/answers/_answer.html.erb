@@ -13,7 +13,7 @@
       <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
       <%= f.submit "répondre", class:"btn btn-outline-info"  %>
       <% if answer.user.id == current_user.id %>
-        <%= link_to 'Supprimer ma réponse', [answer.answerable, answer],  class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer votre réponses." } %> 
+        <%= link_to 'Supprimer ma réponse', [answer.answerable, answer],  class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer votre réponse." } %> 
       <% end %>
     <% end %>
 

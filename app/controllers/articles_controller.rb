@@ -42,9 +42,11 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: "Votre article a été enregistré !"
+      redirect_to @article, notice: ""
+      flash.now[:success] = "Votre article a été enregistré !"
     else
-      render :new, status: :unprocessable_entity 
+      render :new, status: :unprocessable_entity
+      flash[:error] = "votre publication n'a pas été enregistrée"
     end
 
   end
@@ -64,7 +66,8 @@ class ArticlesController < ApplicationController
 
     if @article.update(article_params)
 
-      redirect_to @article, notice: "Votre article est modifié !"
+      redirect_to @article
+      flash[:success] = "Votre article est bien modifié !"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -74,7 +77,8 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1 or /articles/1.json
   def destroy
     @article.destroy
-    redirect_to articles_url, notice: "L'article a été supprimer"
+    redirect_to articles_url
+    flash[:success] = "L'article a été supprimer"
   end
 
   # allow to purge active storage files
@@ -87,7 +91,8 @@ class ArticlesController < ApplicationController
   def admin_delete_article
     UserMailer.admin_delete_article_email(@article).deliver_now
     @article.destroy
-    redirect_to articles_url, notice: "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"    
+    redirect_to articles_url
+    flash[:alert] = "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"  
   end
 
   private

@@ -21,10 +21,12 @@ class GuestsController < ApplicationController
   def create
 
     if Guest.where(email: guest_params[:email]).count >= 1
-      redirect_to root_path, notice: "Votre demande ne peut aboutir. Une demande de création de compte est déjà enregistrée avec l'email : #{guest_params[:email]}"
+      redirect_to root_path
+      flash[:error] = "Votre demande ne peut aboutir. Une demande de création de compte est déjà enregistrée avec l'email : #{guest_params[:email]}"
 
     elsif User.where(email: guest_params[:email]).count >= 1
-      redirect_to root_path, notice: "Votre demande ne peut aboutir. Un profil est déjà enregistrée avec l'email : #{guest_params[:email]}"
+      redirect_to root_path
+      flash[:error] = "Votre demande ne peut aboutir. Un compte est déjà enregistré avec l'email : #{guest_params[:email]}"
     
     else
       
@@ -36,7 +38,8 @@ class GuestsController < ApplicationController
           UserMailer.registration_email(@guest).deliver_now
           UserMailer.new_registration_member(@guest).deliver_now
 
-          format.html { redirect_to root_path, notice: "Votre demande à bien été enregistré. Une fois examiné par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe" }
+          format.html { redirect_to root_path }
+          flash[:success] = "Votre demande à bien été enregistrée. Une fois examinée par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe"
           format.json { render :show, status: :created, location: @guest }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +52,8 @@ class GuestsController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(guest_params)
-        format.html { redirect_to @guest, notice: "Vos modififications ont bien été enregistrées" }
+        format.html { redirect_to @guest }
+        flash.now[:success] = "Vos modififications ont bien été enregistrées"
         format.json { render :show, status: :ok, location: @guest }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,12 +61,13 @@ class GuestsController < ApplicationController
       end
     end
   end
-
-
+  
+  
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url }
+      flash.now[:success] = "User was successfully destroyed."
       format.json { head :no_content }
     end
   end
