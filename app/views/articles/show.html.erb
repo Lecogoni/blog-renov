@@ -17,15 +17,24 @@
  
   <!-- LIKES -->
   <div>
-    <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
-    <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
+    <% if @article.article_has_like? %>
+      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
+      <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
+    <% else %>
+      <div class="btn btn-lg btn-danger"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
+    <% end %>
+
   </div>
 
   <br>
 
   <div>
-    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">
-      <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
+    <% if @article.article_has_like? %>
+      <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">
+        <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
+    <% else %>
+      <div class="btn btn-secondary"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
+    <% end %>
   </div>
 
 

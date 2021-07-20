@@ -32,6 +32,10 @@ class Article < ApplicationRecord
     return @picture.first.variant(resize_to_limit: [150, 150])
   end
 
+  def article_has_like?
+    self.likes.count >= 1
+  end
+
   def who_likes_article
     @likes = self.likes.to_a
     @liker = []
