@@ -41,23 +41,11 @@ fr:
     - jeudi
     - vendredi
     - samedi
+    month_names:
+      [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
     formats:
       default: "%d/%m/%Y"
       long: "%e %B %Y"
-    month_names:
-    - 
-    - janvier
-    - février
-    - mars
-    - avril
-    - mai
-    - juin
-    - juillet
-    - août
-    - septembre
-    - octobre
-    - novembre
-    - décembre
     order:
     - :day
     - :month
@@ -216,6 +204,7 @@ fr:
       default: "%d %B %Y %Hh %Mmin %Ss"
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
+      date: "%d %B %Y"
     pm: pm
 
   

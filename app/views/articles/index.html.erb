@@ -4,9 +4,9 @@
 
   <br>
   <hr>
-  <%= link_to 'TOUT', articles_path %>
+  <%= link_to 'Tout', articles_path, class: "filter" %>
   <% Category.all.order("name ASC").each do |cat| %>
-    <%= link_to cat.name, articles_path(category: cat.name) %>
+    <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter"  %>
   <% end %>
 
  
@@ -15,41 +15,37 @@
 
   <div class="row">
     <% @articles.each do |article| %>
-    <div class="col-4 mb-2">
+    <div class="col-4">
       <%= link_to (article) do %>
-        <div class="card" style="width: 18rem;">
-          <h5 class="card-title"><%= article.title %></h5>
-
+        <div class="card">
           <% if article.images.attached? %>
             <div class="card-img-top" alt="...">
-            <%= image_tag article.display_cover_img %>
+              <%= image_tag article.display_cover_img, class: "img-index" %>
             </div>
           <% end %>
-
           <div class="card-body">
-            <div class="row">
-              <% if article.user.avatar.attached? %>
-                <div class="col-4">
-                  <%= image_tag article.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
-                </div>
-              <% end %>
-              <div class="col-8">
-                <h5 class="card-title"><%= article.user.full_name %></h5>
-              </div>
+            <h5 class="card-title"><%= article.title.capitalize %></h5>
+            <div class="article-user">
+              <%= article.user.full_name %>
             </div>
-            <h6 class="card-title">Catégorie : <%= article.category.name %></h6>
-            <p>
-              <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
-              <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            <p class="card-text">
-            </p>
+          </div>
+          <div class="card-text">
+            <div class="mb-2">
+              publié le <%= l(article.created_at, format: :date) %>
+            </div>
+            <div>
+              <span class="article-info"><%= article.category.name %></span>
+              <% if article.likes.count > 0 %>
+                <span class="article-info"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
+              <% end %>
+              <% if article.comments.count > 0 %>
+                <span class="article-info"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
     <% end %>
   </div>
-
 </div>

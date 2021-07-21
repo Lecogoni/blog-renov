@@ -29,7 +29,7 @@ class Article < ApplicationRecord
     else
       @picture << self.images.first
     end
-    return @picture.first.variant(resize_to_limit: [150, 150])
+    return @picture.first
   end
 
   def article_has_like?
