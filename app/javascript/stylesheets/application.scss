@@ -6,7 +6,7 @@ $background-grey: #f9f7f8;
 $pink: #cd0f58;
 $purpley-grey: #6b525e;
 
-body, h1, h2, h3, h4, h5, h6 {
+body, h1, h2, h3, h4, h5, h6, p {
   font-family: 'pt serif',serif;
   color: #210d1b;
 }
@@ -23,14 +23,14 @@ body {
 a {
   color: $pink;
   text-decoration: none;
-
-  a:visited {
-    color: $pink;
-    text-decoration: none;
-  }
-
 }
+
 a:hover {
+  color: $pink;
+  text-decoration: none;
+}
+
+a:visited {
   color: $pink;
   text-decoration: none;
 }
@@ -69,10 +69,8 @@ a:hover {
   box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.2);
   overflow: hidden;
   width: 18rem;
-  
   height: 25rem;
   margin-bottom: 2rem;
-
   flex: 1 1 auto;
 }
 
@@ -112,4 +110,14 @@ a:hover {
   @extend .filter;
   font-size: 0.8rem;
   font-weight: 300;
+}
+
+/* -------------- */
+
+.article-show {
+  padding-top: 2rem;
+}
+
+.article-header {
+  margin-bottom: 2rem;
 }

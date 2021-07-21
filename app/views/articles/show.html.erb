@@ -1,21 +1,61 @@
-<div class="container">
+<div class="container article-show">
 
   <!-- ARTICLE -->
 
-  <div>
+  <div class="article-header">
     <h1><%= @article.upcase_title %></h1>
-    <h3>création de <%= @article.user.full_name %></h3>
-    <h6>catégorie <%= @article.category.name %></h6>
+    <h3 class="text">création de <%= @article.user.full_name %></h3>
+    <%= @article.images.count %>
   </div>
 
+  <!-- IMAGES -->
+
+
   <div>
-    <p><%= @article.description %></p>
-    <p>
-      <span class="badge bg-light text-dark"></span>
-    </p>
+    <% if @article.images.count == 1 %>
+
+    <%= image_tag(@article.images.first, class: "img-fluid") %>
+
+    <% elsif @article.images.attached? && @article.images.count > 1 %>
+
+      
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+              <% @article.images.size.times do |i| %>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= i %>" class="<%= "active" if i.zero? %>"></li>
+              <% end %>
+          </ol>
+
+          <div class="carousel-inner">
+              <% @article.images.each_with_index do |photo, index| %>
+                  <div class="carousel-item <%= "active" if index == 0 %>">
+                      <img class="d-block w-50" src="<%= image_path(url_for(photo)) %>" alt="<%= index.ordinalize %> image">
+                  </div>
+              <% end %>
+          </div>
+
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+
+
+    <% end %>
   </div>
- 
-  <!-- LIKES -->
+
+
+
+  <!-- COUCOU -->
+
+  <br><br><br>  <br><br><br>  <br><br><br>  <br><br><br>
+
+    <!-- LIKES -->
   <div>
     <% if @article.article_has_like? %>
       <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
@@ -28,6 +68,7 @@
 
   <br>
 
+
   <div>
     <% if @article.article_has_like? %>
       <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">
@@ -37,21 +78,23 @@
     <% end %>
   </div>
 
+  <hr>
 
-  <!-- IMAGES -->
   <div>
-    <% if @article.images.attached? %>
-      <div class="row">
-        <% @images.each do |image| %>
-          <div class="col-3">
-            <%= image_tag image %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <p><%= @article.description %></p>
+    <p>
+      <span class="badge bg-light text-dark"></span>
+      <span class="filter"><%= @article.category.name %></span>
+    </p>
   </div>
 
   <hr>
+
+
+  <hr>
+
+
+  <!-- COUCOU -->
 
   <% if user_signed_in? && current_user.id != @article.user.id %>
       <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
