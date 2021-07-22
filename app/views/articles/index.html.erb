@@ -6,7 +6,11 @@
   <hr>
   <%= link_to 'Tout', articles_path, class: "filter" %>
   <% Category.all.order("name ASC").each do |cat| %>
-    <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter"  %>
+    <% if params[:category] == cat.name %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-over"  %>
+    <% else %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter"  %>
+    <% end %>
   <% end %>
 
  
