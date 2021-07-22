@@ -37,6 +37,7 @@
             <div class="mb-2">
               publié le <%= l(article.created_at, format: :date) %>
             </div>
+                <%= article.images.count %>
             <div>
               <span class="article-info"><%= article.category.name %></span>
               <% if article.likes.count > 0 %>
