@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
       @category = Category.find_by_name(params[:category])
       if Article.where(category: @category).count == 0
         @articles = Article.all.order("created_at DESC")
-        flash.now[:notice] = "Il n'y a aucune création enregistrées dans cette catégorie"
+        flash.now[:notice] = "Il n'y a aucune création enregistrée dans cette catégorie"
       else
         @articles = Article.where(category: @category).order("created_at DESC")
       end
@@ -24,6 +24,7 @@ class ArticlesController < ApplicationController
   def show
     @other_articles = Article.where(user_id: @article.user_id).where.not(id: @article.id)
     @images = @article.images.order("created_at ASC")
+    @comments = @article.comments.order("created_at ASC")
   end
 
   # GET /articles/new
@@ -42,8 +43,8 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: ""
-      flash.now[:success] = "Votre article a été enregistré !"
+      redirect_to @article
+      flash[:success] = "Votre article a été enregistré !"
     else
       render :new, status: :unprocessable_entity
       flash[:error] = "votre publication n'a pas été enregistrée"

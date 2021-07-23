@@ -6,109 +6,127 @@
     <h1><%= @article.upcase_title %></h1>
     <h3 class="text">création de <%= @article.user.full_name %></h3>
   </div>
-
-  <!-- IMAGES -->
-
-  <%= render 'carousel', article: @article %>
-
-
-<!-- CATEGORY - LIKES -->
   <div>
     <span class="filter"><%= @article.category.name %></span>
   </div>
 
+  <!-- IMAGES CAROUSEL -->
+
+  <%= render 'carousel', article: @article %>
 
 
-
-
-  <br><br><br>  <br><br><br>  <br><br><br>  <br><br><br>
-
-    <!-- LIKES -->
-  <div>
-    <% if @article.article_has_like? %>
-      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
-      <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
-    <% else %>
-      <div class="btn btn-lg btn-danger"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
-    <% end %>
-
-  </div>
-
-  <br>
-
-
-  <div>
-    <% if @article.article_has_like? %>
-      <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">
-        <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
-    <% else %>
-      <div class="btn btn-secondary"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
+<!-- ARTICLE INFOS LIKES DESCRIPTION -->
+  
+  <div class="text d-flex justify-content-start">
+    <div class="article-data">
+      publié le <%= l(@article.created_at, format: :date) %>
+    </div>
+    <% if user_signed_in? %>
+      <% if @article.comments.count > 0 %>
+        <div class="article-data">
+          <span>-  <%= @article.comments.count %> <%= (@article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+        </div>
+      <% end %>
+      <% if @article.article_has_like? %>
+        <div class="article-data">
+          <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">-  <i class="fas fa-heart"></i><%= @article.likes.count %></span>
+        </div>
+      <% end %>
     <% end %>
   </div>
+
+  <h4>Description</h4>
+  <div class="text">
+    <%= @article.description %>
+  </div>
+
+  <!-- ACTION ZONE -->
 
   <hr>
 
-  <div>
-    <p><%= @article.description %></p>
-    <p>
-      <span class="badge bg-light text-dark"></span>
+  <% if user_signed_in? %>
+    <div class="article-action d-flex justify-content-around">
+
+      <div>
+        <%= button_to article_likes_path(@article), class: "no-btn", method: :post do %>
+          <i class="far fa-heart"></i><span class="dark-color">j'aime</span>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? && current_user.id != @article.user.id %>
+        <div>
+          <%= button_to user_path(@article.user_id), class: "no-btn", method: :get do %>
+            <i class="far fa-user"></i></i><span class="dark-color">profil de <%= @article.user.first_name.capitalize %></span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div>
+        <i class="far fa-comment-alt"></i><span>je commente</span>
+      </div>
       
-    </p>
-  </div>
+      <% if user_signed_in? && current_user.id == @article.user.id %>
 
-  <hr>
+        <div>
+          <%= button_to edit_article_path(@article), class: "no-btn", method: :get do %>
+            <i class="far fa-edit"></i><span class="dark-color">modifier ma publication</span>
+          <% end %>
+        </div>
+        
+        <div>
+          <%= button_to @article, class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+            <i class="far fa-trash-alt"></i></i><span class="">supprimer ma publication</span>
+          <% end %>
+          
+        </div>
 
-
-  <hr>
-
-
-  <!-- COUCOU -->
-
-  <% if user_signed_in? && current_user.id != @article.user.id %>
-      <%= button_to article_likes_path(@article), class:"btn btn-outline-primary", method: :post do %>
-        <i class="bi bi-hand-thumbs-up"> Like</i>
-      <% end %>
-  <% end %>
-
-  <% if user_signed_in? && current_user.id == @article.user.id %>
-
-      <%= button_to edit_article_path(@article), class:"btn btn-outline-primary", method: :get do %>
-        <i class="bi bi-pen"> Modifier</i>
       <% end %>
 
-      <br>
-
-      <%= link_to 'Supprimer', @article, class:"btn btn-outline-danger", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } %>
-
+    </div>
+    <hr>
   <% end %>
-
-
+  
   <!-- COMMENT -->
 
-      <% if user_signed_in? %>
-  <div class="card my-1">
-    <div class="card-body">
-      <p class="font-weight-bold">Commentaires</p>
-          <%= form_with(model: [@article, @article.comments.build]) do |f| %>
-              <%= f.hidden_field :user_id, value: current_user.id %>
-            <div class="form-group">
-              <%= f.label 'nouveau commentaires' %>
-              <%= f.text_area :body, class: 'form-control' %>
-            </div>
-            <%= f.submit 'publier', class: 'btn btn-primary mt-1' %>
-          <% end %>
-    </div>
+  <% if user_signed_in? %>
 
-  <!-- COMMENT PARTIAL -->
+    <h4><%= (@article.comments.count) < 2 ? 'Commentaire' : 'Commentaires'%></h4>
+
+    <!-- DISPLAY COMMENT -->
     <%= render 'comments' %>
 
-  </div>
-      <% end %>
+    <!-- NEW COMMENT -->
+    <div class="">
+      <div class="">
+
+        <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+          <div class="form-group col-4">
+            <%= f.text_area :body, class: 'form-control', required: true %>
+          </div>
+          <%= button_tag type: 'submit', class: "no-btn" do %>
+            <i class="far fa-comment-alt"></i><span>je commente</span></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+
 
 
   <!-- OTHER USER ARTICLE -->
 
-  <h2><%= (@article.user.articles.count) <= 3 ? 'autre création' : 'autres créations'%> de <%= @article.user.first_name %></h2>
+  <% if @article.user.articles.count > 1 %>
+
+     <h4><%= (@article.user.articles.count) > 2 ? 'autres créations' : 'autre création'%> de <%= @article.user.first_name %></h4>
+
+  <% else %>
+
+  affiche des créations a l'honneur
+  <% end %>
+
+ 
 
   <div class="row">
     <% @other_articles.each do |article| %>
@@ -136,13 +154,34 @@
 
   
   <% if user_signed_in? && current_user_is_admin? && current_user.id != @article.user.id %>
-  <hr>
+
+    <div class="card-admin">
     <p>admin section</p>
 
 
   <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+    </div>
+  
 
   <% end %>
   
 </div>
 
+
+
+
+
+
+<!-- LIKES -->
+
+  <div>
+    <% if @article.article_has_like? %>
+    
+      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
+      <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
+    <% else %>
+    <i class="fas fa-heart"></i>
+      <div class="btn btn-lg btn-danger"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
+    <% end %>
+
+  </div>
