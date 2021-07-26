@@ -113,13 +113,34 @@
 
   <% end %>
 
+  <!-- ADMIN SECTION -->
+
+  <% if user_signed_in? && current_user_is_admin? && current_user.id != @article.user.id %>
+
+    <div class="card-admin">
+      <div class="d-flex justify-content-center">
+        <div class="admin-content">
+          <h3>Section administrateur</h3>
+        </div>
+        <div class="admin-content">
+          <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p>
+          En tant qu'administrateur vous pouvez supprimer une publication si vous jugez son contenu inapropriété. <i class="fas fa-exclamation-triangle"></i> Cette action est irréversible !
+        </p>
+      </div>
+    </div>
+  
+  <% end %>
 
 
   <!-- OTHER USER ARTICLE -->
 
   <% if @article.user.articles.count > 1 %>
 
-     <h4><%= (@article.user.articles.count) > 2 ? 'autres créations' : 'autre création'%> de <%= @article.user.first_name %></h4>
+     <h4><%= (@article.user.articles.count) > 2 ? 'Autres créations' : 'Autre création'%> de <%= @article.user.first_name %></h4>
 
   <% else %>
 
@@ -149,21 +170,7 @@
     <% end %>
   </div>
 
-  <!-- ADMIN SECTION -->
 
-
-  
-  <% if user_signed_in? && current_user_is_admin? && current_user.id != @article.user.id %>
-
-    <div class="card-admin">
-    <p>admin section</p>
-
-
-  <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
-    </div>
-  
-
-  <% end %>
   
 </div>
 
@@ -172,9 +179,11 @@
 
 
 
-<!-- LIKES -->
+<!-- LIKES en clic show who like -->
 
-  <div>
+  <%
+=begin%>
+ <div>
     <% if @article.article_has_like? %>
     
       <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
@@ -184,4 +193,6 @@
       <div class="btn btn-lg btn-danger"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
     <% end %>
 
-  </div>
+  </div> 
+<%
+=end%>
