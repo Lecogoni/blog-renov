@@ -241,13 +241,14 @@ a:visited {
 /* USER INDEX ANNUAIRE
 -------------------------------------------------- */
 
+
 #adress-book {
   @extend .text;
   width: 100%;
   border-collapse: collapse;
 
-  thead {
-    padding-bottom: 20px;
+  thead  {
+    margin-bottom: 3rem;
   }
 
   th, td {
