@@ -9,7 +9,8 @@ class ArticlesController < ApplicationController
       @category = Category.find_by_name(params[:category])
       if Article.where(category: @category).count == 0
         @articles = Article.all.order("created_at DESC")
-        flash.now[:notice] = "Il n'y a aucune création enregistrée dans cette catégorie"
+        flash.now[:notice] = "Aucune création dans la catégorie : #{params[:category]}. Voici l'ensemble des créations"
+        params[:category] = nil
       else
         @articles = Article.where(category: @category).order("created_at DESC")
       end

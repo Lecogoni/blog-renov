@@ -237,3 +237,56 @@ a:visited {
     font-family: 'Roboto', sans-serif;
   }
 }
+
+/* USER INDEX ANNUAIRE
+-------------------------------------------------- */
+
+#adress-book {
+  @extend .text;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    padding-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    vertical-align: top;
+  }
+
+  tbody tr:hover {
+    color: $pink
+  }
+  
+  thead th:nth-child(1) {  //avatar
+    min-width: 50px;
+    max-width: 55px;
+
+  }
+
+  .avatar-book {
+    margin-top: -8px;
+  }
+
+  thead th:nth-child(2) { //first_name
+    width: 15%;
+  }
+  
+  thead th:nth-child(3) { //last_name
+    width: 15%;
+  }
+  
+  thead th:nth-child(4) { //phone-number
+    width: 15%;
+  }
+  
+  thead th:nth-child(5) { //email
+    width: 30%;
+  }
+  
+  thead th:nth-child(6) { //info
+    width: 40%;
+  }
+}
+

@@ -30,4 +30,27 @@ class User < ApplicationRecord
     num > 1 ? "#{num} annonces" : "#{num} annonce"
   end
 
+  def user_publishing
+    @articles = self.articles
+    @posts = self.posts
+
+    @creation = "#{@articles.count} création".pluralize if @articles.count != 1
+    @annonce = @posts.count != 1 ? "#{@posts.count} annonces" : "#{@posts.count} annonce"
+    
+    "#{} annonce"
+
+    if @articles.count == 0 && @posts.count == 0
+      return "aucune publication"
+      
+    elsif @articles.count > 0 && @posts.count == 0
+      return @creation.to_s
+
+    elsif @articles.count == 0 && @posts.count > 0
+      return @annonce.to_s
+
+    elsif @articles.count > 0 && @posts.count > 0
+      return "#{@creation} et #{@annonce}"
+    end
+  end
+
 end

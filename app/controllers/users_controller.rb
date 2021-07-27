@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   include UsersHelper
   
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :downcase_fields, only: %i[ create update ]
 
   # GET /users or /users.json
   def index
@@ -89,4 +90,11 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :phone_number, :email, :avatar, :show_data)
     end
+
+    def downcase_fields
+      user_params[:first_name].downcase!
+      user_params[:last_name].downcase!
+      user_params[:email].downcase!
+    end
+
 end

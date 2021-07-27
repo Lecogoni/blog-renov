@@ -1,31 +1,33 @@
 <div class="container">
 
- <h1>Annuaires des membres</h1>
+  <h1>Annuaires des membres</h1>
 
-  <table>
-    <tr>
-      <th></th>
-      <th><%= link_to "prénom", users_path(order: 'name') %></th>
-      <th><%= link_to "nom de famille", users_path(order: 'lastname') %></th>
-      <th>téléphone</th>
-      <th>email</th>
-      <th>info</th>
-      <th></th>
-    </tr>
 
-    <% @users.each do |user| %>
+  <table id="adress-book">
+    <thead>
       <tr>
-        <td>
-          <%= image_tag avatar_for(user), style: "width: 40px; display: block", class: "rounded-circle" %>
-        </td>
-        <td style="width:15%"><%= user.first_name.capitalize %></td>
-        <td style="width:15%"><%= user.last_name.capitalize %></td>
-        <td style="width:15%"><%= user.phone_number if user.show_data == true %></td>
-        <td style="width:15%"><%= user.email if user.show_data == true %></td>
-        <td  style="width:40%" class="card-subtitle mb-2 text-muted"><%= pluralize user.articles.count, 'création' %> | <%= pluralize user.posts.count, 'annonce' %></td>
-        <td><%= link_to 'voir', user_path(user) %></td>
+        <th></th>
+        <th><%= link_to "Prénom", users_path(order: 'name') %></th>
+        <th><%= link_to "Nom de famille", users_path(order: 'lastname') %></th>
+        <th>Téléphone</th>
+        <th>Email</th>
+        <th>Info</th>
       </tr>
-    <% end %>
+    </thead>
 
+    <tbody>
+      <% @users.each do |user| %>
+          <tr onmouseover="this.style.cursor='pointer';" onclick="location.href='<%= url_for(user) %>';">
+            <td>
+              <%= image_tag avatar_for(user), style: "width: 40px; display: block", class: "avatar-book rounded-circle" %>
+            </td>
+            <td><%= user.first_name.capitalize %></td>
+            <td><%= user.last_name.capitalize %></td>
+            <td><%= user.phone_number if user.show_data == true %></td>
+            <td><%= user.email if user.show_data == true %></td>
+            <td><%= user.user_publishing %></td>
+          </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
