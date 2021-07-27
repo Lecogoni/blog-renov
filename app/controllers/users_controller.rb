@@ -91,6 +91,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :phone_number, :email, :avatar, :show_data)
     end
 
+    # downcase some fields before saving in db
     def downcase_fields
       user_params[:first_name].downcase!
       user_params[:last_name].downcase!

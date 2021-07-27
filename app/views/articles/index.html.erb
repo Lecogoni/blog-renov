@@ -2,9 +2,7 @@
 
   <h1>Créations</h1>
 
-  <br>
   <hr>
-
 
   <% if params[:category] == nil %>
     <%= link_to 'Tout', articles_path, class: "filter-hover" %>
@@ -14,15 +12,13 @@
 
   <% Category.all.order("name ASC").each do |cat| %>
     <% if params[:category] == cat.name %>
-      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-hover"  %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-hover" %>
     <% else %>
-      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter"  %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter" %>
     <% end %>
   <% end %>
 
- 
   <hr>
-  <br>
 
   <div class="row">
     <% @articles.each do |article| %>

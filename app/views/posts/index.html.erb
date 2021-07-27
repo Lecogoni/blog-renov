@@ -2,54 +2,107 @@
 
   <h1>Annonces</h1>
 
-  <% if user_signed_in? %>
-    <%= link_to 'poster une nouvelle annonce', new_post_path %>
-  <% end %>
+  
+  <!-- ACTION ZONE -->
+  <hr>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <% if params[:column] == nil %>
+        <%= link_to 'Tout', posts_path, class: "post-filter-hover" %>
+      <% else %>
+        <%= link_to 'Tout', posts_path, class: "post-filter" %>
+      <% end %>
+
+      <% Column.all.each do |rubrique| %>
+        <% if params[:column] == rubrique.name %>
+          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "post-filter-hover" %>
+        <% else %>
+          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "post-filter" %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+      <div>
+          <%= button_to new_post_path, class: "no-btn", method: :get do %>
+            <i class="far fa-plus-square"></i></i><span class="">nouvelle annonce</span>
+          <% end %>
+      </div>
+    <% end %>
+  </div>
 
   <hr>
-  <%= link_to 'tous', posts_path %>
-  <% Column.all.each do |rubrique| %>
-    <%= link_to rubrique.name, posts_path(column: rubrique.name) %>
-  <% end %>
-  <hr>
-  <br>
 
-    <% @posts.each do |post| %>
+  <!-- POST -->
 
-        <div class="card mb-1">
-          <div class="card-body">
-            <h4 class="card-title"><%= post.title %></h4>
-            <% if post.user.avatar.attached? %>
-              <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
-            <% end %>
-            <h5 class="card-subtitle mb-2 text-muted"><%= post.user.full_name %></h5>
-            <p>
+  <% @posts.each do |post| %>
+
+      <div class="post-card">
+        <div class="card-body d-flex justify-content-between">
+
+          <div class="card-text">
+            <!-- title avatar user -->
+            <h2 class=""><%= post.title %><span class="article-info"><%= post.column.name %></span></h2>
+            
+            <div class="post-body">
               <%= post.body %>
-            </p>
-            <% if post.picture.attached? %>
-              <p>
-                <%= image_tag post.picture %>
-              </p>
-            <% end %>
-            <div class="badge bg-warning text-wrap">
-              publié le <%=l post.created_at, :format => ("%d %B %Y") %><br>
             </div>
-            <div class="badge bg-info text-wrap">
-              <%= post.column.name %>
-            </div>
-            <% if post.answers.count > 0 %>
-              <div class="badge bg-light text-dark">
-                <%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%>
+            
+            <div class="d-flex flex-row">
+              
+              <% if post.user.avatar.attached? %>
+              <div>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle" %>
               </div>
+              <% end %>
+
+              <div>
+                <h5 class="text"><%= post.user.full_name %></h5>
+              </div>
+
+            </div>
+
+            
+
+            
+            <!-- info -->
+            <div>
+              <div class=" text">
+                publié le <%= l(post.created_at, format: :date) %>
+              </div>
+              <div>
+                
+                <% if post.answers.count > 0 %>
+                  <span class="article-info"><%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%></span>
+                <% end %>
+              </div>
+            </div>
+
+            
+
+
+
+
+          </div>
+
+
+
+          <div>
+            <% if post.picture.attached? %>
+                <%= image_tag post.picture %>
             <% end %>
-              <%= link_to 'Show', post %>
+          </div>
+          <div>
+                        <%= link_to 'Show', post %>
             <% if user_signed_in? && current_user.id == post.user.id %>
               <%= link_to 'Edit', edit_post_path(post) %>
               <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette annonce ?' } %>
             <% end %>
           </div>
+
         </div>
-      
-    <% end %>
+      </div>
+    
+  <% end %>
 
 </div>

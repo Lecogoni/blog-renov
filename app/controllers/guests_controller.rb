@@ -83,6 +83,7 @@ class GuestsController < ApplicationController
       params.require(:guest).permit(:first_name, :last_name, :phone_number, :email)
     end
 
+    # downcase some fields before saving in db
     def downcase_fields
       guest_params[:first_name].downcase!
       guest_params[:last_name].downcase!
