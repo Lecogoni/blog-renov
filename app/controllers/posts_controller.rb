@@ -10,7 +10,8 @@ class PostsController < ApplicationController
       @column = Column.find_by_name(params[:column])
       if Post.where(column: @column).count == 0
         @posts = Post.all.order("created_at DESC")
-        flash.now[:notice] = "Il n'y a aucune annonce dans cette catégorie"
+        flash.now[:notice] = "Aucune annonce dans la catégorie : #{params[:column]}. Voici l'ensemble des annonces"
+        params[:column] = nil
       else
         @posts = Post.where(column: @column).order("created_at DESC")
       end

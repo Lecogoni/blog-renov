@@ -1,31 +1,32 @@
 <div class="container">
 
-  <h1>Annonces</h1>
+  <div>
+    <h1>Annonces</h1>
+  </div>
 
-  
   <!-- ACTION ZONE -->
   <hr>
 
   <div class="d-flex justify-content-between">
     <div>
       <% if params[:column] == nil %>
-        <%= link_to 'Tout', posts_path, class: "post-filter-hover" %>
+        <%= link_to 'Tout', posts_path, class: "filter-post-active" %>
       <% else %>
-        <%= link_to 'Tout', posts_path, class: "post-filter" %>
+        <%= link_to 'Tout', posts_path, class: "filter-post" %>
       <% end %>
 
       <% Column.all.each do |rubrique| %>
         <% if params[:column] == rubrique.name %>
-          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "post-filter-hover" %>
+          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post-active" %>
         <% else %>
-          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "post-filter" %>
+          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post" %>
         <% end %>
       <% end %>
     </div>
     <% if user_signed_in? %>
       <div>
-          <%= button_to new_post_path, class: "no-btn", method: :get do %>
-            <i class="far fa-plus-square"></i></i><span class="">nouvelle annonce</span>
+          <%= button_to new_post_path, class: "btn btn-secondary", method: :get do %>
+            <i class="far fa-plus-square"></i></i><span class="btn-text">nouvelle annonce</span>
           <% end %>
       </div>
     <% end %>
@@ -38,69 +39,47 @@
   <% @posts.each do |post| %>
 
       <div class="post-card">
-        <div class="card-body d-flex justify-content-between">
-
-          <div class="card-text">
-            <!-- title avatar user -->
-            <h2 class=""><%= post.title %><span class="article-info"><%= post.column.name %></span></h2>
-            
-            <div class="post-body">
-              <%= post.body %>
-            </div>
-            
-            <div class="d-flex flex-row">
-              
-              <% if post.user.avatar.attached? %>
-              <div>
-                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle" %>
+        <%= link_to (post) do %>
+          <div class="card-body d-flex justify-content-between">
+            <div class="card-text">
+              <!-- title -->
+              <h2 class=""><%= post.title %></h2>
+              <!-- description -->
+              <div class="post-body">
+                <%= post.body %>
               </div>
-              <% end %>
-
-              <div>
-                <h5 class="text"><%= post.user.full_name %></h5>
-              </div>
-
-            </div>
-
-            
-
-            
-            <!-- info -->
-            <div>
-              <div class=" text">
-                publié le <%= l(post.created_at, format: :date) %>
-              </div>
-              <div>
+              <!-- avatar user info -->
+              <div class="d-flex flex-row">
+                <div>
+                  <% if post.user.avatar.attached? %>
+                    <div class="post-index-avatar">
+                      <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+                    </div>
+                  <% end %>
+                </div>
                 
-                <% if post.answers.count > 0 %>
-                  <span class="article-info"><%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%></span>
-                <% end %>
+                <div>
+                  <h6 class="text"><%= post.user.full_name %></h6>
+                  <div class=" text">
+                    <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
+                    <% if post.answers.count > 0 %>
+                      <span class="post-badge"><%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%></span>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
 
-            
-
-
-
-
+            <div class="post-img-wrapper">
+              <div class=post-img>
+                <% if post.picture.attached? %>
+                  <%= image_tag post.picture.variant(resize_to_limit: [170, 170]), class: "post-picture" %>
+                <% end %>
+                <span class="article-info post-badge-full"><%= post.column.name %></span>
+              </div>
+            </div>
           </div>
-
-
-
-          <div>
-            <% if post.picture.attached? %>
-                <%= image_tag post.picture %>
-            <% end %>
-          </div>
-          <div>
-                        <%= link_to 'Show', post %>
-            <% if user_signed_in? && current_user.id == post.user.id %>
-              <%= link_to 'Edit', edit_post_path(post) %>
-              <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette annonce ?' } %>
-            <% end %>
-          </div>
-
-        </div>
+        <% end %>
       </div>
     
   <% end %>

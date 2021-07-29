@@ -1,63 +1,112 @@
 <div class="container">
 
-  <p>
-    <h1>Titre : <strong><%= @post.title %></strong></h1>
-    <br>
-    <% if @post.user.avatar.attached? %>
-        <%= image_tag @post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+  <div>
+    <h1><%= @post.title %></h1>
+    <div class="d-flex justify-content-start">
+      <% if @post.user.avatar.attached? %>
+        <div class="post-avatar">
+          <%= image_tag @post.user.avatar.variant(resize_to_limit: [70, 70]), class: "rounded-circle" %>
+        </div>
+      <% end %>
+      <div>
+        <h3 class="text">annonce de <strong><%= @post.user.full_name %></strong></h3>
+     
+        <span class="filter-post"><%= @post.column.name %></span>
+        <span class="text">posté il y a <%= time_ago_in_words(@post.created_at) %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row">
+    <% if @post.picture.attached? %>
+      <div class="">
+        <%= image_tag @post.picture, class: "post-picture" %>
+      </div>
     <% end %>
-    annonce de : <strong><%= @post.user.full_name %></strong>
-  </p>
+    <div class="post-text">
+      <%= @post.body %>
+    </div>
+</div>
 
-  <p>
-    <small>posté il y a <%= time_ago_in_words(@post.created_at) %></small>
-  </p>
-  <p>
-    <%= @post.body %>
-  </p>
+<!-- ACTION ZONE -->
 
-  <% if @post.picture.attached? %>
-    <p>
-      <%= image_tag @post.picture %>
-    </p>
-  <% end %>
+<% if user_signed_in? %>
 
-  <% if user_signed_in? && current_user.id == @post.user.id %>
-    <%= link_to 'Edit', edit_post_path(@post) %> |
-  <% end %>
+  <hr>
+    <div class="article-action d-flex justify-content-around">
 
+      <% if current_user.id == @post.user.id %>
+        <div>
+          <%= button_to edit_post_path(@post), class: "no-btn", method: :get do %>
+            <i class="far fa-edit"></i><span class="dark-color">modifier mon annonce</span>
+          <% end %>
+        </div>
+      <% end %>
 
-  <%= link_to 'Back', posts_path %>
+      <% if current_user.id != @post.user.id %>
+        <div>
+          <%= button_to user_path(@post.user_id), class: "no-btn", method: :get do %>
+            <i class="far fa-user"></i><span class="dark-color">profil de <%= @post.user.first_name.capitalize %></span>
+          <% end %>
+        </div>
+      <% end %>
 
-<!-- ANSWER SECTION : post answer -->
+      <div>
+        <%= button_to posts_path, class: "no-btn", method: :get do %>
+          <i class="far fa-caret-square-left"></i></i><span class="dark-color">retour aux annonces</span>
+        <% end %>
+      </div>
+    </div>
+  <hr>
 
-  <h3>Répondre à l'annonce</h3>
-
-  <%= form_for [@post, Answer.new] do |f| %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.text_area :body, placeholder: "Add a comment" %><br/>
-    <%= f.submit "Posté votre réponse" %>
-  <% end %>
 
 <!-- ANSWER SECTION : see answers-->
 
   <% if @post.answers.count > 0 %>
+    <h4><%= (@post.answers.count) < 2 ? 'Réponse' : 'Réponses'%></h4>
     <ul>
-      <hr>
-      <h4>Historique des réponses</h4>
       <%= render @post.answers %>
     </ul>
   <% end %>
 
+<!-- ANSWER SECTION : post answer -->
+
+  <div>
+    <div>
+      <%= form_with(model: [@post, Answer.new]) do |f| %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="form-group col-4">
+          <%= f.text_area :body, class: 'form-control', placeholder: "répondre à l'annonce de #{@post.user.first_name.capitalize}", required: true %>
+        </div>
+        <%= button_tag type: 'submit', class: "no-btn" do %>
+          <i class="far fa-comment-alt"></i><span>poster une réponse</span></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+<% end %>
 
 <!-- ADMIN SECTION -->
 
   <% if current_user_is_admin? && current_user.id != @post.user.id %>
-    <hr>
-    <p>admin section</p>
-    <%= link_to 'Supprimer cette annonce', admin_delete_post_post_url(@post), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette annonce. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+    <div class="card-admin">
+      <div class="d-flex justify-content-center">
+        <div class="admin-content">
+          <h3>Section administrateur</h3>
+        </div>
+        <div class="admin-content">
+          <%= link_to 'Supprimer cette annonce', admin_delete_post_post_url(@post), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette annonce. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p>
+          En tant qu'administrateur vous pouvez supprimer une publication si vous jugez son contenu inapropriété. <i class="fas fa-exclamation-triangle"></i> Cette action est irréversible !
+        </p>
+      </div>
+    </div>
   <% end %>
   
   
-
 </div>

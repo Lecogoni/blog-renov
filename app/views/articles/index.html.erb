@@ -5,16 +5,16 @@
   <hr>
 
   <% if params[:category] == nil %>
-    <%= link_to 'Tout', articles_path, class: "filter-hover" %>
+    <%= link_to 'Tout', articles_path, class: "filter-article-active" %>
   <% else %>
-    <%= link_to 'Tout', articles_path, class: "filter" %>
+    <%= link_to 'Tout', articles_path, class: "filter-article" %>
   <% end %>
 
   <% Category.all.order("name ASC").each do |cat| %>
     <% if params[:category] == cat.name %>
-      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-hover" %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-article-active" %>
     <% else %>
-      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter" %>
+      <%= link_to cat.name.capitalize, articles_path(category: cat.name), class: "filter-article" %>
     <% end %>
   <% end %>
 
@@ -25,8 +25,9 @@
     <div class="col-4">
       <%= link_to (article) do %>
         <div class="card">
+          <!-- COVER IMG -->
           <% if article.images.attached? %>
-            <div class="card-img-top" alt="...">
+            <div class="card-img-top">
               <%= image_tag article.display_cover_img, class: "img-index" %>
             </div>
           <% end %>
@@ -40,14 +41,13 @@
             <div class="mb-2">
               publié le <%= l(article.created_at, format: :date) %>
             </div>
-                <%= article.images.count %>
             <div>
-              <span class="article-info"><%= article.category.name %></span>
+              <span class="article-badge-full"><%= article.category.name %></span>
               <% if article.likes.count > 0 %>
-                <span class="article-info"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
+                <span class="article-badge"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
               <% end %>
               <% if article.comments.count > 0 %>
-                <span class="article-info"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+                <span class="article-badge"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
               <% end %>
             </div>
           </div>

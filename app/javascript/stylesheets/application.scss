@@ -4,12 +4,8 @@
 $background-grey: #f9f7f8;
 $pink: #cd0f58;
 $purpley-grey: #6b525e;
-
-$purple: #480032;
 $dark-plum-back: #480032;
-
 $dark-back: #34001e;
-
 
 body {
   background-color: $background-grey;
@@ -21,33 +17,25 @@ body, h1, h2, h3, h4, h5, h6 {
   color: #210d1b;
 }
 
-.dark-plum-back {
-  background-color:$purple
+h1 {
+  margin-bottom: 1.4rem;
 }
-
-
-.no-btn {
-  color: $dark-back;
-  outline: none;
-  background: transparent;
-  border: 1px solid transparent;
-  &:hover {
-    color: $pink;
-  }
-
+.dark-plum-back {
+  background-color: $dark-plum-back;
 }
 
 a {
-
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
 
 a:visited {
-
   text-decoration: none;
 }
-
 
 .text {
   font-family: 'Roboto', sans-serif;
@@ -60,14 +48,145 @@ a:visited {
   padding: 0 0 0 30px;
 }
 
-/* ------------ ICON ------------ */
 
-.fa-heart, .fa-comment-alt, .fa-edit, .fa-trash-alt, .fa-user {
+/* FILTER
+-------------------------------------------------- */
+
+.filter {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  border-radius: 5px;
+  padding: 2px 6px;
+  margin-right: 10px;
+
+}
+
+.filter-article {
+  @extend .filter;
+  border: 1px solid $pink;
+  color: $pink;
+  &:hover {
+    color: $pink;
+    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
+  }
+}
+
+.filter-article-active {
+  @extend .filter;
+  border: 1px solid $pink;
+  background-color: $pink;
+  color: $white;
+  &:hover {
+    color: $white;
+    cursor: default;
+  }
+}
+
+.filter-post {
+  @extend .filter;
+  border: 1px solid $dark-plum-back;
+  color: $dark-plum-back; 
+  &:hover {
+    color: $dark-plum-back;
+    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
+  }
+}
+
+.filter-post-active {
+  @extend .filter;
+  border: 1px solid $dark-plum-back;
+  background-color: $dark-plum-back;
+  color: $white;
+  &:hover {
+    color: $white;
+    cursor: default;
+  }
+}
+
+/* BUTTON
+-------------------------------------------------- */
+
+.no-btn {
+  color: $dark-back;
+  outline: none;
+  background: transparent;
+  border: 1px solid transparent;
+  &:hover {
+    color: $pink;
+  }
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: $dark-plum-back;
+  border-color: $dark-plum-back;
+}
+
+.btn-secondary:hover {
+  color: $pink;
+  background-color: $dark-back;
+  border-color: $dark-back;
+}
+
+.btn-text {
+  margin-left: 0.6rem;
+}
+
+.delete-btn:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f1f8";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  font-weight: 900;
+  margin-left: 1rem;
+}
+
+/* ICON
+-------------------------------------------------- */
+
+.fa-heart, .fa-comment-alt, .fa-edit, .fa-trash-alt, .fa-user, .fa-caret-square-left, .fa-comment-dots, .fa-reply {
   color: $pink;
   margin-right: 0.7rem;
 }
 
-/* ------------ NAVBAR ------------ */
+.fa-arrow-circle-left, .fa-arrow-circle-right {
+  color: $pink;
+}
+/* BADGE
+-------------------------------------------------- */
+
+.badge {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  border-radius: 5px;
+  padding: 2px 6px;
+  margin-right: 0.4rem;
+}
+
+.article-badge {
+  @extend .badge;
+  color: $pink;
+  border: 1px solid $pink;
+}
+
+.article-badge-full {
+  @extend .badge;
+  color: white;
+  background-color: $pink;
+  border: 1px solid $pink;
+}
+
+.post-badge {
+  @extend .badge;
+  color: $dark-plum-back;
+  border: 1px solid $dark-plum-back;
+}
+
+
+/* NAVBAR
+-------------------------------------------------- */
 
 .navbar{
   a {
@@ -75,61 +194,10 @@ a:visited {
   }
 }
 
-/* ------------ ARTICLE INDEX CARD ------------ */
-
-/* ARTICLE FILTER */
-
-.filter {
-  border: 1px solid $pink;
-  border-radius: 5px;
-  padding: 2px 6px;
-  margin-right: 10px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  color: $pink;
-  &:hover {
-    color: $pink;
-    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
-  }
-
-}
-
-.filter-hover {
-  @extend .filter;
-  box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
-  color: $pink;
-}
-
-/* POST FILTER */
-
-.post-filter {
-  @extend .filter;
-  border: 1px solid $dark-plum-back;
-  color: $dark-plum-back; 
-  &:hover {
-    color: $dark-plum-back; 
-    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
-  }
-}
-
-.post-filter-hover {
-  @extend .post-filter;
-  box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
-  color: $dark-plum-back; 
-}
-
-.badge {
-  border: 1px solid $pink;
-  border-radius: 5px;
-  padding: 2px 6px;
-  margin-right: 10px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  color: $pink;
-}
 
 
-/* CARD */
+/* CARD
+-------------------------------------------------- */
 
 .card {
   border-radius: 8px;
@@ -173,13 +241,8 @@ a:visited {
   padding: 0rem 1rem 1rem 1rem;
 }
 
-.article-info {
-  @extend .badge;
-  font-size: 0.8rem;
-  font-weight: 300;
-}
 
-/* CUSTOMIZE THE CAROUSEL
+/* ARTICLE#SHOW
 -------------------------------------------------- */
 
 .article-show {
@@ -187,19 +250,20 @@ a:visited {
 }
 
 .article-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .article-data {
   margin-right: 0.3rem;
 }
 
-/* CUSTOMIZE THE CAROUSEL
+
+/* ARTICLE CAROUSEL
 -------------------------------------------------- */
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 4rem;
+  margin-bottom: 0.4rem;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -217,6 +281,48 @@ a:visited {
   left: 0;
   min-width: 100%;
   height: 32rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  background-size: 100%, 100%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  font-weight: bold;
+  color: $pink;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: $pink;
+  font-weight: bold;
+}
+
+.carousel-indicators [data-bs-target] {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    width: 30px;
+    /* height: 3px; */
+    padding: 0;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: 0.5;
+    transition: opacity 0.6s ease;
 }
 
 /* ARTICLE COMMENTS
@@ -251,7 +357,7 @@ a:visited {
   border-radius: 8px;
   box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   flex: 1 1 auto;
   background-color: $dark-back;
   color: white;
@@ -269,6 +375,8 @@ a:visited {
   p {
     margin-top: 1rem;
     font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 0.8rem;
   }
 }
 
@@ -336,11 +444,100 @@ a:visited {
 -------------------------------------------------- */
 
 .post-card h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  display:inline-block;
+
 }
 
 .post-body {
   @extend .text;
   font-size: 1.2rem;
-
+  margin-bottom: 1.6rem;
+  padding: 0 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
+
+.post-index-avatar {
+  margin-right: 1rem;
+  margin-left: 5px;
+}
+
+.post-img-wrapper {
+  position: relative;
+  display:inline-block;
+}
+
+.post-badge-full {
+  @extend .badge;
+  position: absolute;
+  margin: 0;
+  top: -2px;
+  right: -2px;
+  z-index: 5;
+  border: 1px solid $dark-plum-back;
+  background-color: $dark-plum-back;
+  color: white;
+  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2); 
+}
+
+.post-publish {
+  margin-right: 1rem;
+}
+
+/* POST#SHOW
+-------------------------------------------------- */
+
+.post-text {
+  @extend .text;
+  padding: 1rem;
+  font-size: 1.2rem;
+  line-height: 2.2rem;
+  font-weight: 200;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.post-avatar {
+  margin-right: 1rem;
+}
+
+.post-picture {
+  border-radius: 8px;
+}
+
+/* post#show answer */
+
+textarea {
+  resize: vertical;
+}
+
+.text-area {
+  font-size: 0.8rem;
+  padding: 4px 6px;
+}
+
+.answer-body {
+  font-family: 'Roboto', sans-serif;
+  color: $pink;
+  font-size: 1rem;
+}
+
+.comment-info {
+  font-family: 'Roboto', sans-serif;
+  color: $purpley-grey;
+  font-size: 0.8rem;
+  a {
+    color: $purpley-grey;
+  }
+}
+
+.comment-info a:hover {
+  color: $dark-back;
+}
+
+

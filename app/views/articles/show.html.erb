@@ -4,18 +4,17 @@
 
   <div class="article-header">
     <h1><%= @article.upcase_title %></h1>
-    <h3 class="text">création de <%= @article.user.full_name %></h3>
-  </div>
-  <div>
-    <span class="filter"><%= @article.category.name %></span>
+    <h3 class="text">création de <strong><%= @article.user.full_name %></strong></h3>
+    <div class="mb-2">
+      <span class="filter-article"><%= @article.category.name %></span>
+    </div>
   </div>
 
   <!-- IMAGES CAROUSEL -->
 
   <%= render 'carousel', article: @article %>
 
-
-<!-- ARTICLE INFOS LIKES DESCRIPTION -->
+  <!-- ARTICLE INFOS LIKES DESCRIPTION -->
   
   <div class="text d-flex justify-content-start">
     <div class="article-data">
@@ -96,9 +95,8 @@
     <%= render 'comments' %>
 
     <!-- NEW COMMENT -->
-    <div class="">
-      <div class="">
-
+    <div>
+      <div>
         <%= form_with(model: [@article, @article.comments.build]) do |f| %>
             <%= f.hidden_field :user_id, value: current_user.id %>
           <div class="form-group col-4">

@@ -3,16 +3,16 @@
     <% unless !comment.persisted? %>
       <div class="comment">
 
-        <div class="">
-            <%= comment.user.full_name %>, <span class="comment-body"><%= comment.body %></span>
+        <div class="dark-plum">
+            <%= comment.user.full_name %> : <span class="comment-body"><%= comment.body %></span>
         </div>
         
         <div class="d-flex justify-content-start comment-info">
           <div><span class="">il y a <%= time_ago_in_words(comment.created_at) %></span></div>
           <% if comment.user.id == current_user.id%>
             <div class="">
-                <%= link_to [comment.article, comment], class: "hover", method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer votre commentaire ?' } do %>
-              <i class="far fa-trash-alt"></i><span class="text">supprimer</span>
+              <%= link_to [comment.article, comment], class: "hover", method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer votre commentaire ?' } do %>
+                <span class="delete-btn">supprimer mon commentaire</span>
               <% end %>
             </div>
           <% end %>

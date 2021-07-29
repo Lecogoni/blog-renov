@@ -1,24 +1,52 @@
-  <li>
-    <% if answer.user.avatar.attached? %>
-        <div class="col-4">
-          <%= image_tag answer.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
-        </div>
-      <% end %>
-    <small><%= answer.user.full_name %> </small> - <small>il y a <%= time_ago_in_words(answer.created_at) %></small><br>
-    <%= answer.body %>
-    
 
-    <%= form_for [answer, Answer.new] do |f| %>
-      <%= f.hidden_field :user_id, :value => current_user.id %>
-      <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-      <%= f.submit "répondre", class:"btn btn-outline-info"  %>
-      <% if answer.user.id == current_user.id %>
-        <%= link_to 'Supprimer ma réponse', [answer.answerable, answer],  class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer votre réponse." } %> 
-      <% end %>
+
+<li>
+  <div class="d-flex flex-row">
+
+    <% if answer.user.avatar.attached? %>
+      <div class="p-2">
+        <%= image_tag answer.user.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle" %>
+      </div>
     <% end %>
 
-    <ul>
-        <%= render answer.answers %>
-    </ul>
+    <div class="p-2">
+      <div>
+        <small class="dark-plum"><%= answer.user.full_name %> : </small><span class="answer-body"><%= answer.body %></span>
+      </div>
+      <div class="d-flex align-items-start comment-info">
+        <div>
+          il y a <%= time_ago_in_words(answer.created_at) %>
+        </div>
+        <% if answer.user.id == current_user.id %>
+          <div class="">
+            <%= link_to [answer.answerable, answer], class: "", method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer votre commentaire ? Cela entrainera également la suppression des réponses faites à votre commentaire' } do %>
+              <span class="delete-btn">supprimer ma réponse</span>
+            <% end %>
+          </div>
+        <% end %>
+    </div>
 
-  </li>
+      <div class="p-2">
+        <%= form_with(model: [answer, Answer.new]) do |f| %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <div class="d-flex align-items-start">
+            <div class="form-group col-4 text">
+              <%= f.text_area :body, class: 'form-control text-area', placeholder: "répondre à #{answer.user.first_name.capitalize}", cols: 100, rows: 1, required: true %>
+            </div>
+            <div>
+              <%= button_tag type: 'submit', class: "no-btn", :title=> "publier votre réponse" do %>
+                <i class="far fa-comment-dots"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <ul>
+    <%= render answer.answers %>
+  </ul>
+
+</li>
