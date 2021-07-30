@@ -8,9 +8,25 @@ $dark-plum-back: #480032;
 $dark-back: #34001e;
 $orange-cream: #ee7268;
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   background-color: $background-grey;
   font-size: 16px;
+  margin-bottom: 150px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 120px;
+  background-color: $dark-back;
+  color: white;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
@@ -625,3 +641,4 @@ textarea {
   color: white;
   font: size 3rem;
 }
+
