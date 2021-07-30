@@ -1,0 +1,35 @@
+<!-- CREATION -->
+<h3>Créations</h3>
+<div class="row">
+  <% @articles.each do |article| %>
+    <div class="col-3">
+      <%= link_to (article) do %>
+          <div class="card-article-user">
+            <% if article.images.attached? %>
+              <div class="card-img-top" alt="...">
+                <%= image_tag article.images.first.variant(resize_to_limit: [100, 100]) %>
+              </div>
+            <% end %>
+            <div class="card-body">
+              <h5><%= article.title.capitalize %></h5>
+            </div>
+            <div class="card-text">
+              <div class="mb-2">
+                publié le <%= l(article.created_at, format: :date) %>
+              </div>
+              <div>
+                <span class="article-badge-full"><%= article.category.name %></span>
+                <% if article.likes.count > 0 %>
+                  <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
+                <% end %>
+                <% if article.comments.count > 0 %>
+                  <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
+                <% end %>
+              </div>
+            </div>
+          </div> 
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

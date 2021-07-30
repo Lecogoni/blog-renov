@@ -24,7 +24,7 @@
     <% @articles.each do |article| %>
     <div class="col-4">
       <%= link_to (article) do %>
-        <div class="card">
+        <div class="card-article-index">
           <!-- COVER IMG -->
           <% if article.images.attached? %>
             <div class="card-img-top">
@@ -44,10 +44,10 @@
             <div>
               <span class="article-badge-full"><%= article.category.name %></span>
               <% if article.likes.count > 0 %>
-                <span class="article-badge"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
+                <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
               <% end %>
               <% if article.comments.count > 0 %>
-                <span class="article-badge"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+                <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
               <% end %>
             </div>
           </div>

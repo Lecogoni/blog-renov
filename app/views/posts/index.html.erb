@@ -45,7 +45,7 @@
               <!-- title -->
               <h2 class=""><%= post.title %></h2>
               <!-- description -->
-              <div class="post-body">
+              <div class="post-body-index">
                 <%= post.body %>
               </div>
               <!-- avatar user info -->
@@ -63,7 +63,7 @@
                   <div class=" text">
                     <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
                     <% if post.answers.count > 0 %>
-                      <span class="post-badge"><%= post.answers.count %> <%= (post.answers.count) < 2 ? 'réponse' : 'réponses'%></span>
+                      <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
                     <% end %>
                   </div>
                 </div>

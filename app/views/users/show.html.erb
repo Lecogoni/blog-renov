@@ -1,5 +1,6 @@
 <div class="container">
 
+  <!-- USER INFO -->
   <div>
     <% if user_signed_in? && current_user.id == @user.id %>
       <%= render "users/currentuser" %>
@@ -8,74 +9,18 @@
     <% end %>
   </div>
 
+  <!-- RENDER USER ARTICLE AND POST -->
 
-  <div class="row">
-  <!-- CREATION -->
-    <div class="col-8">
-      <h3>Créations</h3>
-      <div class="row">
-        <% @articles.each do |article| %>
-          <div class="col-6">
-            <%= link_to (article) do %>
-              <div class="card mb-1">
-                <div class="card-body">
-
-                  <% if article.images.attached? %>
-                    <div class="card-img-top" alt="...">
-                      <%= image_tag article.images.first.variant(resize_to_limit: [150, 150]) %>
-                    </div>
-                  <% end %>
-                  
-                  <h5 class="card-title"><%= article.title %></h5>
-                  <h6 class="card-title">Catégorie : <%= article.category.name %></h6>
-                  <p>
-                    <span class="badge bg-light text-dark"><%= article.likes.count %> <%= (article.likes.count) < 2 ? 'Like' : 'Likes'%></span>
-                    <span class="badge bg-light text-dark"><%= article.comments.count %> <%= (article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
-                  </p>
-                  <% if user_signed_in? && current_user.id == @user.id %>
-                    <p class="card-text">
-                      <%= link_to 'Edit', edit_article_path(article) %>
-                      <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </p>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- ANNONCE -->
-    <div class="col-4">
-      <h3>Annonces</h3>
-      <div class="row">
-        <% @posts.each do |post| %>
-          <div class="card mb-1">
-            <div class="card-body">
-              <h4 class="card-title"><%= post.title %></h4>
-              <p>
-                <%= post.body %>
-              </p>
-              <div class="badge bg-warning text-wrap">
-                publié le <%=l post.created_at, :format => ("%d %B %Y") %>
-              </div>
-              <div class="badge bg-info text-wrap">
-                <%= post.column.name %>
-              </div>
-              <p>
-                <% if user_signed_in? && current_user.id == post.user.id %>
-                  <%= link_to 'Show', post %>
-                  <%= link_to 'Edit', edit_post_path(post) %>
-                  <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-                <% end %>
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
+  <div class="container-fluid">
+  <% if @user.articles.count == 0 && @user.posts.count == 0 %>
+    <%= render "users/user_publishing/no-publishing" %>
+  <% elsif @user.articles.count >= 1 && @user.posts.count == 0 %>
+    <%= render "users/user_publishing/article-no-post" %>
+  <% elsif @user.articles.count == 0 && @user.posts.count >= 1 %>
+    <%= render "users/user_publishing/no-article-post" %>
+  <% elsif @user.articles.count >= 1 && @user.posts.count >= 1 %>
+    <%= render "users/user_publishing/article-and-post" %>
+  <% end %>
   </div>
-
 
 </div>

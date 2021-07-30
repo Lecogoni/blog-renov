@@ -1,0 +1,74 @@
+
+<div class="row">
+<!-- CREATION -->
+  <div class="col-8">
+    <h3>Créations</h3>
+    <div class="row">
+      <% @articles.each do |article| %>
+        <div class="col-4 col-left">
+          <%= link_to (article) do %>
+              <div class="card-article-user">
+                <% if article.images.attached? %>
+                  <div class="card-img-top" alt="...">
+                    <%= image_tag article.images.first.variant(resize_to_limit: [100, 100]) %>
+                  </div>
+                <% end %>
+                <div class="card-body">
+                  <h5><%= article.title.capitalize %></h5>
+                </div>
+                <div class="card-text">
+                  <div class="mb-2">
+                    publié le <%= l(article.created_at, format: :date) %>
+                  </div>
+                  <div>
+                    <span class="article-badge-full"><%= article.category.name %></span>
+                    <% if article.likes.count > 0 %>
+                      <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
+                    <% end %>
+                    <% if article.comments.count > 0 %>
+                      <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
+                    <% end %>
+                  </div>
+                </div>
+              </div> 
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- ANNONCE -->
+  <div class="col-4 col-right">
+    <h3>Annonces</h3>
+      <% @posts.each do |post| %>
+        <div class="card-article-user">
+          <%= link_to (post) do %>
+            <div class="card-body">
+              <h5 class=""><%= post.title %></h5>
+              <div class="d-flex flex-row">
+                <span class="post-body-user">
+                  <%= post.body %>
+                </span>
+                <div class="p-2">
+                  <% if post.picture.attached? %>
+                    <div class="">
+                      <%= image_tag post.picture.variant(resize_to_limit: [70, 70]), class: "post-picture" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div> 
+            <div class="card-text">
+                <span class="social-badge">publié le <%=l post.created_at, :format => ("%d %B %Y") %></span>
+                <span class="post-badge-full"><%= post.column.name %></span>
+                <% if post.answers.count > 0 %>
+                  <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
+                <% end %>
+            </div>
+          <% end %>
+        </div>  
+      <% end %>
+  </div>
+</div>
+
+
