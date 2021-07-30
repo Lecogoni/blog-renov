@@ -26,6 +26,8 @@ class PagesController < ApplicationController
 
   def confirm_guest_to_user
     # create new user
+    admin_id = params[:admin].to_i
+    @admin = User.find(admin_id)
     @guest = Guest.find(params[:id])
     @new_user = User.create(first_name: @guest.first_name, last_name: @guest.last_name, email: @guest.email, phone_number: @guest.phone_number, password: "000000" )
     
@@ -39,16 +41,19 @@ class PagesController < ApplicationController
     
     # destroy guest, redirect, email new user
     @guest.destroy
-    redirect_to pages_admin_path
+    redirect_to @admin
     flash[:success] = "demande d'invitation validée ! #{@guest.first_name} a été notifié par email"
     UserMailer.confirm_registration_member(user, raw).deliver_now
   end
 
   def refuse_guest
+    admin_id = params[:admin].to_i
+    @admin = User.find(admin_id)
     @guest = Guest.find(params[:id])
     UserMailer.refuse_guest_registration(@guest).deliver_now
     @guest.destroy
-    redirect_to pages_admin_path
+    redirect_to @admin
+    #redirect_to pages_admin_path
     flash[:alert] = "demande d'invitation refusée ! #{@guest.first_name} a été notifié par email"
   end
 

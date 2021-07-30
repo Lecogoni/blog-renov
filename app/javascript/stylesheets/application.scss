@@ -6,6 +6,7 @@ $pink: #cd0f58;
 $purpley-grey: #6b525e;
 $dark-plum-back: #480032;
 $dark-back: #34001e;
+$orange-cream: #ee7268;
 
 body {
   background-color: $background-grey;
@@ -584,3 +585,43 @@ textarea {
   color: $dark-back;
 }
 
+
+/* ADMIN USER#SHOW
+-------------------------------------------------- */
+
+.request-table {
+  min-width: 100%;
+  thead {
+    border-bottom: 1px solid $purpley-grey;
+  }
+  thead, tr, th {
+    padding-bottom: 0.8rem;
+  }
+
+  th, td {
+
+  }
+  
+  thead th:nth-child(5) {  
+
+  }
+  tbody {
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 1px solid $purpley-grey;
+  }
+  
+  tbody, tr, td {
+    padding: 0.6rem 0;
+  }
+  
+  .fa-check, .fa-times {
+    margin-right: 0.5rem;
+  }
+}
+
+
+.admin-card .data {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font: size 3rem;
+}

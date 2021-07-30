@@ -17,4 +17,9 @@ module PagesHelper
     Post.all.count
   end
 
+  def average_article_per_member
+    average = self.number_of_articles.to_f / self.number_of_members.to_f
+    return num = average.round(2)
+  end
+
 end

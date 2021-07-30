@@ -9,18 +9,78 @@
     <% end %>
   </div>
 
+  <!-- ADMIN SECTION - NEW REQUEST -->
+
+  <% if user_signed_in? && current_user_is_admin?  %>
+
+    <% if is_member_request? %>
+      <h3>Nouvelle demande de membre</h3>
+      <div class="card-admin">
+        <table class="request-table">
+          <thead>
+            <tr>
+              <th>prénom</th>
+              <th>nom de famille</th>
+              <th>email</th>
+              <th>téléphone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% @guests.each do |guest| %>
+            <tbody>
+              <tr>
+                <td style="width:15%"><%= guest.first_name.capitalize %></td>
+                <td style="width:15%"><%= guest.last_name.capitalize %></td>
+                <td style="width:20%"><%= guest.email %></td>
+                <td style="width:20%"><%= guest.phone_number %></td>
+                <td style="width:30%">
+                  <div class="d-flex flex-row">
+                    <div>
+                      <%= button_to confirm_guest_to_user_page_path(guest.id), class: "btn btn-outline-primary social-badge", params: { admin: current_user.id }, method: :post do %>
+                        <i class="fas fa-check"></i>Accepter</span>
+                      <% end %>
+                    </div>
+                    <div>
+                      <%= button_to refuse_guest_page_path(guest.id), class: "btn btn-outline-danger", params: { admin: current_user.id }, data: { confirm: 'Êtes vous certain de vouloir refuser cette demande ?' }, method: :post do %>
+                        <span><i class="fas fa-times"></i>Refuser</span>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+  
+
   <!-- RENDER USER ARTICLE AND POST -->
 
   <div class="container-fluid">
-  <% if @user.articles.count == 0 && @user.posts.count == 0 %>
-    <%= render "users/user_publishing/no-publishing" %>
-  <% elsif @user.articles.count >= 1 && @user.posts.count == 0 %>
-    <%= render "users/user_publishing/article-no-post" %>
-  <% elsif @user.articles.count == 0 && @user.posts.count >= 1 %>
-    <%= render "users/user_publishing/no-article-post" %>
-  <% elsif @user.articles.count >= 1 && @user.posts.count >= 1 %>
-    <%= render "users/user_publishing/article-and-post" %>
-  <% end %>
+    <% if @user.articles.count == 0 && @user.posts.count == 0 %>
+      <%= render "users/user_publishing/no-publishing" %>
+    <% elsif @user.articles.count >= 1 && @user.posts.count == 0 %>
+      <%= render "users/user_publishing/article-no-post" %>
+    <% elsif @user.articles.count == 0 && @user.posts.count >= 1 %>
+      <%= render "users/user_publishing/no-article-post" %>
+    <% elsif @user.articles.count >= 1 && @user.posts.count >= 1 %>
+      <%= render "users/user_publishing/article-and-post" %>
+    <% end %>
   </div>
 
+  <!-- ADMIN SECTION - DATA -->
+
+  <% if user_signed_in? && current_user_is_admin? && @user.id == current_user.id %>
+    <div class="card-admin">
+      <p class="data">il y a <%= number_of_members %> membres |  <%= number_of_articles %> créations |  <%= number_of_posts %> annonces<br>
+      soit une moyenne de <%= average_article_per_member %> créations postées par membres
+      </p>
+    </div>
+  <% end %>
+
+
 </div>
+
+
