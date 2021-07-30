@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :downcase_fields, only: %i[ create ]
-  before_action :authorize_admin
+  #before_action :authorize_admin
   prepend_before_action :require_no_authentication, only: [:new, :cancel]
 
   def new
