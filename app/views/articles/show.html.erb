@@ -55,14 +55,16 @@
       <% if user_signed_in? && current_user.id != @article.user.id %>
         <div>
           <%= button_to user_path(@article.user_id), class: "no-btn", method: :get do %>
-            <i class="far fa-user"></i></i><span class="dark-color">profil de <%= @article.user.first_name.capitalize %></span>
+            <i class="far fa-user"></i><span class="dark-color">profil de <%= @article.user.first_name.capitalize %></span>
           <% end %>
         </div>
       <% end %>
 
       <div>
-        <i class="far fa-comment-alt"></i><span>je commente</span>
-      </div>
+          <%= button_to article_path(anchor: "comment_body"), class: "no-btn", method: :get do %>
+            <i class="far fa-comment-alt"></i><span class="dark-color">je commente</span>
+          <% end %>
+        </div>
       
       <% if user_signed_in? && current_user.id == @article.user.id %>
 
@@ -76,11 +78,9 @@
           <%= button_to @article, class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
             <i class="far fa-trash-alt"></i></i><span class="">supprimer ma publication</span>
           <% end %>
-          
         </div>
 
       <% end %>
-
     </div>
     <hr>
   <% end %>
@@ -100,7 +100,8 @@
         <%= form_with(model: [@article, @article.comments.build]) do |f| %>
             <%= f.hidden_field :user_id, value: current_user.id %>
           <div class="form-group col-4">
-            <%= f.text_area :body, class: 'form-control', required: true %>
+            <div>
+            <%= f.text_area :body, class: 'form-control', required: true %></a>
           </div>
           <%= button_tag type: 'submit', class: "no-btn" do %>
             <i class="far fa-comment-alt"></i><span>je commente</span></i>
