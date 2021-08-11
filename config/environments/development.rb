@@ -11,6 +11,8 @@ Rails.application.configure do
   # Devise config
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # Guard-livereload
+  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 
   #Action Mailer configuration
   config.action_mailer.delivery_method = :letter_opener
