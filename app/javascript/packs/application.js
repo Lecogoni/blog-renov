@@ -27,3 +27,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
+
+require("@rails/activestorage").start()

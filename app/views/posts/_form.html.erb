@@ -18,7 +18,7 @@
     <%= f.input :title, required: true %>
     <%= f.input :body, required: true %>
     <%= f.label :picture %>
-    <%= f.file_field :picture, class: "form-control" %>
+    <%= f.file_field :picture, direct_upload: true, class: "form-control" %>
   </div>
 
   <div class="form-actions mt-2">

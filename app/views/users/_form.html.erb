@@ -18,7 +18,7 @@
     <%= image_tag avatar_for(user), style: "width: 150px; display: block", class: "rounded-circle" %>
     <br>
     <br>
-    <%= form.file_field :avatar %>
+    <%= form.file_field :avatar, direct_upload: true %>
   </div>
 
   <br>
