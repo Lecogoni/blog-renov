@@ -9,18 +9,20 @@
       Ta demande de création de compte à bien enregistrée et va être très rapidement être examinée. 
       Tu recevras prochainement un email contenant un lien te permettant de définir ton mot de passe. Tu pourras ensuite te connecté et 
       <ul>
-        <li>partager tes créations avec les autrtes membres</li>
+        <li>partager tes créations avec les autres membres</li>
         <li>poster des annonces et répondre à celle des autres</li>
       </ul>
       <p>
-        Voici un recap des infos que tu as enregistrés. Au besoin du pourras modifier ton profil utltérieurement.
+        Voici un recap des infos que tu as communiqué. Au besoin du pourras modifier ton profil utltérieurement.
         <ul>
+          <li>prénom : <%= @guest.first_name %></li>
+          <li>nom : <%= @guest.last_name %></li>
           <li>email : <%= @guest.email %></li>
-          <li>poster des annonces et répondre à celle des autres</li>
+          <li>téléphone : <%= @guest.phone_number %></li>
       </ul>
       </p>
     </p>
 
-    <p> À très vite sur monsite.fr !</p>
+    <p> À très vite sur Renov-Fauteuil.fr</p>
   </body>
 </html>

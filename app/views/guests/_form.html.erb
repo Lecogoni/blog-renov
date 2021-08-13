@@ -16,11 +16,11 @@
       <%= simple_form_for guest do |f| %>
 
         <div class="control">
-          <%= f.input :first_name, input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+          <%= f.input :first_name, label: 'Prénom', input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
         </div>
 
         <div class="control">
-          <%= f.input :last_name, input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+          <%= f.input :last_name, label: 'Nom', input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
         </div>
 
         <div class="control">
@@ -28,10 +28,10 @@
         </div>
 
         <div class="control">
-          <%= f.input :phone_number, input_html: {class: 'input'}, wrapper: false, label_html: {class: 'label'} %>
+          <%= f.input :phone_number, label: 'Téléphone', input_html: {class: 'input'}, wrapper: false, label_html: {class: 'label'} %>
         </div>
 
-        <div class="field">
+        <div class="field mt-3">
           <%= f.button :submit, 'Valider', class: 'btn btn-primary' %>
         </div>
 
