@@ -214,8 +214,16 @@ a:visited {
   a {
     color: #cccccc;
   }
+  a:hover {
+    color: $pink;
+  }
 }
 
+
+.nav-link.disabled {
+  pointer-events: auto;
+  cursor: not-allowed !important;
+}
 
 
 /* CARD
