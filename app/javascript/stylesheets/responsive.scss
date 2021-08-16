@@ -1,0 +1,73 @@
+
+/*
+XS
+X-Small	None	<576px
+
+SM
+Small	sm	≥576px
+
+MD
+Medium	md	≥768px
+
+LG
+Large	lg	≥992px
+
+XL
+Extra large	xl	≥1200px
+
+XXL
+Extra extra large	xxl	≥1400px
+
+*/
+
+
+
+/* ----------- EXTRA LARGE > 992px XL ----------- */
+
+@media (min-width: 1200px) {
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+} /* ----------------------------------- */
+
+
+/* ----------- MEDIUM 576 < > 1200 SM & MD & LG ----------- */
+
+@media screen 
+  and (min-width: 576px)
+  and (max-width: 1200px){
+
+
+
+} /* ----------------------------------- */
+
+
+
+
+/* ----------- SMALL < 575px ----------- */
+
+@media (max-width: 576px) {
+
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+  }
+  
+  .card-img-top {
+    margin-right: 1rem;
+    width: 60%;
+
+  }
+
+  .card-text {
+    margin-top: 1.2rem;
+  }
+
+  
+} /* ----------------------------------- */

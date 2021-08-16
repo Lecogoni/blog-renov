@@ -10,7 +10,7 @@
               <div class="card-article-user">
                 <% if article.images.attached? %>
                   <div class="card-img-top" alt="...">
-                    <%= image_tag article.images.first.variant(resize_to_limit: [100, 100]) %>
+                    <%= image_tag article.images.first %>
                   </div>
                 <% end %>
                 <div class="card-body">

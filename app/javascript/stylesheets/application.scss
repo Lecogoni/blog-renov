@@ -1,5 +1,8 @@
 
+
 @import "~bootstrap/scss/bootstrap";
+
+@import "responsive.scss";
 
 $background-grey: #f9f7f8;
 $pink: #cd0f58;
@@ -234,31 +237,37 @@ a:visited {
   box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.2);
   overflow: hidden;
   margin-bottom: 2rem;
-  flex: 1 1 auto;
+  /*flex: 1 1 auto;*/
   padding: 1rem;
+  min-width: 100%;
 }
 
-.card-article-index {
-  @extend .card;
-  width: 18rem;
-  height: 25rem;
-}
+
+// .img-wrapper {
+//   padding-bottom: 1rem;
+//   background-color: olive;
+
+// }
 
 .card-img-top {
-  width: 100%;
-  border-radius: 8px;
-  /*min-height: 200px;*/
-}
-
-.card-body {
-  padding: 1rem 0;
+  height: 200px;
+  overflow: auto;
+  max-width: 100%;
+  margin-bottom: 1rem;
 }
 
 .img-index {
-  min-width: 16rem;
-  max-width: 16rem;
-  max-height: 200px;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+
+.card-body {
+  padding: 1rem;
+}
+
 
 .card-title {
   font-size: 1.6rem;

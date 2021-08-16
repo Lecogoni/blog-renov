@@ -22,36 +22,52 @@
 
   <div class="row">
     <% @articles.each do |article| %>
-    <div class="col-4">
+    
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+
       <%= link_to (article) do %>
-        <div class="card-article-index">
-          <!-- COVER IMG -->
-          <% if article.images.attached? %>
-            <div class="card-img-top">
-              <%= image_tag article.display_cover_img, class: "img-index" %>
+
+        <div class="card">
+
+          <div class="card-content">
+
+            <!-- COVER IMG -->
+            <% if article.images.attached? %>
+              <div class="card-img-top">
+                <%= image_tag article.display_cover_img, class: "img-index" %>
+              </div>
+            <% end %> 
+
+            
+            <div class="card-body">
+
+              <h5 class="card-title"><%= article.title.capitalize %></h5>
+              <div class="article-user">
+                <%= article.user.full_name %>
+              </div>
+
+              <!-- -->
+              <div class="card-text">
+                <div class="mb-2">
+                  publié le <%= l(article.created_at, format: :date) %>
+                </div>
+                <div>
+                  <span class="article-badge-full"><%= article.category.name %></span>
+                  <% if article.likes.count > 0 %>
+                    <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
+                  <% end %>
+                  <% if article.comments.count > 0 %>
+                    <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
+                  <% end %>
+                </div>
+              </div>
+
             </div>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= article.title.capitalize %></h5>
-            <div class="article-user">
-              <%= article.user.full_name %>
-            </div>
+
           </div>
-          <div class="card-text">
-            <div class="mb-2">
-              publié le <%= l(article.created_at, format: :date) %>
-            </div>
-            <div>
-              <span class="article-badge-full"><%= article.category.name %></span>
-              <% if article.likes.count > 0 %>
-                <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
-              <% end %>
-              <% if article.comments.count > 0 %>
-                <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
-              <% end %>
-            </div>
-          </div>
+
         </div>
+
       <% end %>
     </div>
     <% end %>
