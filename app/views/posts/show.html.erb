@@ -20,7 +20,7 @@
   <div class="d-flex flex-row">
     <% if @post.picture.attached? %>
       <div class="">
-        <%= image_tag @post.picture, class: "post-picture" %>
+        <%= image_tag @post.picture.variant(resize_to_limit: [611, 400]), class: "post-picture" %>
       </div>
     <% end %>
     <div class="post-text">
