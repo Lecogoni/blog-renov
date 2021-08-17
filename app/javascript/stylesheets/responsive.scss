@@ -26,10 +26,20 @@ Extra extra large	xxl	≥1400px
 
 @media (min-width: 1200px) {
 
+  .card {
+    margin-bottom: 2rem;
+    padding: 1rem 1rem 0.2rem;
+  }
+
   .card-content {
     display: flex;
     flex-direction: column;
+  }
 
+  .card-img-top {
+    height: 200px;
+    overflow: auto;
+    max-width: 100%;
   }
 
 } /* ----------------------------------- */
@@ -37,11 +47,19 @@ Extra extra large	xxl	≥1400px
 
 /* ----------- MEDIUM 576 < > 1200 SM & MD & LG ----------- */
 
-@media screen 
-  and (min-width: 576px)
+@media screen and (min-width: 576px)
   and (max-width: 1200px){
 
+    .card {
+      margin-bottom: 2rem;
+      padding: 1rem 1rem 0.2rem;
+    }
 
+    .card-img-top {
+      height: 200px;
+      overflow: auto;
+      max-width: 100%;
+    }
 
 } /* ----------------------------------- */
 
@@ -52,16 +70,22 @@ Extra extra large	xxl	≥1400px
 
 @media (max-width: 576px) {
 
+
+  .card {
+    padding: 1rem ;
+    margin-bottom: 1rem;
+  }
+
   .card-content {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
+    padding: 0;
   }
   
   .card-img-top {
-    margin-right: 1rem;
-    width: 60%;
+    margin-right: 0.2rem;
+    width: 52%;
 
   }
 

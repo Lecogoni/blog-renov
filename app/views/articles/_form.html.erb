@@ -34,19 +34,32 @@
       <% if article.images.attached? %>
         <div class="form-group m-3">
 
-          <% @images.each do |image| %>
-            <div>
-              <%= image_tag image.variant(resize_to_limit: [355, 200]) %>
-              <br>
-              <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
+          <div class="row">
 
-              <div class="form-group">
-                <%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %>
-                <%= image.id  %>
+            <% @images.each do |image| %>
+              <div class="col-4">
+                <div class="img-edit-wrapper">
+                  <div>
+                    <%= image_tag image.variant(resize_to_limit: [280, 157]) %>
+                  </div>
+
+                  <div class="d-flex flex-column align-items-center mt-2">
+
+                    <div>
+                      <span><%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %> image principale</span>
+                    </div>
+
+                    <div  class="">
+                      <i class="far fa-trash-alt"></i><%= link_to 'Supprimer', delete_file_article_url(image.id), class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
+                    </div>
+
+                  </div>
+
+                </div>
               </div>
+            <% end %> 
 
-            </div>
-          <% end %> 
+          </div>
         </div>
       <% end %>
 

@@ -173,7 +173,8 @@ a:visited {
 .fa-heart, .fa-comment-alt, .fa-edit, .fa-trash-alt, 
 .fa-user, .fa-caret-square-left, .fa-comment-dots,
 .fa-plus-circle,
-.fa-plus-square, .fa-reply {
+.fa-plus-square, .fa-reply,
+.fa-images {
   color: $pink;
   margin-right: 0.4rem;
 }
@@ -236,9 +237,6 @@ a:visited {
   border-radius: 8px;
   box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.2);
   overflow: hidden;
-  margin-bottom: 2rem;
-  /*flex: 1 1 auto;*/
-  padding: 1rem;
   min-width: 100%;
 }
 
@@ -249,12 +247,6 @@ a:visited {
 
 // }
 
-.card-img-top {
-  height: 200px;
-  overflow: auto;
-  max-width: 100%;
-  margin-bottom: 1rem;
-}
 
 .img-index {
   max-width: 100%;
@@ -268,9 +260,9 @@ a:visited {
   padding: 1rem;
 }
 
-
 .card-title {
   font-size: 1.6rem;
+  min-height: 4rem;
 }
 
 .article-user {
@@ -450,6 +442,16 @@ a:visited {
   }
 }
 
+/* ARTICLE EDIT
+-------------------------------------------------- */
+
+.img-edit-wrapper {
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  width: 230px;
+  border: 1px solid $purpley-grey;
+}
 
 
 /* USER INDEX ANNUAIRE
