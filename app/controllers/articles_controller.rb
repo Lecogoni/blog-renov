@@ -61,10 +61,14 @@ class ArticlesController < ApplicationController
       image.save
     end
 
-    attachment = ActiveStorage::Attachment.find(params[:article][:img_id])
-    attachment.cover_img = true
-    attachment.save
+    img_id = params[:article][:img_id]
 
+    if img_id != nil 
+      attachment = ActiveStorage::Attachment.find(params[:article][:img_id])
+      attachment.cover_img = true
+      attachment.save
+    end
+    
 
     if @article.update(article_params)
 

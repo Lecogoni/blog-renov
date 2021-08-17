@@ -1,5 +1,5 @@
 <% if @article.images.count == 1 %>
-    <%= image_tag(@article.images.first, class: "img-fluid") %>
+    <%= image_tag @article.images.first, :width=>600, :crop=>"fill", class: "img-fluid" %>
 <% elsif @article.images.attached? && @article.images.count > 1 %>
  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 

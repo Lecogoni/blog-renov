@@ -36,12 +36,13 @@
 
           <% @images.each do |image| %>
             <div>
-              <%= image_tag(image) %>
+              <%= image_tag image.variant(resize_to_limit: [355, 200]) %>
               <br>
               <%= link_to 'Supprimer', delete_file_article_url(image.id), method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
 
               <div class="form-group">
                 <%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %>
+                <%= image.id  %>
               </div>
 
             </div>
