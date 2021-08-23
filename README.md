@@ -30,6 +30,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-Deploy on Heroku Server
+• Deploy on Heroku Server
+• verify that email sender for sendgrid is authentificate
 
 * ...

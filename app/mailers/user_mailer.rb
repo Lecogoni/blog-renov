@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
 
-  default from: 'no-reply@renov-fauteuil.fr'
+  default from: 'francine@yopmail.com'
 
   admin_email = "francine.amsellem@gmail.com"
 
