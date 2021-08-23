@@ -5,8 +5,6 @@
 https://renov-fauteuil.herokuapp.com/ | https://git.heroku.com/renov-fauteuil.git
 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
 Things you may want to cover:
 
@@ -14,11 +12,15 @@ Things you may want to cover:
 
 * System dependencies
 
+  - devise for user authentification
+  - image store on Cloudinary
+  - mailing with sendgrid
+
 * Configuration
 
 * Database creation
 
-Postgres
+- Postgres
 
 * Database initialization
 
