@@ -37,7 +37,7 @@
                   <div class="d-flex flex-row">
                     <div>
                       <%= button_to confirm_guest_to_user_page_path(guest.id), class: "btn btn-outline-primary social-badge", params: { admin: current_user.id }, method: :post do %>
-                        <i class="fas fa-check"></i>Accepter</span>
+                        <span><i class="fas fa-check"></i>Accepter</span>
                       <% end %>
                     </div>
                     <div>
@@ -54,6 +54,24 @@
       </div>
     <% end %>
   <% end %>
+
+  <!-- ADMIN SECTION - ADMIN ADD NEW MEMBER -->
+  <% if user_signed_in? && current_user_is_admin? %>
+    <div class="card-admin">
+      <div class="d-flex justify-content-center">
+        <div class="admin-content">
+          <%= button_to new_user_path, class: "btn btn-outline-primary social-badge", method: :get do %>
+            <span>Enregister un nouveau membre</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p>
+          En tant qu'administrateur vous pouvez enregister un nouveau membre.
+        </p>
+      </div>
+    </div>
+  <% end %>
   
 
   <!-- RENDER USER ARTICLE AND POST -->
@@ -69,6 +87,8 @@
       <%= render "users/user_publishing/article-and-post" %>
     <% end %>
   </div>
+
+
 
   <!-- ADMIN SECTION - DATA -->
 
