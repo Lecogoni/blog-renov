@@ -6,13 +6,13 @@
   <body>
     <h1>Salut <%= @user.first_name %></h1>
     <p>
-      L'équipe de ... a créer ton compte
+      L'équipe de Rénov-Fauteuil a créer ton compte
     </p>
-    <p>Il te suffit de cliquer sur ce lien, définir ton mot de passe, afon d'activer ton compte et
-    profitez de l'ensemble des fonctionnalité du site.</p>
+    <p>Il te suffit de cliquer sur ce lien, définir ton mot de passe, afin d'activer ton compte et
+    profitez de l'ensemble des fonctionnalitées du site.</p>
 
-    <p>le lien est : <%= link_to 'ici', @link %></p>
-
-  
+    <p>
+      <a href="https://renov-fauteuil.herokuapp.com/users/password/edit?reset_password_token=<%=@raw%>">Validez votre compte</a>
+    </p>
   </body>
 </html>
