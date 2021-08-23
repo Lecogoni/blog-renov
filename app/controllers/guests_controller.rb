@@ -39,7 +39,7 @@ class GuestsController < ApplicationController
           UserMailer.new_registration_member(@guest).deliver_now
 
           format.html { redirect_to root_path }
-          flash[:success] = "Votre demande à bien été enregistrée. Une fois examinée par .... vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe"
+          flash[:success] = "Votre demande à bien été enregistrée. Une fois examinée par un membre de Rénov-Fauteuil vous recevrez par email un lien pour vous connecté et enregistrer votre mot de passe"
           format.json { render :show, status: :created, location: @guest }
         else
           format.html { render :new, status: :unprocessable_entity }
