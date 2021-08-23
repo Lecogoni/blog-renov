@@ -226,6 +226,7 @@ GEM
       netrc (~> 0.8)
     ruby-vips (2.1.2)
       ffi (~> 1.12)
+    ruby_http_client (3.5.2)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -241,6 +242,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sendgrid-ruby (6.5.0)
+      ruby_http_client (~> 3.4)
     shellany (0.0.1)
     simple_form (5.1.0)
       actionpack (>= 5.2)
@@ -312,6 +315,7 @@ DEPENDENCIES
   rails-i18n
   sass-rails (>= 6)
   selenium-webdriver
+  sendgrid-ruby
   simple_form (~> 5.1)
   spring
   turbolinks (~> 5)
