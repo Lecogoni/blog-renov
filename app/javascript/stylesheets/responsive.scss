@@ -1,28 +1,22 @@
 
 /*
-XS
-X-Small	None	<576px
+XS : X-Small	None	<576px
 
-SM
-Small	sm	≥576px
+SM : Small	sm	≥576px
 
-MD
-Medium	md	≥768px
+MD : Medium	md	≥768px
 
-LG
-Large	lg	≥992px
+LG : Large	lg	≥992px
 
-XL
-Extra large	xl	≥1200px
+XL : Extra large	xl	≥1200px
 
-XXL
-Extra extra large	xxl	≥1400px
+XXL : Extra extra large	xxl	≥1400px
 
 */
 
 
 
-/* ----------- EXTRA LARGE > 992px XL ----------- */
+/* ----------- EXTRA LARGE > 1200px XL ----------- */
 
 @media (min-width: 1200px) {
 
@@ -42,26 +36,125 @@ Extra extra large	xxl	≥1400px
     max-width: 100%;
   }
 
+    // Filter-POST
+
+  #post-filter-wrapper {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .filter {
+    margin-right: 10px;
+  }
+
 } /* ----------------------------------- */
 
 
-/* ----------- MEDIUM 576 < > 1200 SM & MD & LG ----------- */
+/* -----------  LARGE 992 < > 1200px ----------- */
+
+@media screen and (min-width: 992px)
+and (max-width: 1200px){
+
+
+  .card {
+    margin-bottom: 2rem;
+    padding: 1rem 1rem 0.2rem;
+  }
+
+  .card-img-top {
+    height: 200px;
+    overflow: auto;
+    max-width: 100%;
+  }
+
+
+  // Filter-POST
+
+  #post-filter-wrapper {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .filter {
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+
+} /* ----------------------------------- */
+
+
+/* ----------- MEDIUM 768 < > 992 SM & MD & LG ----------- */
+
+@media screen and (min-width: 768px)
+  and (max-width: 992px){
+
+
+  .card {
+    margin-bottom: 2rem;
+    padding: 1rem 1rem 0.2rem;
+  }
+
+  .card-img-top {
+    height: 200px;
+    overflow: auto;
+    max-width: 100%;
+  }
+
+
+    // Filter-POST
+
+    #post-filter-wrapper {
+      display: inline-block;
+      margin-bottom: 4px;
+      margin-right: 2px;
+    }
+
+    .filter {
+      margin-right: 6px;
+      font-size: 0.8rem
+    }
+    
+
+} /* ----------------------------------- */
+
+
+/* ----------- MEDIUM 576 < > 768  ----------- */
 
 @media screen and (min-width: 576px)
-  and (max-width: 1200px){
+  and (max-width: 768px){
 
-    .card {
-      margin-bottom: 2rem;
-      padding: 1rem 1rem 0.2rem;
+
+  .card {
+    margin-bottom: 2rem;
+    padding: 1rem 1rem 0.2rem;
+  }
+
+  .card-img-top {
+    height: 200px;
+    overflow: auto;
+    max-width: 100%;
+  }
+
+
+    // Filter-POST
+
+    #post-filter-wrapper {
+      display: inline-block;
+      margin-bottom: 4px;
+      margin-right: 2px;
     }
 
-    .card-img-top {
-      height: 200px;
-      overflow: auto;
-      max-width: 100%;
+    .filter {
+      margin-right: 6px;
+      font-size: 0.8rem
     }
+    
 
 } /* ----------------------------------- */
+
+
 
 
 
@@ -93,5 +186,18 @@ Extra extra large	xxl	≥1400px
     margin-top: 1.2rem;
   }
 
-  
+
+  // Filter-POST
+
+  #post-filter-wrapper {
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-right: 2px;
+  }
+
+  .filter {
+    margin-right: 6px;
+    font-size: 0.8rem
+  }
+
 } /* ----------------------------------- */

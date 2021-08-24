@@ -8,24 +8,32 @@
   <hr>
 
   <div class="d-flex justify-content-between">
-    <div>
+    <div id="d-flex justify-content-between">
       <% if params[:column] == nil %>
-        <%= link_to 'Tout', posts_path, class: "filter-post-active" %>
+        <div id="post-filter-wrapper">
+          <%= link_to 'Tout', posts_path, class: "filter-post-active" %>
+        </div>
       <% else %>
-        <%= link_to 'Tout', posts_path, class: "filter-post" %>
+        <div id="post-filter-wrapper">
+          <%= link_to 'Tout', posts_path, class: "filter-post" %>
+        </div>
       <% end %>
 
       <% Column.all.each do |rubrique| %>
         <% if params[:column] == rubrique.name %>
-          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post-active" %>
+          <div id="post-filter-wrapper">
+            <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post-active" %>
+          </div>
         <% else %>
-          <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post" %>
+          <div id="post-filter-wrapper">
+            <%= link_to rubrique.name.capitalize, posts_path(column: rubrique.name), class: "filter-post" %>
+          </div>
         <% end %>
       <% end %>
     </div>
     
     <% if user_signed_in? %>
-      <div>
+      <div class="align-self-center">
         <%= button_to new_post_path, class: "btn btn-secondary rails-inner-button", method: :get do %>
           <i class="far fa-plus-square"></i><span class="">nouvelle annonce</span>
         <% end %>

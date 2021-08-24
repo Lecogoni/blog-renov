@@ -1,8 +1,6 @@
-
-
 @import "~bootstrap/scss/bootstrap";
 
-@import "responsive.scss";
+
 
 $background-grey: #f9f7f8;
 $pink: #cd0f58;
@@ -82,7 +80,6 @@ a:visited {
   font-weight: 300;
   border-radius: 5px;
   padding: 2px 6px;
-  margin-right: 10px;
 }
 
 .filter-article {
@@ -579,6 +576,7 @@ a:visited {
 /* POST#SHOW
 -------------------------------------------------- */
 
+
 .post-text {
   @extend .text;
   padding: 1rem;
@@ -669,3 +667,7 @@ textarea {
   font: size 3rem;
 }
 
+
+
+
+@import "responsive.scss";
