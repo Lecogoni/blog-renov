@@ -23,11 +23,12 @@
         <% end %>
       <% end %>
     </div>
+    
     <% if user_signed_in? %>
       <div>
-          <%= button_to new_post_path, class: "btn btn-secondary", method: :get do %>
-            <i class="far fa-plus-square"></i></i><span class="btn-text">nouvelle annonce</span>
-          <% end %>
+        <%= button_to new_post_path, class: "btn btn-secondary rails-inner-button", method: :get do %>
+          <i class="far fa-plus-square"></i><span class="">nouvelle annonce</span>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -36,52 +37,118 @@
 
   <!-- POST -->
 
-  <% @posts.each do |post| %>
+  <div class="row">
+    <% @posts.each do |post| %>
+    
+      <% if post.picture.attached? %>
 
-      <div class="post-card">
-        <%= link_to (post) do %>
-          <div class="card-body d-flex justify-content-between">
-            <div class="card-text">
-              <!-- title -->
-              <h2 class=""><%= post.title %></h2>
-              <!-- description -->
-              <div class="post-body-index">
-                <%= post.body %>
-              </div>
-              <!-- avatar user info -->
-              <div class="d-flex flex-row">
-                <div>
-                  <% if post.user.avatar.attached? %>
-                    <div class="post-index-avatar">
-                      <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+          <div class="post-card">
+            <%= link_to (post) do %>
+              <div class="card-body d-flex justify-content-between">
+                <% if post.picture.attached? %>
+                  <div class="post-img-wrapper">
+                    <%= image_tag post.picture.variant(resize_to_limit: [293, 165]), class: "post-picture" %>
+                  </div>
+                <% end %>
+                <div class="card-text">
+                  <!-- title -->
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h2 class=""><%= post.title %></h2>
                     </div>
-                  <% end %>
-                </div>
-                
-                <div>
-                  <h6 class="text"><%= post.user.full_name %></h6>
-                  <div class=" text">
-                    <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
-                    <% if post.answers.count > 0 %>
-                      <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
-                    <% end %>
+                    <div>
+                      <span class="article-info post-badge-full"><%= post.column.name %></span>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="post-body-index">
+                    <%= post.body %>
+                  </div>
+                  <!-- avatar user info -->
+                  <div class="d-flex flex-row">
+                    <div>
+                      <% if post.user.avatar.attached? %>
+                        <div class="post-index-avatar">
+                          <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div>
+                      <h6 class="text"><%= post.user.full_name %></h6>
+                      <div class=" text">
+                        <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
+                        <% if post.answers.count > 0 %>
+                          <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
+                        <% end %>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="post-img-wrapper">
-              <div class=post-img>
-                <% if post.picture.attached? %>
-                  <%= image_tag post.picture.variant(resize_to_limit: [170, 170]), class: "post-picture" %>
-                <% end %>
-                <span class="article-info post-badge-full"><%= post.column.name %></span>
-              </div>
-            </div>
+            <% end %>
           </div>
-        <% end %>
-      </div>
-    
-  <% end %>
+
+        </div>
+
+      <% else %>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+
+          <div class="post-card">
+            <%= link_to (post) do %>
+              <div class="card-body d-flex justify-content-between">
+                <% if post.picture.attached? %>
+                  <div class="post-img-wrapper">
+                    <%= image_tag post.picture.variant(resize_to_limit: [293, 165]), class: "post-picture" %>
+                  </div>
+                <% end %>
+                <div class="card-text">
+                  <!-- title -->
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h2 class=""><%= post.title %></h2>
+                    </div>
+                    <div>
+                      <span class="article-info post-badge-full"><%= post.column.name %></span>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="post-body-index">
+                    <%= post.body %>
+                  </div>
+                  <!-- avatar user info -->
+                  <div class="d-flex flex-row">
+                    <div>
+                      <% if post.user.avatar.attached? %>
+                        <div class="post-index-avatar">
+                          <%= image_tag post.user.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" %>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div>
+                      <h6 class="text"><%= post.user.full_name %></h6>
+                      <div class=" text">
+                        <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
+                        <% if post.answers.count > 0 %>
+                          <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+
+      <% end %>
+
+    <% end %>
+  </div>
 
 </div>

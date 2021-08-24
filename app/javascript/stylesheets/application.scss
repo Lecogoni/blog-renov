@@ -83,7 +83,6 @@ a:visited {
   border-radius: 5px;
   padding: 2px 6px;
   margin-right: 10px;
-
 }
 
 .filter-article {
@@ -110,7 +109,7 @@ a:visited {
 .filter-post {
   @extend .filter;
   border: 1px solid $dark-plum-back;
-  color: $dark-plum-back; 
+  color: $dark-plum-back;
   &:hover {
     color: $dark-plum-back;
     box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
@@ -256,8 +255,8 @@ a:visited {
 }
 
 
-.card-body {
-  padding: 1rem;
+.post-card .card-body {
+  padding: 0rem;
 }
 
 .card-title {
@@ -273,6 +272,7 @@ a:visited {
 .card-text {
   @extend .text;
   font-size: 0.8rem;
+  width: 100%;
 }
 
 /* ADMIN CARD */
@@ -519,6 +519,12 @@ a:visited {
 /* POST INDEX
 -------------------------------------------------- */
 
+
+.rails-inner-button {
+  display: inline-block;
+  width: 186px;
+}
+
 .post-card h2 {
   margin-bottom: 1.2rem;
   position: relative;
@@ -588,7 +594,8 @@ a:visited {
 }
 
 .post-picture {
-  border-radius: 8px;
+  /*border-radius: 8px;*/
+  margin-right: 2rem;
 }
 
 /* post#show answer */
