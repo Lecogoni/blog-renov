@@ -10,8 +10,18 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
 
+
   def display_created_at
     create = created_at.strftime("%d %B %Y")
   end
 
+  
 end
+
+
+
+
+
+
+
+

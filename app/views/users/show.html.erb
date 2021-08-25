@@ -11,7 +11,7 @@
 
   <!-- ADMIN SECTION - NEW REQUEST -->
 
-  <% if user_signed_in? && current_user_is_admin?  %>
+  <% if user_signed_in? && current_user_is_admin? && @user.id == current_user.id %>
 
     <% if is_member_request? %>
       <h3>Nouvelle demande de membre</h3>
@@ -56,7 +56,7 @@
   <% end %>
 
   <!-- ADMIN SECTION - ADMIN ADD NEW MEMBER -->
-  <% if user_signed_in? && current_user_is_admin? %>
+  <% if user_signed_in? && current_user_is_admin?  && @user.id == current_user.id %>
     <div class="card-admin">
       <div class="d-flex justify-content-center">
         <div class="admin-content">

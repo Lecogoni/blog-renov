@@ -16,7 +16,8 @@ XXL : Extra extra large	xxl	≥1400px
 
 
 
-/* ----------- EXTRA LARGE > 1200px XL ----------- */
+/* EXTRA LARGE > 1200px XL 
+------------------------------------------------------------ */
 
 @media (min-width: 1200px) {
 
@@ -48,10 +49,21 @@ XXL : Extra extra large	xxl	≥1400px
     margin-right: 10px;
   }
 
-} /* ----------------------------------- */
+  // POST index
+
+  .post-card h2 {
+    margin-bottom: 1.8rem;
+    font-size: 2rem;
+    position: relative;
+    display:inline-block;
+  }
 
 
-/* -----------  LARGE 992 < > 1200px ----------- */
+}
+
+
+/* LARGE 992 < > 1200px 
+------------------------------------------------------------ */
 
 @media screen and (min-width: 992px)
 and (max-width: 1200px){
@@ -82,10 +94,20 @@ and (max-width: 1200px){
     margin-right: 10px;
   }
 
-} /* ----------------------------------- */
+  // POST index
+
+  .post-card h2 {
+    margin-bottom: 0.8rem;
+    position: relative;
+    display:inline-block;
+  }
+  
+
+}
 
 
-/* ----------- MEDIUM 768 < > 992 SM & MD & LG ----------- */
+/* MEDIUM 768 < > 992 SM & MD & LG 
+------------------------------------------------------------ */
 
 @media screen and (min-width: 768px)
   and (max-width: 992px){
@@ -117,10 +139,20 @@ and (max-width: 1200px){
     }
     
 
-} /* ----------------------------------- */
+  // POST index
+
+  .post-card h2 {
+    margin-bottom: 1rem;
+    position: relative;
+    display:inline-block;
+  }
+  
+
+} 
 
 
-/* ----------- MEDIUM 576 < > 768  ----------- */
+/* MEDIUM 576 < > 768  
+------------------------------------------------------------ */
 
 @media screen and (min-width: 576px)
   and (max-width: 768px){
@@ -150,16 +182,25 @@ and (max-width: 1200px){
       margin-right: 6px;
       font-size: 0.8rem
     }
+
+
+  // POST index
+
+  .post-card h2 {
+    margin-bottom: 0.8rem;
+    font-size:1.6rem;
+    line-height: 1.8rem;
+    position: relative;
+    display:inline-block;
+  }
+  
     
 
-} /* ----------------------------------- */
+} 
 
 
-
-
-
-
-/* ----------- SMALL < 575px ----------- */
+/* SMALL < 575px -
+------------------------------------------------------------ */
 
 @media (max-width: 576px) {
 
@@ -200,4 +241,16 @@ and (max-width: 1200px){
     font-size: 0.8rem
   }
 
-} /* ----------------------------------- */
+
+  // POST index
+
+  .post-card h2 {
+    margin-bottom: 0.8rem;
+    font-size:1.2rem;
+    line-height: 1.4rem;
+    position: relative;
+    display:inline-block;
+  }
+  
+
+} 

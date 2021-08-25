@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy admin_delete_post ]
+  after_action :picture_format, only: %i[ create update ]
 
   # GET /posts or /posts.json
   def index
@@ -41,7 +42,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to posts_path }
+        format.html { redirect_to @post }
         flash[:success] = "Votre annonce est bien enregistrée"
         format.json { render :show, status: :created, location: @post }
       else
@@ -83,6 +84,7 @@ class PostsController < ApplicationController
     flash[:alert] = "Cette annonce a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"     
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -93,4 +95,28 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :body, :user_id, :column_id, :picture)
     end
+
+
+
+  # check if blob is an image, if not delete the blob and send a message 
+  # then if the image isn't a variable? it convert to jpeg
+  def picture_format
+    return unless @post.picture.attached?
+    if ! @post.picture.content_type.start_with? 'image/'
+      @post.picture.purge
+      flash[:error] = "Aucune image n'a été enregistré car le fichier joint n'est pas une image"  
+    elsif ! image_blob_is_variable?(@post.picture)
+      new_image = MiniMagick::Image.open(@post.picture)
+      new_image.format "jpeg"
+      @post.picture.attach(io: File.open(new_image.path), filename: @post.picture.filename.to_s, content_type: "image/jpg")
+    end
+  end
+
+
+  # if image blob isn't representable convert in appropriate format
+  # avoid to get HEIC for e.g. - impossible to get a variant on content_type not true
+  def image_blob_is_variable?(image)
+    image.variable?
+  end
+
 end

@@ -1,5 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
-
+@import "responsive.scss";
 
 
 $background-grey: #f9f7f8;
@@ -507,7 +507,7 @@ a:visited {
   border-radius: 8px;
   box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   flex: 1 1 auto;
   padding: 1rem;
 
@@ -522,12 +522,11 @@ a:visited {
   width: 186px;
 }
 
-.post-card h2 {
-  margin-bottom: 1.2rem;
-  position: relative;
-  display:inline-block;
+#post-index-title-wrapper {
+    min-width: 100%  !important;
+  }
 
-}
+
 
 .post-body {
   @extend .text;
@@ -567,6 +566,11 @@ a:visited {
   border: 1px solid $dark-plum-back;
   background-color: $dark-plum-back;
   color: white;
+}
+
+.post-publish-info {
+  @extend .text;
+  font-size: 0.9rem
 }
 
 .post-publish {
@@ -669,5 +673,3 @@ textarea {
 
 
 
-
-@import "responsive.scss";

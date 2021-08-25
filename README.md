@@ -13,7 +13,7 @@ Things you may want to cover:
 * System dependencies
 
   - devise for user authentification
-  - image store on Cloudinary
+  - image store on Cloudinary via Active Storage and gem image_processing & gem mini_magick
   - mailing with sendgrid
 
 * Configuration
