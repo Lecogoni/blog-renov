@@ -51,6 +51,14 @@
         </div>
       <% end %>
 
+      <% if current_user.id == @post.user.id %>
+        <div>
+          <%= button_to @post, class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette annonce ?' } do %>
+            <i class="far fa-trash-alt"></i><span class="">supprimer mon annonce</span>
+          <% end %>
+        </div>
+      <% end %>
+
       <div>
         <%= button_to posts_path, class: "no-btn", method: :get do %>
           <i class="far fa-caret-square-left"></i></i><span class="dark-color">retour aux annonces</span>
