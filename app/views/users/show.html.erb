@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container main-wrapper">
 
   <!-- USER INFO -->
   <div>
@@ -29,20 +29,20 @@
           <% @guests.each do |guest| %>
             <tbody>
               <tr>
-                <td style="width:15%"><%= guest.first_name.capitalize %></td>
-                <td style="width:15%"><%= guest.last_name.capitalize %></td>
-                <td style="width:20%"><%= guest.email %></td>
-                <td style="width:20%"><%= guest.phone_number %></td>
-                <td style="width:30%">
+                <td style="min-width:15%"><%= guest.first_name.capitalize %></td>
+                <td style="min-width:15%"><%= guest.last_name.capitalize %></td>
+                <td style="min-width:20%"><%= guest.email %></td>
+                <td style="min-width:20%"><%= guest.phone_number %></td>
+                <td>
                   <div class="d-flex flex-row">
                     <div>
                       <%= button_to confirm_guest_to_user_page_path(guest.id), class: "btn btn-outline-primary social-badge", params: { admin: current_user.id }, method: :post do %>
-                        <span><i class="fas fa-check"></i>Accepter</span>
+                        <i class="fas fa-check action-icon"></i><span class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">Accepter</span>
                       <% end %>
                     </div>
                     <div>
                       <%= button_to refuse_guest_page_path(guest.id), class: "btn btn-outline-danger", params: { admin: current_user.id }, data: { confirm: 'Êtes vous certain de vouloir refuser cette demande ?' }, method: :post do %>
-                        <span><i class="fas fa-times"></i>Refuser</span>
+                        <i class="fas fa-times action-icon"></i><span class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">Refuser</span>
                       <% end %>
                     </div>
                   </div>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <p>
+        <p class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
           En tant qu'administrateur vous pouvez enregister un nouveau membre.
         </p>
       </div>

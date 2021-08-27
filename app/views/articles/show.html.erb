@@ -1,197 +1,181 @@
-<div class="container article-show">
+<div class="container main-wrapper">
 
   <!-- ARTICLE -->
 
-  <div class="article-header">
+  <header>
     <h1><%= @article.upcase_title %></h1>
-    <h3 class="text">création de <strong><%= @article.user.full_name %></strong></h3>
-    <div class="mb-2">
-      <span class="filter-article"><%= @article.category.name %></span>
+    <div class="d-flex justify-content-start">
+      <% if @article.user.avatar.attached? %>
+        <div class="post-avatar">
+          <%= image_tag @article.user.avatar.variant(resize_to_limit: [70, 70]), class: "rounded-circle" %>
+        </div>
+      <% end %>
+      <div>
+        <h3 class="text">création de <strong><%= @article.user.full_name %></strong></h3>   
+        <div class="text d-flex justify-content-start">
+          <div class="filter-article"><%= @article.category.name %></div>
+          <div class="article-data">
+            publié le <%= l(@article.created_at, format: :date) %>
+          </div>
+          <% if user_signed_in? %>
+            <% if @article.comments.count > 0 %>
+              <div class="article-data">
+                <span>-  <%= @article.comments.count %> <%= (@article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+              </div>
+            <% end %>
+            <% if @article.article_has_like? %>
+              <div class="article-data">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">-  <i class="fas fa-heart info-icon"></i><%= @article.likes.count %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 
   <!-- IMAGES CAROUSEL -->
 
-  <%= render 'carousel', article: @article %>
+  <article>
+    <%= render 'carousel', article: @article %>
+  </article>
 
-  <!-- ARTICLE INFOS LIKES DESCRIPTION -->
-  
-  <div class="text d-flex justify-content-start">
-    <div class="article-data">
-      publié le <%= l(@article.created_at, format: :date) %>
+  <!-- DESCRIPTION -->
+
+  <article>
+    <h3>Description</h3>
+    <div class="text">
+      <%= @article.description %>
     </div>
-    <% if user_signed_in? %>
-      <% if @article.comments.count > 0 %>
-        <div class="article-data">
-          <span>-  <%= @article.comments.count %> <%= (@article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
-        </div>
-      <% end %>
-      <% if @article.article_has_like? %>
-        <div class="article-data">
-          <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">-  <i class="fas fa-heart"></i><%= @article.likes.count %></span>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
-  <h4>Description</h4>
-  <div class="text">
-    <%= @article.description %>
-  </div>
+  </article>
 
   <!-- ACTION ZONE -->
 
+  <article>
   <hr>
+    <% if user_signed_in? %>
+      <div class="article-action d-flex justify-content-around">
+        <div>
+          <%= button_to article_likes_path(@article), :title => 'liker', class: "no-btn", method: :post do %>
+            <i class="far fa-heart action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">j'aime</span>
+          <% end %>
+        </div>
 
-  <% if user_signed_in? %>
-    <div class="article-action d-flex justify-content-around">
+        <% if user_signed_in? && current_user.id != @article.user.id %>
+          <div>
+            <%= button_to user_path(@article.user_id), :title => 'profil', class: "no-btn", method: :get do %>
+              <i class="far fa-user action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">profil de <%= @article.user.first_name.capitalize %></span>
+            <% end %>
+          </div>
+        <% end %>
+        
+        <% if user_signed_in? && current_user.id == @article.user.id %>
 
-      <div>
-        <%= button_to article_likes_path(@article), class: "no-btn", method: :post do %>
-          <i class="far fa-heart"></i><span class="dark-color">j'aime</span>
+          <div>
+            <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "no-btn", method: :get do %>
+              <i class="far fa-edit action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">modifier ma publication</span>
+            <% end %>
+          </div>
+          
+          <div>
+            <%= button_to @article, class: "no-btn", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+              <i class="far fa-trash-alt action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">supprimer ma publication</span>
+            <% end %>
+          </div>
+
         <% end %>
       </div>
-
-      <% if user_signed_in? && current_user.id != @article.user.id %>
-        <div>
-          <%= button_to user_path(@article.user_id), class: "no-btn", method: :get do %>
-            <i class="far fa-user"></i><span class="dark-color">profil de <%= @article.user.first_name.capitalize %></span>
-          <% end %>
-        </div>
-      <% end %>
-
-      <div>
-          <%= button_to article_path(anchor: "comment_body"), class: "no-btn", method: :get do %>
-            <i class="far fa-comment-alt"></i><span class="dark-color">je commente</span>
-          <% end %>
-        </div>
-      
-      <% if user_signed_in? && current_user.id == @article.user.id %>
-
-        <div>
-          <%= button_to edit_article_path(@article), class: "no-btn", method: :get do %>
-            <i class="far fa-edit"></i><span class="dark-color">modifier ma publication</span>
-          <% end %>
-        </div>
-        
-        <div>
-          <%= button_to @article, class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
-            <i class="far fa-trash-alt"></i><span class="">supprimer ma publication</span>
-          <% end %>
-        </div>
-
-      <% end %>
-    </div>
-    <hr>
-  <% end %>
+      <hr>
+    <% end %>
+  </article>
   
   <!-- COMMENT -->
 
   <% if user_signed_in? %>
+    <article>
+      <h3><%= (@article.comments.count) < 2 ? 'Commentaire' : 'Commentaires'%></h3>
 
-    <h4><%= (@article.comments.count) < 2 ? 'Commentaire' : 'Commentaires'%></h4>
+      <!-- DISPLAY COMMENT -->
+      <%= render 'comments' %>
 
-    <!-- DISPLAY COMMENT -->
-    <%= render 'comments' %>
-
-    <!-- NEW COMMENT -->
-    <div>
+      <!-- NEW COMMENT -->
       <div>
-        <%= form_with(model: [@article, @article.comments.build]) do |f| %>
-            <%= f.hidden_field :user_id, value: current_user.id %>
-          <div class="form-group col-4">
-            <div>
-            <%= f.text_area :body, class: 'form-control', required: true %></a>
-          </div>
-          <%= button_tag type: 'submit', class: "no-btn" do %>
-            <i class="far fa-comment-alt"></i><span>je commente</span></i>
+        <div>
+          <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+            <div class="form-group col-4">
+              <div id="post-index-title-wrapper">
+              <%= f.text_area :body, class: 'form-control', required: true %></a>
+            </div>
+            <%= button_tag type: 'submit', class: "no-btn" do %>
+              <i class="far fa-comment-alt"></i><span>je commente</span></i>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
-
+    </article>
   <% end %>
 
   <!-- ADMIN SECTION -->
 
   <% if user_signed_in? && current_user_is_admin? && current_user.id != @article.user.id %>
-
-    <div class="card-admin">
-      <div class="d-flex justify-content-center">
-        <div class="admin-content">
-          <h3>Section administrateur</h3>
+    <article>
+      <div class="card-admin">
+        <div class="d-flex justify-content-center">
+          <div class="admin-content">
+            <h3 class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">Section administrateur</h3>
+          </div>
+          <div class="admin-content">
+            <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+          </div>
         </div>
-        <div class="admin-content">
-          <%= link_to 'Supprimer cette publication', admin_delete_article_article_url(@article), class:"btn btn-outline-danger", method: :delete, data: { confirm: "Êtes vous certain de vouloir supprimer cette publication. Un email sera envoyé au membre afin de l'avertir de cette suppression" } %> 
+        <div class="d-flex justify-content-center">
+          <p class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+            En tant qu'administrateur vous pouvez supprimer une publication si vous jugez son contenu inapropriété. <i class="fas fa-exclamation-triangle"></i> Cette action est irréversible !
+          </p>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <p>
-          En tant qu'administrateur vous pouvez supprimer une publication si vous jugez son contenu inapropriété. <i class="fas fa-exclamation-triangle"></i> Cette action est irréversible !
-        </p>
-      </div>
-    </div>
-  
+    </article>
   <% end %>
 
 
   <!-- OTHER USER ARTICLE -->
 
   <% if @article.user.articles.count > 1 %>
+    <article>
+      <h3><%= (@article.user.articles.count) > 2 ? 'Autres créations' : 'Autre création'%> de <%= @article.user.first_name.capitalize%></h3>
 
-     <h4><%= (@article.user.articles.count) > 2 ? 'Autres créations' : 'Autre création'%> de <%= @article.user.first_name %></h4>
-
-  <% else %>
-
-  affiche des créations a l'honneur
-  <% end %>
-
- 
-
-  <div class="row">
-    <% @other_articles.each do |article| %>
-
-      <div class="col-4 mb-3">
-          <%= link_to (article) do %>
-            <div class="card">
-              <% if article.images.attached? %>
-                <div class="card-img-top" alt="...">
-                  <%= image_tag article.images.first %>
+      <div class="row">
+        <% @other_articles.each do |article| %>
+          <div class="col-4 mb-3">
+              <%= link_to (article) do %>
+                <div class="card">
+                  <% if article.images.attached? %>
+                    <div class="card-img-top" alt="...">
+                      <%= image_tag article.images.first %>
+                    </div>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= article.titleize_title%></h5>
+                  </div>
                 </div>
               <% end %>
-              <div class="card-body">
-                <h5 class="card-title"><%= article.titleize_title%></h5>
-              </div>
             </div>
-          <% end %>
-        </div>
+        <% end %>
+      </div>
+    </article>
+  <% else %>
 
-    <% end %>
-  </div>
+    affiche des créations a l'honneur
+  <% end %>
 
-
-  
-</div>
-
-
+</div><!-- END OF CONTAINER -->
 
 
 
 
-<!-- LIKES en clic show who like -->
 
-  <%
-=begin%>
- <div>
-    <% if @article.article_has_like? %>
-    
-      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Ils ont liké votre <%= @article.category.name %>" data-bs-content="<%= @article.who_likes_article %>">
-      <%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></button>
-    <% else %>
-    <i class="fas fa-heart"></i>
-      <div class="btn btn-lg btn-danger"><%= @article.likes.count %> <%= (@article.likes.count) <= 1 ? 'Like' : 'Likes'%></div>
-    <% end %>
 
-  </div> 
-<%
-=end%>
+
+
+ 

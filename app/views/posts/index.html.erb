@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container main-wrapper">
 
   <div>
     <h1>Annonces</h1>
@@ -34,8 +34,8 @@
     
     <% if user_signed_in? %>
       <div class="align-self-center">
-        <%= button_to new_post_path, class: "btn btn-secondary rails-inner-button", method: :get do %>
-          <i class="far fa-plus-square"></i><span class="">nouvelle annonce</span>
+        <%= button_to new_post_path, :title => 'nouvelle annonce', class: "btn btn-secondary rails-inner-button", method: :get do %>
+          <i class="far fa-plus-square action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">nouvelle annonce</span>
         <% end %>
       </div>
     <% end %>
@@ -53,7 +53,7 @@
               <div class="row">
                 <!-- img -->
                 <% if post.picture.attached? %>
-                  <div class="col-3 col-sm-4 col-md-4 col-lg-3  col-xl-3 ">
+                  <div class="col-3 col-sm-4 col-md-4 col-lg-3 col-xl-3">
                     <%= image_tag crop_portrait_post_picture(post.picture), class: "img-fluid" %>
                   </div>
                 <% end %>
@@ -97,7 +97,7 @@
                         <div>
                           <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
                           <% if post.answers.count > 0 %>
-                            <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
+                            <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
                           <% end %>
                         </div>
                       </div>

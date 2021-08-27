@@ -32,7 +32,6 @@ XXL : Extra extra large	xxl	≥1400px
   }
 
   .card-img-top {
-    height: 200px;
     overflow: auto;
     max-width: 100%;
   }
@@ -75,7 +74,6 @@ and (max-width: 1200px){
   }
 
   .card-img-top {
-    height: 200px;
     overflow: auto;
     max-width: 100%;
   }
@@ -119,7 +117,6 @@ and (max-width: 1200px){
   }
 
   .card-img-top {
-    height: 200px;
     overflow: auto;
     max-width: 100%;
   }
@@ -146,7 +143,14 @@ and (max-width: 1200px){
     position: relative;
     display:inline-block;
   }
-  
+
+  // Icon size in action zone - article#show & post#show
+  .action-icon {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+
 
 } 
 
@@ -158,13 +162,13 @@ and (max-width: 1200px){
   and (max-width: 768px){
 
 
+
   .card {
     margin-bottom: 2rem;
     padding: 1rem 1rem 0.2rem;
   }
 
   .card-img-top {
-    height: 200px;
     overflow: auto;
     max-width: 100%;
   }
@@ -194,7 +198,26 @@ and (max-width: 1200px){
     display:inline-block;
   }
   
-    
+
+  // Icon size in action zone - article#show & post#show
+  .action-icon {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+   // New member request table
+   .request-table {
+    font-size: 0.8rem;
+    thead, tr {
+      font-weight: normal;
+    }
+    .fa-check, .fa-times {
+      margin-right: 0rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  
 
 } 
 
@@ -251,6 +274,22 @@ and (max-width: 1200px){
     position: relative;
     display:inline-block;
   }
+
+  // Icon size in action zone - article#show & post#show
+  .action-icon {
+    font-size: 1.2rem;
+    margin: 0;
+  }
   
+  // New member request table
+  .request-table {
+    font-size: 0.8rem;
+    thead, tr {
+      font-weight: normal;
+    }
+    .fa-check, .fa-times {
+      margin-right: 0rem;
+    }
+  }
 
 } 

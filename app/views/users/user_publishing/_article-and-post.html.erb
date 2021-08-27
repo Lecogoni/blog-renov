@@ -1,33 +1,38 @@
 
 <div class="row">
 <!-- CREATION -->
-  <div class="col-8">
-    <h3>Créations</h3>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-7 col-xl-7">
+    <% if current_user.id == @user.id %>
+      <h3>Mes créations</h3>
+    <% else %>
+      <h3>Créations de <%= @user.first_name.capitalize%></h3>
+    <% end %>
+    
     <div class="row">
       <% @articles.each do |article| %>
-        <div class="col-4 col-left">
+        <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
           <%= link_to (article) do %>
               <div class="card-article-user">
                 <% if article.images.attached? %>
-                  <div class="card-img-top" alt="...">
-                    <%= image_tag article.images.first %>
+                  <div class="card-img-top">
+                    <%= image_tag article.display_cover_img, class: "img-fluid" %> 
                   </div>
                 <% end %>
                 <div class="card-body">
                   <h5><%= article.title.capitalize %></h5>
-                </div>
-                <div class="card-text">
-                  <div class="mb-2">
-                    publié le <%= l(article.created_at, format: :date) %>
-                  </div>
-                  <div>
-                    <span class="article-badge-full"><%= article.category.name %></span>
-                    <% if article.likes.count > 0 %>
-                      <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
-                    <% end %>
-                    <% if article.comments.count > 0 %>
-                      <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
-                    <% end %>
+                  <div class="card-text">
+                    <div class="mb-2">
+                      publié le <%= l(article.created_at, format: :date) %>
+                    </div>
+                    <div>
+                      <span class="article-badge-full"><%= article.category.name %></span>
+                      <% if article.likes.count > 0 %>
+                        <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                      <% end %>
+                      <% if article.comments.count > 0 %>
+                        <span><i class="fas fa-comment-alt  info-icon"></i><%= article.comments.count %></span>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div> 
@@ -38,36 +43,58 @@
   </div>
 
   <!-- ANNONCE -->
-  <div class="col-4 col-right">
-    <h3>Annonces</h3>
-      <% @posts.each do |post| %>
-        <div class="card-article-user">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 col-right">
+    <% if current_user.id == @user.id %>
+      <h3>Mes annonces</h3>
+    <% else %>
+      <h3>Annonces de <%= @user.first_name.capitalize%></h3>
+    <% end %>
+    <% @posts.each do |post| %>
+      <div class="col-12">
+        <div class="post-card">
           <%= link_to (post) do %>
-            <div class="card-body">
-              <h5 class=""><%= post.title %></h5>
-              <div class="d-flex flex-row">
-                <span class="post-body-user">
-                  <%= post.body %>
-                </span>
-                <div class="p-2">
-                  <% if post.picture.attached? %>
-                    <div class="">
-                      <%= image_tag post.picture.variant(resize_to_limit: [70, 70]), class: "post-picture" %>
+            <div class="row">
+              <!-- img -->
+              <% if post.picture.attached? %>
+                <div class="col-3 col-sm-4 col-md-4 col-lg-3  col-xl-3 ">
+                  <%= image_tag crop_portrait_post_picture(post.picture), class: "img-fluid" %>
+                </div>
+              <% end %>
+              <!-- info text -->
+              <% if post.picture.attached? %>
+                <div class="col-9 col-sm-8 col-md-8 col-lg-9 col-xl-9 d-flex align-items-start flex-column">
+              <% else %>
+                <div class="col-12 d-flex align-items-start flex-column">
+              <% end %>
+                <!-- title -->
+                <div id="post-index-title-wrapper">
+                  <div class="d-flex justify-content-between">
+                    <div class="mr-auto">
+                      <h2><%= post.title %></h2>
                     </div>
-                  <% end %>
+                    <div class="ml-auto">
+                      <span class="article-info post-badge-full"><%= post.column.name %></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- user info -->
+                <div class="mt-auto">
+                  <div class="d-flex flex-row">
+                    <div class="post-publish-info">
+                      <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
+                      <% if post.answers.count > 0 %>
+                        <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
+                      <% end %>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div> 
-            <div class="card-text">
-                <span class="social-badge">publié le <%=l post.created_at, :format => ("%d %B %Y") %></span>
-                <span class="post-badge-full"><%= post.column.name %></span>
-                <% if post.answers.count > 0 %>
-                  <span class="post-badge"><i class="dark-plum far fa-comment-alt"></i><%= post.answers.count %></span>
-                <% end %>
             </div>
           <% end %>
-        </div>  
-      <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

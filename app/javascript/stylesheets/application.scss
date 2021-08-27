@@ -1,5 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
-@import "responsive.scss";
+
 
 
 $background-grey: #f9f7f8;
@@ -70,6 +70,22 @@ a:visited {
   font-size: 0.9rem;
   padding: 0 0 0 30px;
 }
+
+/* PAGE STRUCTURE
+-------------------------------------------------- */
+
+.main-wrapper {
+  margin-top: 2rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+article {
+  margin-bottom: 2rem;
+}
+
 
 
 /* FILTER
@@ -153,6 +169,7 @@ a:visited {
   margin-left: 0.6rem;
 }
 
+
 .delete-btn:before {
   font-family: "Font Awesome 5 Free";
   content: "\f1f8";
@@ -171,13 +188,17 @@ a:visited {
 .fa-plus-circle,
 .fa-plus-square, .fa-reply,
 .fa-images {
-  color: $pink;
   margin-right: 0.4rem;
 }
 
 .fa-arrow-circle-left, .fa-arrow-circle-right {
   color: $pink;
 }
+
+.info-icon {
+  color: $pink;
+}
+
 /* BADGE
 -------------------------------------------------- */
 
@@ -237,20 +258,12 @@ a:visited {
 }
 
 
-// .img-wrapper {
-//   padding-bottom: 1rem;
-//   background-color: olive;
-
-// }
-
-
 .img-index {
   max-width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
 
 .post-card .card-body {
   padding: 0rem;
@@ -301,7 +314,7 @@ a:visited {
   }
 }
 
-/*  */
+
 .card-user-profil {
   border-radius: 8px;
   box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
@@ -334,13 +347,6 @@ a:visited {
 /* ARTICLE#SHOW
 -------------------------------------------------- */
 
-.article-show {
-  padding-top: 2rem;
-}
-
-.article-header {
-  margin-bottom: 1rem;
-}
 
 .article-data {
   margin-right: 0.3rem;
@@ -519,7 +525,8 @@ a:visited {
 
 .rails-inner-button {
   display: inline-block;
-  width: 186px;
+  min-width: 40px;
+  max-width: 186px;
 }
 
 #post-index-title-wrapper {
@@ -673,3 +680,4 @@ textarea {
 
 
 
+@import "responsive.scss";

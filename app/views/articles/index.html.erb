@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container main-wrapper">
 
   <h1>Créations</h1>
 
@@ -34,7 +34,7 @@
             <!-- COVER IMG -->
             <% if article.images.attached? %>
               <div class="card-img-top">
-                <%= image_tag article.display_cover_img, style: "width: 355x; height: 200px; display: block", class: "img-index" %> 
+                <%= image_tag article.display_cover_img, class: "img-fluid" %> 
               </div>
             <% end %> 
 
@@ -51,7 +51,7 @@
                 <div>
                   <span class="article-badge-full"><%= article.category.name %></span>
                   <% if article.likes.count > 0 %>
-                    <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
+                    <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
                   <% end %>
                   <% if article.comments.count > 0 %>
                     <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>

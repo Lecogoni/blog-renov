@@ -18,8 +18,8 @@
           il y a <%= time_ago_in_words(answer.created_at) %>
         </div>
         <% if answer.user.id == current_user.id %>
-          <div class="">
-            <%= link_to [answer.answerable, answer], class: "", method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer votre commentaire ? Cela entrainera également la suppression des réponses faites à votre commentaire' } do %>
+          <div>
+            <%= link_to [answer.answerable, answer], method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer votre commentaire ? Cela entrainera également la suppression des réponses faites à votre commentaire' } do %>
               <span class="delete-btn">supprimer ma réponse</span>
             <% end %>
           </div>

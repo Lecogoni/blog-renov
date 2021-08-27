@@ -13,6 +13,7 @@
       <% @article.images.each_with_index do |image, index| %>
         <div class="carousel-item <%= "active" if index.zero? %>">
           <img class="bd-placeholder-img" width="100%" height="100%" src="<%=  image_path(url_for(image)) %>"aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <!-- ORIGINAL CARROUSSEL WITH ALL THE INFO : LINKS OVER THE PICTURE - COULD BE A FEATURES 
           <div class="container">
             <div class="carousel-caption text-start">
               <h1>Example headline.</h1>
@@ -20,6 +21,7 @@
               <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
             </div>
           </div>
+          -->
         </div>
       <% end %>
     </div>

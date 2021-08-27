@@ -1,30 +1,34 @@
 <!-- CREATION -->
-<h3>Créations</h3>
+<% if current_user.id == @user.id %>
+  <h3>Mes créations</h3>
+<% else %>
+  <h3>Créations de <%= @user.first_name.capitalize%></h3>
+<% end %>
 <div class="row">
   <% @articles.each do |article| %>
-    <div class="col-3">
+    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 ">
       <%= link_to (article) do %>
           <div class="card-article-user">
             <% if article.images.attached? %>
-              <div class="card-img-top" alt="...">
-                <%= image_tag article.images.first, style: "width: 100px; display: block" %> 
+              <div class="card-img-top">
+                <%= image_tag article.display_cover_img, class: "img-fluid" %> 
               </div>
             <% end %>
             <div class="card-body">
               <h5><%= article.title.capitalize %></h5>
-            </div>
-            <div class="card-text">
-              <div class="mb-2">
-                publié le <%= l(article.created_at, format: :date) %>
-              </div>
-              <div>
-                <span class="article-badge-full"><%= article.category.name %></span>
-                <% if article.likes.count > 0 %>
-                  <span class="social-badge"><i class="far fa-heart"></i><%= article.likes.count %></span>
-                <% end %>
-                <% if article.comments.count > 0 %>
-                  <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
-                <% end %>
+              <div class="card-text">
+                <div class="mb-2">
+                  publié le <%= l(article.created_at, format: :date) %>
+                </div>
+                <div>
+                  <span class="article-badge-full"><%= article.category.name %></span>
+                  <% if article.likes.count > 0 %>
+                    <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                  <% end %>
+                  <% if article.comments.count > 0 %>
+                    <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div> 
