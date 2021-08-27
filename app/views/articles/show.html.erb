@@ -147,16 +147,30 @@
 
       <div class="row">
         <% @other_articles.each do |article| %>
-          <div class="col-4 mb-3">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
               <%= link_to (article) do %>
                 <div class="card">
                   <% if article.images.attached? %>
-                    <div class="card-img-top" alt="...">
-                      <%= image_tag article.images.first %>
+                    <div class="card-img-top">
+                      <%= image_tag article.display_cover_img, class: "img-fluid" %> 
                     </div>
                   <% end %>
                   <div class="card-body">
-                    <h5 class="card-title"><%= article.titleize_title%></h5>
+                    <h5><%= article.title.capitalize %></h5>
+                    <div class="card-text">
+                      <div class="mb-2">
+                        publié le <%= l(article.created_at, format: :date) %>
+                      </div>
+                      <div>
+                        <span class="article-badge-full"><%= article.category.name %></span>
+                        <% if article.likes.count > 0 %>
+                          <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                        <% end %>
+                        <% if article.comments.count > 0 %>
+                          <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
+                        <% end %>
+                      </div>
+                    </div>
                   </div>
                 </div>
               <% end %>
@@ -166,7 +180,7 @@
     </article>
   <% else %>
 
-    affiche des créations a l'honneur
+    <p>affiche autres choses si user has no crea</p>
   <% end %>
 
 </div><!-- END OF CONTAINER -->

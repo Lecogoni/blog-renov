@@ -19,12 +19,12 @@
         <%= f.hidden_field :user_id, :value => current_user.id %>
       </div>
 
-      <div class="field">
+      <div class="field text">
         <%= f.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie' %>
       </div>
 
-      <div class="control">
-        <%= f.input :title, label: 'Titre', input_html: {class: 'input'}, required: true, wrapper: false, label_html: {class: 'label'} %>
+      <div class="control text">
+        <%= f.input :title, label: 'Titre', input_html: {class: 'input text'}, required: true, wrapper: false, label_html: {class: 'label'} %>
       </div>
 
       <div class="field">
@@ -37,31 +37,35 @@
           <div class="row">
 
             <% @images.each do |image| %>
-              <div class="col-4">
-                <div class="img-edit-wrapper">
-                  <div>
-                    <%= image_tag image.variant(resize_to_limit: [280, 157]) %>
-                  </div>
+              <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                  <div class="card-edit-img">
+                    <div class="card-content">
+                      <%= image_tag image, class: "img-fluid" %> 
 
-                  <div class="d-flex flex-column align-items-center mt-2">
+                      <div class="card-body">
+                            <div class="d-flex flex-column align-items-center mt-2">
 
-                    <div>
-                      <span><%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %> image principale</span>
+                              <div>
+                                <span><%= form.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %> image principale</span>
+                              </div>
+
+                              <div>
+                                <%= button_to delete_file_article_url(image.id), :title => 'supprimer cette image', class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } do %>
+                                  <i class="far fa-trash-alt action-icon"></i><span class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">supprimer</span>
+                                <% end %>
+                              </div>
+
+                            </div>
+                      </div>
                     </div>
-
-                    <div  class="">
-                      <i class="far fa-trash-alt"></i><%= link_to 'Supprimer', delete_file_article_url(image.id), class: "no-btn", method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette image ?' } %>
-                    </div>
-
                   </div>
-
-                </div>
               </div>
-            <% end %> 
+            <% end %>
 
           </div>
         </div>
       <% end %>
+
 
       <div class="form-group m-3">
 
@@ -77,6 +81,8 @@
       <%= f.button :submit, 'Valider', class: 'btn btn-primary' %>
     </div>
     <% end %>
+
+    <%= link_to 'Annuler les modifications', @article %> 
   </div>
 
 <% end %>
