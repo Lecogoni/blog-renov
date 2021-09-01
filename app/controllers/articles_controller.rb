@@ -84,21 +84,22 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     redirect_to articles_url
-    flash[:success] = "L'article a été supprimer"
+    flash[:success] = "L'article a été supprimé"
   end
 
   # allow to purge active storage files
   def delete_file
     file = ActiveStorage::Attachment.find(params[:id])
+    @article_id = params[:article_id]
     file.purge
-    redirect_back(fallback_location: articles_path)
+    redirect_back(fallback_location: edit_article_path(@article_id))
   end
 
   def admin_delete_article
     UserMailer.admin_delete_article_email(@article).deliver_now
     @article.destroy
     redirect_to articles_url
-    flash[:alert] = "Cet publication a été supprimé. Un email a été envoyé à son créateur pour l'en avertir"  
+    flash[:alert] = "Cette publication a été supprimé. Un email a été envoyé à son créateur pour l'avertir"  
   end
 
   private
@@ -126,3 +127,4 @@ class ArticlesController < ApplicationController
     end
 
 end
+

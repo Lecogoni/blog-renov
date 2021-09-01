@@ -20,9 +20,11 @@
           <thead>
             <tr>
               <th>prénom</th>
-              <th>nom de famille</th>
+              <th>nom</th>
               <th>email</th>
+              <!--
               <th>téléphone</th>
+              -->
               <th></th>
             </tr>
           </thead>
@@ -32,7 +34,9 @@
                 <td style="min-width:15%"><%= guest.first_name.capitalize %></td>
                 <td style="min-width:15%"><%= guest.last_name.capitalize %></td>
                 <td style="min-width:20%"><%= guest.email %></td>
+                <!--
                 <td style="min-width:20%"><%= guest.phone_number %></td>
+                -->
                 <td>
                   <div class="d-flex flex-row">
                     <div>

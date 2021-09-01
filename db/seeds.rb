@@ -21,6 +21,15 @@ admin = User.create(
 
 puts "admin create"
 
+user = User.create(
+  first_name: "marie",
+  last_name: "angot",
+  email: "marie@yopmail.com",
+  password: "chevry",
+  is_admin: false,
+)
+
+puts "user create"
 
 article_category = ["fauteuil", "chaise", "canapé", "pouf"]
 

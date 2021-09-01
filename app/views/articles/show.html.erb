@@ -12,20 +12,20 @@
       <% end %>
       <div>
         <h3 class="text">création de <strong><%= @article.user.full_name %></strong></h3>   
+        <div class="text article-data">
+          publié le <%= l(@article.created_at, format: :date) %>
+        </div>
         <div class="text d-flex justify-content-start">
-          <div class="filter-article"><%= @article.category.name %></div>
-          <div class="article-data">
-            publié le <%= l(@article.created_at, format: :date) %>
-          </div>
+          <div class="article-badge-full"><%= @article.category.name %></div>
           <% if user_signed_in? %>
             <% if @article.comments.count > 0 %>
               <div class="article-data">
-                <span>-  <%= @article.comments.count %> <%= (@article.comments.count) < 2 ? 'commentaire' : 'commentaires'%></span>
+                <span><i class="fas fa-comment-alt info-icon"></i><%= @article.comments.count %></span>
               </div>
             <% end %>
             <% if @article.article_has_like? %>
               <div class="article-data">
-                <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>">-  <i class="fas fa-heart info-icon"></i><%= @article.likes.count %></span>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>"><i class="fas fa-heart info-icon"></i><%= @article.likes.count %></span>
               </div>
             <% end %>
           <% end %>
@@ -103,7 +103,7 @@
         <div>
           <%= form_with(model: [@article, @article.comments.build]) do |f| %>
               <%= f.hidden_field :user_id, value: current_user.id %>
-            <div class="form-group col-4">
+            <div class="form-group col-12">
               <div id="post-index-title-wrapper">
               <%= f.text_area :body, class: 'form-control', required: true %></a>
             </div>
@@ -149,13 +149,13 @@
         <% @other_articles.each do |article| %>
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
               <%= link_to (article) do %>
-                <div class="card">
+                <div class="card-small">
                   <% if article.images.attached? %>
-                    <div class="card-img-top">
+                    <div class="card-img-top mb-1">
                       <%= image_tag article.display_cover_img, class: "img-fluid" %> 
                     </div>
                   <% end %>
-                  <div class="card-body">
+                  <div class="">
                     <h5><%= article.title.capitalize %></h5>
                     <div class="card-text">
                       <div class="mb-2">
@@ -163,11 +163,11 @@
                       </div>
                       <div>
                         <span class="article-badge-full"><%= article.category.name %></span>
+                        <% if article.comments.count > 0 %>
+                          <span><i class="fas fa-comment-alt info-icon"></i><%= article.comments.count %></span>
+                        <% end %>
                         <% if article.likes.count > 0 %>
                           <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
-                        <% end %>
-                        <% if article.comments.count > 0 %>
-                          <span><i class="far fa-comment-alt"></i><%= article.comments.count %></span>
                         <% end %>
                       </div>
                     </div>

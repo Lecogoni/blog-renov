@@ -3,7 +3,9 @@
 
 
 $background-grey: #f9f7f8;
+$color:#210d1b; 
 $pink: #cd0f58;
+$light-pink:#ffcbb7;
 $purpley-grey: #6b525e;
 $dark-plum-back: #480032;
 $dark-back: #34001e;
@@ -33,7 +35,7 @@ footer {
 
 body, h1, h2, h3, h4, h5, h6 {
   font-family: 'pt serif',serif;
-  color: #210d1b;
+  color: $color;
 }
 
 h1 {
@@ -100,6 +102,8 @@ article {
 
 .filter-article {
   @extend .filter;
+  margin-bottom: 10px;
+  display: inline-block;
   border: 1px solid $pink;
   color: $pink;
   &:hover {
@@ -165,10 +169,35 @@ article {
   border-color: $dark-back;
 }
 
+.btn-light-pink {
+  color: #fff;
+  background-color: $orange-cream;
+  border-color: $orange-cream;
+  &:hover {
+    filter: brightness(0.95);
+    color: $dark-plum-back;
+  }
+}
+
+.btn-dark-back {
+  @extend .btn;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+  color: #fff;
+  background-color: $dark-back;
+  border-color: $dark-back;
+  &:hover {
+    filter: brightness(0.95);
+    color: $pink;
+  }
+}
+
 .btn-text {
   margin-left: 0.6rem;
 }
 
+  
+ 
 
 .delete-btn:before {
   font-family: "Font Awesome 5 Free";
@@ -179,6 +208,23 @@ article {
   font-weight: 900;
   margin-left: 1rem;
 }
+
+/* on Article#edit */
+.delete-img{
+  color: $color;
+  &:hover {
+    color: $pink;
+  }
+  &:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f1f8";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 700;
+  }
+}
+
 
 /* ICON
 -------------------------------------------------- */
@@ -257,6 +303,10 @@ article {
   min-width: 100%;
 }
 
+.card-small {
+  @extend .card;
+}
+
 
 /* =>  NE SERT A RIEN NORMALEMENT */
 
@@ -313,6 +363,10 @@ article {
 }
 } 
 
+.img-data {
+  font-size: 0.8rem;
+}
+
 
 /* ADMIN CARD */
 
@@ -324,7 +378,7 @@ article {
   flex: 1 1 auto;
   background-color: $dark-back;
   color: white;
-  padding: 1.8rem;
+  padding: 0.8rem;
   h3 {
     color: white;
   }
@@ -488,52 +542,16 @@ article {
 
 /* USER INDEX ANNUAIRE
 -------------------------------------------------- */
-
-
-#adress-book {
-  @extend .text;
+table {
   width: 100%;
-  border-collapse: collapse;
-
-  th, td {
-    padding: 10px;
-    vertical-align: top;
-  }
-
-  tbody tr:hover {
-    color: $pink
-  }
-  
-  thead th:nth-child(1) {  //avatar
-    min-width: 50px;
-    max-width: 55px;
-
-  }
-
-  .avatar-book {
-    margin-top: -8px;
-  }
-
-  thead th:nth-child(2) { //first_name
-    width: 15%;
-  }
-  
-  thead th:nth-child(3) { //last_name
-    width: 15%;
-  }
-  
-  thead th:nth-child(4) { //phone-number
-    width: 15%;
-  }
-  
-  thead th:nth-child(5) { //email
-    width: 30%;
-  }
-  
-  thead th:nth-child(6) { //info
-    width: 40%;
-  }
 }
+
+
+#user-index tbody tr:hover {
+  @extend .text;
+  color: $pink
+}
+
 
 /* USER INDEX ANNUAIRE
 -------------------------------------------------- */

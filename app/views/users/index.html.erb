@@ -2,31 +2,35 @@
 
   <h1>Annuaires des membres</h1>
 
-  <table id="adress-book">
-    <thead>
-      <tr>
-        <th></th>
-        <th><%= link_to "Prénom", users_path(order: 'name') %></th>
-        <th><%= link_to "Nom de famille", users_path(order: 'lastname') %></th>
-        <th>Téléphone</th>
-        <th>Email</th>
-        <th>Info</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @users.each do |user| %>
+  <article>
+    <table id="user-index"class="table text">
+      <thead class="thead">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"><%= link_to "Prénom", users_path(order: 'name') %></th>
+          <th scope="col"><%= link_to "Nom", users_path(order: 'lastname') %></th>
+          <th scope="col">Email</th>
+          <!--
+          <th scope="col">Téléphone</th>
+          <th scope="col">Publication</th>
+          -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
           <tr onmouseover="this.style.cursor='pointer';" onclick="location.href='<%= url_for(user) %>';">
-            <td>
-              <%= image_tag avatar_for(user), style: "width: 40px; display: block", class: "avatar-book rounded-circle" %>
-            </td>
+            <td><%= image_tag avatar_for(user), style: "width: 25px; display: block", class: "avatar-book rounded-circle" %></td>
             <td><%= user.first_name.capitalize %></td>
             <td><%= user.last_name.capitalize %></td>
-            <td><%= user.phone_number if user.show_data == true %></td>
             <td><%= user.email if user.show_data == true %></td>
+            <!--
+            <td><%= user.phone_number if user.show_data == true %></td>
             <td><%= user.user_publishing %></td>
+            -->
           </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <% end %>
+      </tbody>
+    </table>
+</article>
+
 </div>
