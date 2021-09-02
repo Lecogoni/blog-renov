@@ -9,6 +9,7 @@ class Article < ApplicationRecord
   
   validates :images, presence: true
 
+
   def upcase_title
     title = self.title.upcase
   end
@@ -44,5 +45,6 @@ class Article < ApplicationRecord
     end
     return @liker.join(", ")
   end
+
 
 end

@@ -22,10 +22,10 @@
         <%= f.input :title, label: 'Titre', input_html: {class: 'input text'}, required: true, wrapper: false, label_html: {class: 'label'} %>
       </div>
       <%= f.input :description, input_html: {class: 'textarea'}, required: true, wrapper: false, label_html: {class: 'label'}, :input_html => {:rows => 15} %>
-      <%= f.file_field :images, multiple:true, direct_upload: true, class: "form-control mt-2" %>
+      <%= f.file_field :images, multiple:true, direct_upload: true, class: "form-control mt-2 mb-2" %>
       
       <% if @article.images.attached? %>
-        <div class="row mt-2">
+        <div class="row mb-2">
           <% @images.each do |image| %>
             <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <div class="card-edit-img">
@@ -38,6 +38,12 @@
                       <div>
                         <span><%= link_to 'supprimer', delete_file_article_path(image.id, article_id: @article.id), method: :delete, class: 'delete-img', confirm: 'Êtes vous certain de vouloir supprimer cette image ?'  %></span>
                       </div>
+                      <div>
+                        <%= image.variable? %>
+                        <%= image.filename.extension %><br>
+                        <%= image.filename %><br>
+                        <%= image.blob_id %><br>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -49,8 +55,8 @@
 
     </div>
 
-    <div class="form-actions mt-2">
-      <%= f.button :submit, 'valider', class: "btn-light-pink mb--2" %>
+    <div class="form-actions mb-2">
+      <%= f.button :submit, 'valider', class: "btn-light-pink" %>
     </div>
   <% end %>
 

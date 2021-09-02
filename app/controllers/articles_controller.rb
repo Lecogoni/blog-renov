@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy admin_delete_article]
   before_action :downcase_fields, only: %i[ create update ]
   before_action :check_cover_img_if_one_img, only: %i[ edit ]
+  #after_action :picture_format, only: %i[ create update ]
+  
 
   # GET /articles or /articles.json
   def index
@@ -69,14 +71,21 @@ class ArticlesController < ApplicationController
       attachment.save
     end
     
-
     if @article.update(article_params)
 
+      file_number = params[:article][:images].size
+      @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(file_number).reverse
+
+      if file_number > 0 
+        picture_format(@files)
+      end
+      
       redirect_to @article
       flash[:success] = "Votre article est bien modifié !"
     else
       render :edit, status: :unprocessable_entity
     end
+    
 
   end
 
@@ -103,28 +112,85 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :description, :user_id, :category_id, images: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
-    def downcase_fields
-      article_params[:title].downcase!
-    end
+  # Only allow a list of trusted parameters through.
+  def article_params
+    params.require(:article).permit(:title, :description, :user_id, :category_id, images: [])
+  end
 
-    # when user press on article edit it check if there is only one image, if yes it set image.cover_img to true
-    def check_cover_img_if_one_img
-      if @article.images.count == 1
-        attachement = ActiveStorage::Attachment.where(record_id: @article.id, record_type: "Article").first
-        attachement.cover_img = true
-        attachement.save
+  def downcase_fields
+    article_params[:title].downcase!
+  end
+
+  # when user press on article edit it check if there is only one image, if yes it set image.cover_img to true
+  def check_cover_img_if_one_img
+    if @article.images.count == 1
+      attachement = ActiveStorage::Attachment.where(record_id: @article.id, record_type: "Article").first
+      attachement.cover_img = true
+      attachement.save
+    end
+  end
+
+  # check if blob is an image, if not delete the blob and send a message 
+  # then if the image isn't a variable? it convert to jpeg
+  def picture_format(files)
+    puts "------FILE SIZE-----------"
+    puts files.size
+    puts "----------------------"
+
+    @files = files
+    puts "----------------------"
+    file_erased = 0
+    @files.each do |file|
+      # check if file / blob is an image - if not erase
+      if ! file.content_type.start_with? 'image/'
+        puts "-----file content_type-----------"
+        puts file.content_type
+        file.purge
+        file_erased += 1
+      # if it's an image rezise, convert and upload
+      else
+        # file is a ActiveStorage::Attachment we convert in ActiveStorage::Blob
+        blob = file.blob
+
+        puts "-----FILEVARIABLE ?-----------"
+        puts blob.variable?
+
+        blob.open do |temp_file|
+          path = temp_file.path
+
+          if ! image_blob_is_variable?(blob)
+            puts "-----DANS LA CONDITION -----------"
+            pipeline = ImageProcessing::MiniMagick.source(path)
+            .convert!("jpeg")
+          end 
+
+          pipeline = ImageProcessing::MiniMagick.source(path)
+          .resize_to_limit(200, 200)
+          .call(destination: path)
+          
+          new_data = File.binread(path)
+          @article.send(:images).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image/jpg'
+        end
+        file.purge_later
       end
     end
+    return file_erased
+    puts "-----ERASE-----------"
+    puts file_erased
+  end
+
+
+  # if image blob isn't representable convert in appropriate format
+  # avoid to get HEIC for e.g. - impossible to get a variant on content_type not true
+  def image_blob_is_variable?(image)
+    image.variable?
+  end
 
 end
 

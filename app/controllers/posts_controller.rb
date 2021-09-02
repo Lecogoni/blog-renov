@@ -97,7 +97,6 @@ class PostsController < ApplicationController
     end
 
 
-
   # check if blob is an image, if not delete the blob and send a message 
   # then if the image isn't a variable? it convert to jpeg
   def picture_format

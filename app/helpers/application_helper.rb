@@ -16,5 +16,4 @@ module ApplicationHelper
     return "desktop"
   end
 
-  
 end
