@@ -19,8 +19,8 @@
   <article>
     <div class="d-flex flex-row">
       <% if @post.picture.attached? %>
-        <div class="">
-          <%= image_tag @post.picture.variant(resize_to_limit: [611, 400]), class: "post-picture" %>
+        <div class="col-5">
+          <%= image_tag @post.picture, class: "img-fluid" %>
         </div>
       <% end %> 
       <div class="post-text">
@@ -85,7 +85,7 @@
         <div>
           <%= form_with(model: [@post, Answer.new]) do |f| %>
               <%= f.hidden_field :user_id, value: current_user.id %>
-            <div class="form-group col-4">
+            <div class="form-group col-12">
               <%= f.text_area :body, class: 'form-control', placeholder: "répondre à l'annonce de #{@post.user.first_name.capitalize}", required: true %>
             </div>
             <%= button_tag type: 'submit', class: "no-btn" do %>

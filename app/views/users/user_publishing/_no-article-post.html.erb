@@ -3,22 +3,22 @@
 <h3>Annonces</h3>
 <div class="row">
   <% @posts.each do |post| %>
-    <div class="col-4">
-      <div class="card-article-user">
+    <div class="col-6">
+      <div class="card-small">
         <%= link_to (post) do %>
           <div class="card-body">
-            <h5 class=""><%= post.title %></h5>
+            
             <div class="d-flex flex-row">
-              <span class="post-body-user">
-                <%= post.body %>
-              </span>
-              <div class="p-2">
+
+      
                 <% if post.picture.attached? %>
                   <div class="">
                     <%= image_tag post.picture.variant(resize_to_limit: [70, 70]), class: "post-picture" %>
                   </div>
                 <% end %>
-              </div>
+                <div>
+                  <h5 class=""><%= post.title %></h5>
+                </div>
             </div>
           </div> 
           <div class="card-text">

@@ -61,7 +61,7 @@
           <% end %>
         </div>
 
-        <% if user_signed_in? && current_user.id != @article.user.id %>
+        <% if current_user.id != @article.user.id %>
           <div>
             <%= button_to user_path(@article.user_id), :title => 'profil', class: "no-btn", method: :get do %>
               <i class="far fa-user action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">profil de <%= @article.user.first_name.capitalize %></span>
@@ -69,7 +69,7 @@
           </div>
         <% end %>
         
-        <% if user_signed_in? && current_user.id == @article.user.id %>
+        <% if current_user.id == @article.user.id %>
 
           <div>
             <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "no-btn", method: :get do %>
@@ -152,10 +152,10 @@
                 <div class="card-small">
                   <% if article.images.attached? %>
                     <div class="card-img-top mb-1">
-                      <%= image_tag article.display_cover_img, class: "img-fluid" %> 
+                      <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %> 
                     </div>
                   <% end %>
-                  <div class="">
+                  <div class="card-body">
                     <h5><%= article.title.capitalize %></h5>
                     <div class="card-text">
                       <div class="mb-2">

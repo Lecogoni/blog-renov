@@ -52,6 +52,10 @@ XXL : Extra extra large	xxl	≥1400px
     display:inline-block;
   }
 
+  .card-small{
+    padding: 0.6rem;
+  }
+
 
 }
 
@@ -89,6 +93,10 @@ and (max-width: 1200px){
     display:inline-block;
   }
   
+
+  .card-small{
+    padding: 0.6rem;
+  }
 
 }
 
@@ -133,6 +141,10 @@ and (max-width: 1200px){
     margin: 0;
   }
 
+
+  .card-small{
+    padding: 0.6rem;
+  }
 
 
 } 
@@ -196,6 +208,9 @@ and (max-width: 1200px){
   }
 
   
+  .card-small{
+    padding: 0.6rem;
+  }
 
 } 
 
