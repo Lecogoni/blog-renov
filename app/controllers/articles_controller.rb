@@ -73,11 +73,13 @@ class ArticlesController < ApplicationController
     
     if @article.update(article_params)
 
-      file_number = params[:article][:images].size
-      @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(file_number).reverse
+      if params[:article][:images].present?
+        file_number = params[:article][:images].size
+        @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(file_number).reverse
 
-      if file_number > 0 
-        picture_format(@files)
+        if file_number > 0 
+          picture_format(@files)
+        end
       end
       
       redirect_to @article
