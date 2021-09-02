@@ -34,8 +34,7 @@
             <!-- COVER IMG -->
             <% if article.images.attached? %>
               <div class="card-img-top">
-                <%= image_tag article.display_cover_img, class: "img-fluid" %>
-         
+                <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %>
               </div>
             <% end %> 
 
