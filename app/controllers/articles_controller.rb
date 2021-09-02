@@ -158,10 +158,7 @@ class ArticlesController < ApplicationController
     @files.each do |file|
       # check if file / blob is an image - if not erase
       if ! file.content_type.start_with? 'image/'
-        puts "------******************************-----------"
-        puts "-----file content_type-----------"
-        puts file.content_type
-        file.purge
+        purge_none_image_file(file)
         file_erased += 1
       # if it's an image rezise, convert and upload
       else
@@ -197,6 +194,11 @@ class ArticlesController < ApplicationController
     puts file_erased
   end
 
+  def purge_none_image_file(file)
+    file.purge
+    puts "------******************************-----------"
+    puts "-----1 FILE ERASED-----------"
+  end
 
   # if image blob isn't representable convert in appropriate format
   # avoid to get HEIC for e.g. - impossible to get a variant on content_type not true
