@@ -46,6 +46,14 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
+
+      # check if there is ActiveStorage Attachement and if yes get them in @files which is then send to a method to delete files != image, and resize image
+      if params[:article][:images].present?
+        number_of_ActiveStorage_attachement = params[:article][:images].size
+        @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(number_of_ActiveStorage_attachement).reverse
+        picture_format(@files)
+      end
+      
       redirect_to @article
       flash[:success] = "Votre article a été enregistré !"
     else
@@ -73,19 +81,11 @@ class ArticlesController < ApplicationController
     
     if @article.update(article_params)
 
+      # check if there is ActiveStorage Attachement and if yes get them in @files which is then send to a method to delete files != image, and resize image
       if params[:article][:images].present?
-        file_number = params[:article][:images].size
-        @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(file_number).reverse
-
-        @files.each do |f|
-          puts f.content_type
-          puts f.filename
-          puts "-- **** -- "
-          puts "-- **** -- "
-        end
-        #if file_number > 0 
-          picture_format(@files)
-        #end
+        number_of_ActiveStorage_attachement = params[:article][:images].size
+        @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(number_of_ActiveStorage_attachement).reverse
+        picture_format(@files)
       end
 
       redirect_to @article
@@ -179,7 +179,7 @@ class ArticlesController < ApplicationController
           end 
 
           pipeline = ImageProcessing::MiniMagick.source(path)
-          .resize_to_limit(200, 200)
+          .resize_to_limit(1200, 1200)
           .call(destination: path)
           
           new_data = File.binread(path)
@@ -189,15 +189,10 @@ class ArticlesController < ApplicationController
       end
     end
     return file_erased
-    puts "------******************************-----------"
-    puts "-----ERASE-----------"
-    puts file_erased
   end
 
   def purge_none_image_file(file)
     file.purge
-    puts "------******************************-----------"
-    puts "-----1 FILE ERASED-----------"
   end
 
   # if image blob isn't representable convert in appropriate format
