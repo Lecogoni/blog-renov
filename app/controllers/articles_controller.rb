@@ -147,6 +147,7 @@ class ArticlesController < ApplicationController
   # check if blob is an image, if not delete the blob and send a message 
   # then if the image isn't a variable? it convert to jpeg
   def picture_format(files)
+    puts "------******************************-----------"
     puts "------FILE SIZE-----------"
     puts files.size
     puts "----------------------"
@@ -157,6 +158,7 @@ class ArticlesController < ApplicationController
     @files.each do |file|
       # check if file / blob is an image - if not erase
       if ! file.content_type.start_with? 'image/'
+        puts "------******************************-----------"
         puts "-----file content_type-----------"
         puts file.content_type
         file.purge
@@ -165,7 +167,7 @@ class ArticlesController < ApplicationController
       else
         # file is a ActiveStorage::Attachment we convert in ActiveStorage::Blob
         blob = file.blob
-
+        puts "------******************************-----------"
         puts "-----FILEVARIABLE ?-----------"
         puts blob.variable?
 
@@ -173,6 +175,7 @@ class ArticlesController < ApplicationController
           path = temp_file.path
 
           if ! image_blob_is_variable?(blob)
+            puts "------******************************-----------"
             puts "-----DANS LA CONDITION -----------"
             pipeline = ImageProcessing::MiniMagick.source(path)
             .convert!("jpeg")
@@ -189,6 +192,7 @@ class ArticlesController < ApplicationController
       end
     end
     return file_erased
+    puts "------******************************-----------"
     puts "-----ERASE-----------"
     puts file_erased
   end
