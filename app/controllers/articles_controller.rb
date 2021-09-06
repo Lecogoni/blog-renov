@@ -38,6 +38,19 @@ class ArticlesController < ApplicationController
   # GET /articles/1/edit
   def edit
     @images = @article.images.order("created_at ASC")
+
+    # Define first images as cover picture
+    if @article.images.none?{|pic| pic.cover_img == true}
+      puts "----------------$$$$$$$$$$$$$$$$$$$"
+      puts "---------------- acune = true"
+      puts 
+      puts "----------------$$$$$$$$$$$$$$$$$$$"
+      @image = @article.images.first
+      @image.cover_img = true
+      @image.save
+      # ActiveStorage::Attachment.where(blob_id: img_first.id, record_type: 'Article').last
+      
+    end
   end
 
   # POST /articles or /articles.json
@@ -168,8 +181,8 @@ class ArticlesController < ApplicationController
         puts "-----FILEVARIABLE ?-----------"
         puts blob.variable?
 
-        blob.open do |temp_file|
-          path = temp_file.path
+        blob.open do |tempfile| # temp_file
+          path = tempfile.path #temp_file
 
           if ! image_blob_is_variable?(blob)
             puts "------******************************-----------"
