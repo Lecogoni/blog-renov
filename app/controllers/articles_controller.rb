@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy admin_delete_article]
   before_action :downcase_fields, only: %i[ create update ]
-  before_action :check_cover_img_if_one_img, only: %i[ edit ]
+  # Define first images as cover picture after create
+  after_action :define_first_img_as_cover_img, only: %i[ create ]
   #after_action :picture_format, only: %i[ create update ]
   
 
@@ -37,20 +38,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    @images = @article.images.order("created_at ASC")
-
-    # Define first images as cover picture
-    if @article.images.none?{|pic| pic.cover_img == true}
-      puts "----------------$$$$$$$$$$$$$$$$$$$"
-      puts "---------------- acune = true"
-      puts 
-      puts "----------------$$$$$$$$$$$$$$$$$$$"
-      @image = @article.images.first
-      @image.cover_img = true
-      @image.save
-      # ActiveStorage::Attachment.where(blob_id: img_first.id, record_type: 'Article').last
-      
-    end
+    @images = @article.images.order("created_at ASC")    
   end
 
   # POST /articles or /articles.json
@@ -98,8 +86,23 @@ class ArticlesController < ApplicationController
       if params[:article][:images].present?
         number_of_ActiveStorage_attachement = params[:article][:images].size
         @files = ActiveStorage::Attachment.where(record_id: @article.id, record_type: 'Article').last(number_of_ActiveStorage_attachement).reverse
-        picture_format(@files)
       end
+
+      puts "------******************************----------- ------******************************----------- ------******************************-----------"
+      puts @files
+      puts @files.class
+
+      puts "------******************************----------- ------******************************----------- ------******************************-----------"
+      puts "------FILES SIZE BEFORE ERASE-----------"
+      number_of_files_uploaded = @files.count
+      number_of_files_uploaded = @files.length
+      puts number_of_files_uploaded
+      @images = upload_file_is_image?(@files)
+      puts "------******************************----------- ------******************************----------- ------******************************-----------"
+      puts "------FILE SIZE AFTER ERASE-----------"
+      number_of_images = @images.count
+      puts number_of_images
+      picture_format(@images)
 
       redirect_to @article
       flash[:success] = "Votre article est bien modifié !"
@@ -148,9 +151,9 @@ class ArticlesController < ApplicationController
     article_params[:title].downcase!
   end
 
-  # when user press on article edit it check if there is only one image, if yes it set image.cover_img to true
-  def check_cover_img_if_one_img
-    if @article.images.count == 1
+  # after_create : set first image as cover image
+  def define_first_img_as_cover_img
+    if @article.images.count > 0
       attachement = ActiveStorage::Attachment.where(record_id: @article.id, record_type: "Article").first
       attachement.cover_img = true
       attachement.save
@@ -159,52 +162,76 @@ class ArticlesController < ApplicationController
 
   # check if blob is an image, if not delete the blob and send a message 
   # then if the image isn't a variable? it convert to jpeg
-  def picture_format(files)
+  def picture_format(images)
     puts "------******************************-----------"
-    puts "------FILE SIZE-----------"
-    puts files.size
-    puts "----------------------"
-
-    @files = files
-    puts "----------------------"
-    file_erased = 0
-    @files.each do |file|
-      # check if file / blob is an image - if not erase
-      if ! file.content_type.start_with? 'image/'
-        purge_none_image_file(file)
-        file_erased += 1
-      # if it's an image rezise, convert and upload
-      else
+    puts "------IN PICTURES FORMAT-----------"
+    images.each do |image|
+    
         # file is a ActiveStorage::Attachment we convert in ActiveStorage::Blob
-        blob = file.blob
-        puts "------******************************-----------"
-        puts "-----FILEVARIABLE ?-----------"
+        blob = image.blob
+        puts "------*****************IMAGE *************-----------"
+        puts image
+        puts "-----BLOB-----------"
         puts blob.variable?
+        puts blob
 
-        blob.open do |tempfile| # temp_file
-          path = tempfile.path #temp_file
-
-          if ! image_blob_is_variable?(blob)
-            puts "------******************************-----------"
-            puts "-----DANS LA CONDITION -----------"
-            pipeline = ImageProcessing::MiniMagick.source(path)
-            .convert!("jpeg")
-          end 
-
-          pipeline = ImageProcessing::MiniMagick.source(path)
-          .resize_to_limit(1200, 1200)
-          .call(destination: path)
-          
+        blob.open do |picture|
+          puts "------PICTURES PATH -----------"
+          path = picture.path
+          puts picture.path
+          ImageProcessing::MiniMagick.source(path)
+            .resize_to_limit(50, 50)
+            .call(destination: path)
           new_data = File.binread(path)
-          @article.send(:images).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image/jpg'
+          @article.send(:images).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
+          puts "----------------------------------"
         end
-        file.purge_later
-      end
+        image.purge_later 
+
+        # blob.open do |temp_file| # temp_file
+        #   path = temp_file.path #temp_file
+
+        #   if ! image_blob_is_variable?(blob)
+        #     puts "------******************************-----------"
+        #     puts "-----DANS LA CONDITION -----------"
+        #     pipeline = ImageProcessing::MiniMagick.source(path)
+        #     .convert!("jpeg")
+        #   end 
+
+        #   pipeline = ImageProcessing::MiniMagick.source(path)
+        #   .resize_to_limit(1200, 1200)
+        #   .call(destination: path)
+          
+        #   new_data = File.binread(path)
+        #   @article.send(:images).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image/jpg'
+        # end
+
+        # image.purge #purge_later 
     end
-    return file_erased
+
   end
 
-  def purge_none_image_file(file)
+
+  # check if an uploaded file is a image - if not send to be purge - count the number of files purged
+  def upload_file_is_image?(files)
+    files.each do |file|
+      if !file.content_type.start_with? 'image/'
+        #purge_file(file)
+        file.purge
+        files.delete file
+      end
+    end
+    puts "------******************************-----------"
+    puts "------******************************-----------"
+    puts files.size
+    files.each do |file|
+      puts file
+    end
+
+    return files
+  end
+
+  def purge_file(file)
     file.purge
   end
 
