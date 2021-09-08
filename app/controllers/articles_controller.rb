@@ -180,7 +180,7 @@ class ArticlesController < ApplicationController
           path = picture.path
           puts picture.path
           ImageProcessing::MiniMagick.source(path)
-            .resize_to_limit(50, 50)
+            .resize_to_limit(1200, 1200)
             .call(destination: path)
           new_data = File.binread(path)
           @article.send(:images).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
