@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     @articles = @user.articles.order("created_at DESC")
     @posts = @user.posts.order("created_at DESC")
     @guests = Guest.all.order("first_name ASC")
+    @last_articles = Article.limit(2).order("created_at DESC")
   end
 
   # GET /users/new

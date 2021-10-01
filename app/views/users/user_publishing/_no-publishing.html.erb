@@ -1,2 +1,42 @@
 
-<p>Il n'a rien publier faire qqch</p>
+<h1>Ce membre n'a rien publié</h1>
+<p class="text">voici les 2 dernières créations publiées :</p>
+
+
+
+<div class="row">
+      <% @last_articles.each do |article| %>
+        <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
+          <%= link_to (article) do %>
+              <div class="card-small">
+                <% if article.images.attached? %>
+                  <div class="card-img-top">
+                    <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %>
+                  </div>
+                <% end %>
+                <div class="card-body">
+                  <h5><%= article.title.capitalize %></h5>
+                  <div class="article-user">
+                    <%= article.user.full_name %>
+                  </div>
+                  <div class="card-text">
+                    <div class="mb-2">
+                      publié le <%= l(article.created_at, format: :date) %>
+                    </div>
+                    <div>
+                      <span class="article-badge-full"><%= article.category.name %></span>
+                      <% if article.likes.count > 0 %>
+                        <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                      <% end %>
+                      <% if article.comments.count > 0 %>
+                        <span><i class="fas fa-comment-alt  info-icon"></i><%= article.comments.count %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>

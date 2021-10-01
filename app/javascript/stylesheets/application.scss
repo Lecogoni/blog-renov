@@ -100,6 +100,7 @@ article {
   padding: 2px 6px;
 }
 
+
 .filter-article {
   @extend .filter;
   margin-bottom: 10px;
@@ -114,13 +115,12 @@ article {
 
 .filter-article-active {
   @extend .filter;
+  display: inline-block;
   border: 1px solid $pink;
   background-color: $pink;
   color: $white;
-  &:hover {
-    color: $white;
-    cursor: default;
-  }
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .filter-post {
@@ -138,10 +138,8 @@ article {
   border: 1px solid $dark-plum-back;
   background-color: $dark-plum-back;
   color: $white;
-  &:hover {
-    color: $white;
-    cursor: default;
-  }
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* BUTTON
