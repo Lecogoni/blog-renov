@@ -98,7 +98,7 @@
         .footer span,
         .footer a {
           color: #999999;
-          font-size: 14px;
+          font-size: 12px;
           text-align: center; 
       }
 
@@ -128,7 +128,7 @@
       ul,
       ol {
         font-family: sans-serif;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: normal;
         margin: 0;
         margin-bottom: 15px; 
@@ -167,7 +167,7 @@
       }
         .btn a {
           background-color: #ffffff;
-          border: solid 1px #3498db;
+          border: solid 1px #cd0f58;
           border-radius: 5px;
           box-sizing: border-box;
           color: #3498db;
@@ -182,12 +182,12 @@
       }
 
       .btn-primary table td {
-        background-color: #3498db; 
+        background-color: #cd0f58; 
       }
 
       .btn-primary a {
-        background-color: #3498db;
-        border-color: #3498db;
+        background-color: #cd0f58;
+        border-color: #cd0f58;
         color: #ffffff; 
       }
 
@@ -326,11 +326,11 @@
           line-height: inherit;
         }
         .btn-primary table td:hover {
-          background-color: #34495e !important; 
+          background-color: #480032 !important; 
         }
         .btn-primary a:hover {
-          background-color: #34495e !important;
-          border-color: #34495e !important; 
+          background-color:#480032 !important;
+          border-color: #480032 !important; 
         } 
       }
 
@@ -356,7 +356,7 @@
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p><span class="pink-text">Salut <%= @guest.first_name.capitalize %></span>,</p>
+                        <h4><span class="pink-text">Bonjour <%= @guest.first_name.capitalize %></span>,</h4>
                         <p>Ta demande de création de compte à bien enregistrée et va être très rapidement examinée. 
                         Tu recevras prochainement un email contenant un lien te permettant de définir ton mot de passe. 
                         Tu pourras ensuite te connecté et
@@ -366,7 +366,7 @@
                           </ul>
                         </p>
                         <p>
-                          Voici un recap des infos que tu as communiqué. Au besoin du pourras modifier ton profil utltérieurement.
+                          Voici un recap des infos que tu as communiqué. Au besoin tu pourras modifier ton profil utltérieurement.
                           <ul>
                             <li>prénom : <span class="pink-text"><%= @guest.first_name %></span></li>
                             <li>nom : <span class="pink-text"><%= @guest.last_name %></span></li>

@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
     @url  = 'https://renov-fauteuil.herokuapp.com' 
 
     # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
-    mail(to: @guest.email, subject: 'Bienvenue chez nous !') 
+    mail(to: @guest.email, subject: 'Bienvenue chez nous !')
   end
 
 
@@ -21,23 +21,24 @@ class UserMailer < ApplicationMailer
   def new_registration_member(guest)
     @guest = guest
     @url  = 'https://renov-fauteuil.herokuapp.com' 
-    mail(to: "francine@yopmail.com", subject: 'Nouvelle demande de membre') 
+    mail(to: "francine@yopmail.com", subject: 'Nouvelle demande de membre sur Renov-Fauteuil') 
   end
 
   # email to confirm guest their application
-  def confirm_registration_member(user, raw)
+  def confirm_registration_member(user, guest, raw)
     @user = user
+    @guest = guest
     @url  = 'https://renov-fauteuil.herokuapp.com'
     @raw = raw
     @link  = edit_user_password_url(reset_password_token: @raw)
-    mail(to: user.email, subject: "Confirmation d'insciption à paye ton site!") 
+    mail(to: user.email, subject: "Confirmation d'insciption à Renov-Fauteuil !") 
   end
 
   # email to alert guest that its membership request had been refused
   def refuse_guest_registration(guest)
     @guest = guest
     @url  = 'https://renov-fauteuil.herokuapp.com' 
-    mail(to: "francine@yopmail.com", subject: "Votre demande sur le ...... a été refusée") 
+    mail(to: "francine@yopmail.com", subject: "Votre demande d'accès à Renov-Fauteuil a été refusée") 
   end
   
   # email when a user is created by an admin user
@@ -46,7 +47,7 @@ class UserMailer < ApplicationMailer
     @url  = 'https://renov-fauteuil.herokuapp.com'
     @raw = raw
     @link  = edit_user_password_url(reset_password_token: @raw)
-    mail(to: "francine@yopmail.com", subject: "Invitation au site paye ton site") 
+    mail(to: "francine@yopmail.com", subject: "Invitation au site renov-fauteuil") 
   end
 
 

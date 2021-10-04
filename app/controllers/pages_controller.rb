@@ -40,10 +40,10 @@ class PagesController < ApplicationController
     user.save
     
     # destroy guest, redirect, email new user
-    @guest.destroy
     redirect_to @admin
     flash[:success] = "demande d'invitation validée ! #{@guest.first_name} a été notifié par email"
-    UserMailer.confirm_registration_member(user, raw).deliver_now
+    UserMailer.confirm_registration_member(user, @guest, raw).deliver_now
+    @guest.destroy
   end
 
   def refuse_guest
