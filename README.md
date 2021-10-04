@@ -34,3 +34,12 @@ Things you may want to cover:
 • verify that email sender for sendgrid is authentificate, change default sender in user_mailer.rb, verify URL link for new user
 
 * ...
+
+
+# email inline css template 
+https://github.com/leemunroe/responsive-html-email-template
+
+
+# Une fois nom de domaine réservé
+
+- changer le lien vers le site dans les emails
