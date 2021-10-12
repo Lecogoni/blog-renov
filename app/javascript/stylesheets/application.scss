@@ -1,16 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 
-
-
 $background-grey: #f9f7f8;
-$color:#210d1b; 
+$color: #210d1b;
 $pink: #cd0f58;
-$light-pink:#ffcbb7;
+$light-pink: #ffcbb7;
 $purpley-grey: #6b525e;
 $dark-plum-back: #480032;
 $dark-back: #34001e;
 $orange-cream: #ee7268;
-
 
 html {
   position: relative;
@@ -34,8 +31,14 @@ footer {
   color: white;
 }
 
-body, h1, h2, h3, h4, h5, h6 {
-  font-family: 'pt serif',serif;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "pt serif", serif;
   color: $color;
 }
 
@@ -64,12 +67,12 @@ a:visited {
 }
 
 .text {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: $purpley-grey;
 }
 
 .flash-alert {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.9rem;
   padding: 0 0 0 30px;
 }
@@ -89,18 +92,15 @@ article {
   margin-bottom: 2rem;
 }
 
-
-
 /* FILTER
 -------------------------------------------------- */
 
 .filter {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   border-radius: 5px;
   padding: 2px 6px;
 }
-
 
 .filter-article {
   @extend .filter;
@@ -110,7 +110,8 @@ article {
   color: $pink;
   &:hover {
     color: $pink;
-    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
+    box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+      0 2px 4px 0 rgba(90, 63, 82, 0.5);
   }
 }
 
@@ -130,7 +131,8 @@ article {
   color: $dark-plum-back;
   &:hover {
     color: $dark-plum-back;
-    box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.5);
+    box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+      0 2px 4px 0 rgba(90, 63, 82, 0.5);
   }
 }
 
@@ -195,9 +197,6 @@ article {
   margin-left: 0.6rem;
 }
 
-  
- 
-
 .delete-btn:before {
   font-family: "Font Awesome 5 Free";
   content: "\f1f8";
@@ -209,7 +208,7 @@ article {
 }
 
 /* on Article#edit */
-.delete-img{
+.delete-img {
   color: $color;
   &:hover {
     color: $pink;
@@ -224,19 +223,25 @@ article {
   }
 }
 
-
 /* ICON
 -------------------------------------------------- */
 
-.fa-heart, .fa-comment-alt, .fa-edit, .fa-trash-alt, 
-.fa-user, .fa-caret-square-left, .fa-comment-dots,
+.fa-heart,
+.fa-comment-alt,
+.fa-edit,
+.fa-trash-alt,
+.fa-user,
+.fa-caret-square-left,
+.fa-comment-dots,
 .fa-plus-circle,
-.fa-plus-square, .fa-reply,
+.fa-plus-square,
+.fa-reply,
 .fa-images {
   margin-right: 0.4rem;
 }
 
-.fa-arrow-circle-left, .fa-arrow-circle-right {
+.fa-arrow-circle-left,
+.fa-arrow-circle-right {
   color: $pink;
 }
 
@@ -248,7 +253,7 @@ article {
 -------------------------------------------------- */
 
 .badge {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.8rem;
   font-weight: 300;
   border-radius: 5px;
@@ -272,11 +277,10 @@ article {
   color: $dark-plum-back;
 }
 
-
 /* NAVBAR
 -------------------------------------------------- */
 
-.navbar{
+.navbar {
   a {
     color: #cccccc;
   }
@@ -285,19 +289,25 @@ article {
   }
 }
 
-
 .nav-link.disabled {
   pointer-events: auto;
   cursor: not-allowed !important;
 }
 
+/* FORM
+-------------------------------------------------- */
+
+.form-block {
+  margin-bottom: 1rem;
+}
 
 /* CARD
 -------------------------------------------------- */
 
 .card {
   border-radius: 8px;
-  box-shadow: 0 5px 15px 0 rgba(147,114,137,.2),0 2px 4px 0 rgba(90,63,82,.2);
+  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+    0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
   min-width: 100%;
 }
@@ -307,15 +317,12 @@ article {
   padding: 0.8rem;
 }
 
-
 /* =>  NE SERT A RIEN NORMALEMENT */
 
 .card-img-top {
   overflow: auto;
   max-width: 100%;
 }
-
-
 
 .img-index {
   max-width: 100%;
@@ -360,19 +367,19 @@ article {
   .card-body {
     flex: 1 1 auto;
     padding: 0.5rem;
+  }
 }
-} 
 
 .img-data {
   font-size: 0.8rem;
 }
 
-
 /* ADMIN CARD */
 
 .card-admin {
   border-radius: 8px;
-  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
+  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+    0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
   margin: 2rem 0;
   flex: 1 1 auto;
@@ -383,7 +390,7 @@ article {
     color: white;
   }
   .admin-content {
-    margin: 0 0.8rem ;
+    margin: 0 0.8rem;
     .btn {
       font-size: 1.2rem;
       padding: 0.375rem 2rem;
@@ -391,21 +398,20 @@ article {
   }
   p {
     margin-top: 1rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     text-align: center;
     font-size: 0.8rem;
   }
 }
 
-
 .card-user-profil {
   border-radius: 8px;
-  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
+  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+    0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
   flex: 1 1 auto;
   margin-top: 2rem;
   margin-bottom: 3rem;
-
 }
 
 .col-left {
@@ -419,16 +425,12 @@ article {
   margin-bottom: 1rem;
 }
 
-
-
 /* ARTICLE#SHOW
 -------------------------------------------------- */
-
 
 .article-data {
   margin-right: 0.3rem;
 }
-
 
 /* ARTICLE CAROUSEL
 -------------------------------------------------- */
@@ -463,38 +465,37 @@ article {
   background-image: none;
 }
 
-.carousel-control-next-icon:after
-{
-  content: '>';
+.carousel-control-next-icon:after {
+  content: ">";
   font-size: 55px;
   font-weight: bold;
   color: $pink;
 }
 
 .carousel-control-prev-icon:after {
-  content: '<';
+  content: "<";
   font-size: 55px;
   color: $pink;
   font-weight: bold;
 }
 
 .carousel-indicators [data-bs-target] {
-    box-sizing: content-box;
-    flex: 0 1 auto;
-    width: 30px;
-    /* height: 3px; */
-    padding: 0;
-    margin-right: 3px;
-    margin-left: 3px;
-    text-indent: -999px;
-    cursor: pointer;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    opacity: 0.5;
-    transition: opacity 0.6s ease;
+  box-sizing: content-box;
+  flex: 0 1 auto;
+  width: 30px;
+  /* height: 3px; */
+  padding: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
 }
 
 /* ARTICLE COMMENTS
@@ -504,11 +505,11 @@ article {
   margin-bottom: 1.4rem;
   color: $dark-back;
   font-weight: 200;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .comment-body {
-  color: $pink
+  color: $pink;
 }
 
 .comment-info {
@@ -533,36 +534,32 @@ article {
   border: 1px solid $purpley-grey;
 }
 
-
 /* USER INDEX ANNUAIRE
 -------------------------------------------------- */
 table {
   width: 100%;
 }
 
-
 #user-index tbody tr:hover {
   @extend .text;
-  color: $pink
+  color: $pink;
 }
-
 
 /* USER INDEX ANNUAIRE
 -------------------------------------------------- */
 
 .post-card {
   border-radius: 8px;
-  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2), 0 2px 4px 0 rgba(90, 63, 82, 0.2);
+  box-shadow: 0 5px 15px 0 rgba(147, 114, 137, 0.2),
+    0 2px 4px 0 rgba(90, 63, 82, 0.2);
   overflow: hidden;
   margin-bottom: 1rem;
   flex: 1 1 auto;
   padding: 1rem;
-
 }
 
 /* POST INDEX
 -------------------------------------------------- */
-
 
 .rails-inner-button {
   display: inline-block;
@@ -571,10 +568,8 @@ table {
 }
 
 #post-index-title-wrapper {
-    min-width: 100%  !important;
-  }
-
-
+  min-width: 100% !important;
+}
 
 .post-body {
   @extend .text;
@@ -606,7 +601,7 @@ table {
 
 .post-img-wrapper {
   position: relative;
-  display:inline-block;
+  display: inline-block;
 }
 
 .post-badge-full {
@@ -618,7 +613,7 @@ table {
 
 .post-publish-info {
   @extend .text;
-  font-size: 0.9rem
+  font-size: 0.9rem;
 }
 
 .post-publish {
@@ -627,7 +622,6 @@ table {
 
 /* POST#SHOW
 -------------------------------------------------- */
-
 
 .post-text {
   @extend .text;
@@ -660,13 +654,13 @@ textarea {
 }
 
 .answer-body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: $pink;
   font-size: 1rem;
 }
 
 .comment-info {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: $purpley-grey;
   font-size: 0.8rem;
   a {
@@ -678,7 +672,6 @@ textarea {
   color: $dark-back;
 }
 
-
 /* ADMIN USER#SHOW
 -------------------------------------------------- */
 
@@ -687,38 +680,39 @@ textarea {
   thead {
     border-bottom: 1px solid $purpley-grey;
   }
-  thead, tr, th {
+  thead,
+  tr,
+  th {
     padding-bottom: 0.8rem;
   }
 
-  th, td {
-
+  th,
+  td {
   }
-  
-  thead th:nth-child(5) {  
 
+  thead th:nth-child(5) {
   }
   tbody {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     border-bottom: 1px solid $purpley-grey;
   }
-  
-  tbody, tr, td {
+
+  tbody,
+  tr,
+  td {
     padding: 0.6rem 0;
   }
-  
-  .fa-check, .fa-times {
+
+  .fa-check,
+  .fa-times {
     margin-right: 0.5rem;
   }
 }
 
-
 .admin-card .data {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: white;
   font: size 3rem;
 }
-
-
 
 @import "responsive.scss";

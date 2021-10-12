@@ -11,33 +11,30 @@
     </div>
   <% end %>
 
-
-  
   <div>
     <%= image_tag avatar_for(user), style: "width: 150px; display: block", class: "rounded-circle" %>
-    <br>
     <br>
     <%= form.file_field :avatar, direct_upload: true %>
   </div>
 
   <br>
 
-  <div class="form_group">
+  <div class="form_group form-block">
     <%= form.label :prénom %>
     <%= form.text_field :first_name, required: true, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-block">
     <%= form.label :nom %>
     <%= form.text_field :last_name, required: true, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-block">
     <%= form.label :téléphone %>
     <%= form.text_field :phone_number, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-block">
     <%= form.label :email %>
     <%= form.text_field :email, required: true, class: "form-control" %>
   </div>
@@ -50,17 +47,20 @@
     <%= form.hidden_field :show_data, :value => true %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-block">
     <%= form.label :show_data, "Afficher mes coordonnées" %><br>
-    <%= form.label :show_data, "oui", :value => "true"  %>
-    <%= form.radio_button :show_data, true %>
-    <%= form.label :show_data, "non", :value => "false" %>
-    <%= form.radio_button :show_data, false %>
-    <p>permet de rendre visible aux autres utilisateurs votre numéro de téléphone et email dans l'annuaire</p>
+    <div class="form-control">
+        <%= form.label :show_data, "oui", :value => "true"  %>
+        <%= form.radio_button :show_data, true %>
+        <%= form.label :show_data, "non", :value => "false" %>
+        <%= form.radio_button :show_data, false %>
+    </div>
+    <small class="text text-muted font-weight-light font-italic">permet de rendre visible aux autres utilisateurs votre numéro de téléphone et email dans l'annuaire</small>
   </div>
   
   <div class="actions mt-2">
-    <%= form.submit 'modifier mon profil'  %>
+    <%= form.submit 'modifier mon profil', class: "btn btn-primary"  %>
   </div>
 
 <% end %>
+

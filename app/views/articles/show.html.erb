@@ -37,15 +37,21 @@
   <!-- IMAGES CAROUSEL -->
 
   <article>
-    <%= render 'carousel', article: @article %>
   </article>
 
   <!-- DESCRIPTION -->
 
   <article>
-    <h3>Description</h3>
-    <div class="text">
-      <%= @article.description %>
+    <div class="row">
+        <div class="col-4">
+            <%= image_tag @article.header_image, class: "img-fluid mx-auto d-block" %>
+        </div>
+        <div class="col-8">
+            <h3>Description</h3>
+            <div class="text">
+            <%= @article.description %>
+            </div>
+        </div>
     </div>
   </article>
 

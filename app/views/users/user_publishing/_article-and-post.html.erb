@@ -13,9 +13,9 @@
         <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
           <%= link_to (article) do %>
               <div class="card-small">
-                <% if article.images.attached? %>
+                <% if article.header_image.attached? %>
                   <div class="card-img-top">
-                    <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %>
+                    <%= image_tag article.header_image, class: "img-fluid" %>
                   </div>
                 <% end %>
                 <div class="card-body">

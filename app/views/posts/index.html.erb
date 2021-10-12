@@ -45,70 +45,74 @@
 
   <!-- POST -->
 
-  <div class="row">
-    <% @posts.each do |post| %>
-        <div class="col-12">
-          <div class="post-card">
-            <%= link_to (post) do %>
-              <div class="row">
-                <!-- img -->
-                <% if post.picture.attached? %>
-                  <div class="col-3 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-                    <%= image_tag crop_portrait_post_picture(post.picture), class: "img-fluid" %>
-                  </div>
-                <% end %>
-                <!-- info text -->
-                <% if post.picture.attached? %>
-                  <div class="col-9 col-sm-8 col-md-8 col-lg-9 col-xl-9 d-flex align-items-start flex-column">
-                <% else %>
-                  <div class="col-12 d-flex align-items-start flex-column">
-                <% end %>
-                  <!-- title -->
-                  <div id="post-index-title-wrapper">
-                    <div class="d-flex justify-content-between">
-                      <div class="mr-auto">
-                        <h2><%= post.title %></h2>
-                      </div>
-                      <div class="ml-auto">
-                        <span class="article-info post-badge-full"><%= post.column.name %></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- description -->
-                  <div class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                    <div class="post-body-index">
-                      <%= post.body %>
-                    </div>
-                  </div>
-
-                  <!-- avatar user info -->
-                  <div class="mt-auto">
-                    <div class="d-flex flex-row">
-                      <div>
-                        <% if post.user.avatar.attached? %>
-                          <div class="post-index-avatar">
-                            <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle" %>
-                          </div>
-                        <% end %>
-                      </div>
-                      <div class="post-publish-info">
-                        <%= post.user.full_name %>
-                        <div>
-                          <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
-                          <% if post.answers.count > 0 %>
-                            <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
-                          <% end %>
+  <% if @posts.count != 0 %>
+    <div class="row">
+        <% @posts.each do |post| %>
+            <div class="col-12">
+                <div class="post-card">
+                <%= link_to (post) do %>
+                    <div class="row">
+                    <!-- img -->
+                    <% if post.picture.attached? %>
+                        <div class="col-3 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                        <%= image_tag crop_portrait_post_picture(post.picture), class: "img-fluid" %>
                         </div>
-                      </div>
+                    <% end %>
+                    <!-- info text -->
+                    <% if post.picture.attached? %>
+                        <div class="col-9 col-sm-8 col-md-8 col-lg-9 col-xl-9 d-flex align-items-start flex-column">
+                    <% else %>
+                        <div class="col-12 d-flex align-items-start flex-column">
+                    <% end %>
+                        <!-- title -->
+                        <div id="post-index-title-wrapper">
+                        <div class="d-flex justify-content-between">
+                            <div class="mr-auto">
+                            <h2><%= post.title %></h2>
+                            </div>
+                            <div class="ml-auto">
+                            <span class="article-info post-badge-full"><%= post.column.name %></span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- description -->
+                        <div class="d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                        <div class="post-body-index">
+                            <%= post.body %>
+                        </div>
+                        </div>
+
+                        <!-- avatar user info -->
+                        <div class="mt-auto">
+                        <div class="d-flex flex-row">
+                            <div>
+                            <% if post.user.avatar.attached? %>
+                                <div class="post-index-avatar">
+                                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle" %>
+                                </div>
+                            <% end %>
+                            </div>
+                            <div class="post-publish-info">
+                            <%= post.user.full_name %>
+                            <div>
+                                <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
+                                <% if post.answers.count > 0 %>
+                                <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
+                                <% end %>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                  </div>
+                    </div>
+                <% end %>
                 </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
-  </div>
+            </div>
+        <% end %>
+    </div>
+  <% else %>
+    <p>Aucune annonce est publié à ce jour</p>
+  <% end %>
 
 </div>

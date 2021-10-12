@@ -19,7 +19,7 @@ admin = User.create(
   is_admin: true,
 )
 
-puts "admin create"
+puts "admin user create"
 
 user = User.create(
   first_name: "marie",

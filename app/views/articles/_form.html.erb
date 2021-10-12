@@ -1,71 +1,43 @@
 
-<%= form_with(model: @article) do |form| %>
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "erreur") %> empêchent cet article d'être enregistré:</h2>
+<%= form_with(model: article) do |form| %>
+    <% if @article.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@article.errors.count, "erreur") %> empêchent cet article d'être enregistré:</h2>
 
-      <ul>
-        <% @article.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= simple_form_for(@article) do |f| %>
-
-    <div class="form-inputs">
-
-      <%= f.hidden_field :user_id, :value => current_user.id %>
-      <div class="mb-2">
-        <p class="text">Catégorie de votre création :</p>
-        <%= f.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie' %>
-      </div>
-      <div>
-        <%= f.input :title, label: 'Titre', input_html: {class: 'input text mb-2'}, required: true, wrapper: false, label_html: {class: 'label mb-1'} %>
-      </div>
-      <%= f.input :description, input_html: {class: 'textarea mb-2', :rows => 15}, required: true, wrapper: false, label_html: {class: 'label mb-1'} %>
-      
-      <% if @article.images.count > 1 %>
-        <p class="text">Ajoutez d'autres photos :</p>
-      <% else %>
-        <p class="text">Ajoutez une ou plusieurs images (vous pouvez sélectionner plusieurs photos en même temps) :</p>
-      <% end %>
-      <%= f.file_field :images, multiple:true, direct_upload: true, class: "form-control mt-2 mb-2" %>
-
-      <br>
-      <p class="text">Parmi les images déjà téléchargées choississez laquelle sera l'image principale, celle utiliser pour présenter votre créations</p>
-      <% if @article.images.attached? %>
-        <div class="row mb-2">
-          <% @images.each do |image| %>
-            <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card-edit-img">
-                  <div class="card-content">
-                    <%= image_tag image, class: "img-fluid mb-2" %> 
-                    <div class="d-flex flex-column align-items-center img-data">
-                      <div>
-                        <span><%= f.radio_button:img_id, image.id, :checked => (image.cover_img == true), required: true  %> image principale</span><br>
-                      </div>
-                      <div>
-                        <span><%= link_to 'supprimer', delete_file_article_path(image.id, article_id: @article.id), method: :delete, class: 'delete-img', confirm: 'Êtes vous certain de vouloir supprimer cette image ?'  %></span>
-                      </div>
-                      <div>
-                        <%= image.variable? %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          <% end %>
+            <ul>
+            <% @article.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+            <% end %>
+            </ul>
         </div>
-      <% end %>
+    <% end %>
 
+    
+    <%= form.hidden_field :user_id, :value => current_user.id %>
 
+    <div class="form_group form-block mb-2">
+        <p class="text">Catégorie de votre création :</p>
+        <div class="form-control">
+            <%= form.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie :', :class => 'form-control' %>
+        </div>
+    </div>
+
+    <div class="form_group form-block">
+        <%= form.label :titre, class: 'text' %>
+        <%= form.text_field :title, required: true, class: "form-control input text mb-2" %>
+    </div>
+
+    <div class="form_group form-block">
+        <%= form.label :description, class: 'text' %>
+        <%= form.text_area :description, required: true, class: "form-control textarea mb-2", :rows => 7 %>
+    </div>
+
+    <div class="form_group form-block">
+        <%= form.file_field :header_image, direct_upload: true, class: "form-control mt-2 mb-2" %>
     </div>
 
     <div class="form-actions mb-2">
-      <%= f.button :submit, 'valider', class: "btn-light-pink" %>
+        <%= form.submit 'valider', class: "btn btn-light-pink" %>
     </div>
-  <% end %>
 
 <% end %>

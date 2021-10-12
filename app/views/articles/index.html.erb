@@ -31,10 +31,11 @@
 
           <div class="card-content">
 
-            <!-- COVER IMG -->
-            <% if article.images.attached? %>
+            <!-- header_image -->
+            <% if article.header_image.attached? %>
               <div class="card-img-top">
-                <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %>
+                <%= image_tag article.header_image, class: "img-fluid mx-auto d-block" %>
+<!-- PENSER A CROPPING METHOD crop_portrait_post_picture -->
               </div>
             <% end %> 
 

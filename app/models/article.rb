@@ -5,9 +5,10 @@ class Article < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   
-  has_many_attached :images, dependent: :purge_later
+  has_one_attached :header_image, dependent: :purge_later
+  #has_many_attached :images, dependent: :purge_later
   
-  validates :images, presence: true
+  validates :header_image, presence: true
 
 
   def upcase_title
@@ -19,19 +20,19 @@ class Article < ApplicationRecord
   end
 
   # display on article#index or the first article images or the cover_img == true if it has one
-  def display_cover_img
-    @picture = []
-    if self.images.any?{|pic| pic.cover_img == true}
-      self.images.each do |pic|
-        if pic.cover_img == true
-          @picture << pic
-        end
-      end
-    else
-      @picture << self.images.first
-    end
-    return @picture.first
-  end
+#   def display_cover_img
+#     @picture = []
+#     if self.images.any?{|pic| pic.cover_img == true}
+#       self.images.each do |pic|
+#         if pic.cover_img == true
+#           @picture << pic
+#         end
+#       end
+#     else
+#       @picture << self.images.first
+#     end
+#     return @picture.first
+#   end
 
   def article_has_like?
     self.likes.count >= 1

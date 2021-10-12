@@ -1,10 +1,12 @@
+<% if @user.id == current_user.id %>
+    <h5>Vous n'avez encore rien publié.</h5>
+<% else %>
+    <h5>Ce membre n'a encore rien publié.</h5>
+<% end %>
 
-<h1>Ce membre n'a rien publié</h1>
-<p class="text">voici les 2 dernières créations publiées :</p>
-
-
-
-<div class="row">
+<% if @last_articles.length != 0 %>
+    <p class="text">voici les 2 dernières créations publiées :</p>
+    <div class="row">
       <% @last_articles.each do |article| %>
         <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
           <%= link_to (article) do %>
@@ -40,3 +42,4 @@
       <% end %>
     </div>
   </div>
+<% end %>
