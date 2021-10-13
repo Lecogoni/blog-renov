@@ -71,10 +71,10 @@
             <!-- @article.parts#edit -->
             <div class="card">
                 <div class="card-body" data-controller="parts">
-                    <ul id='elements' data-action="drop->parts#sort">
+                    <ul id='parts-elements' data-action="drop->parts#sort">
                         <% @article.parts.order(position: :asc).each do |part| %>
                             <% if part.persisted? %>
-                                <li data-id='<%= part.id %>' class="element-item">
+                                <li data-id='<%= part.id %>' class="part-item">
                                     <% if part.paragraph? %> <!-- PARAGRAPH -->
                                         <div class="mb-4 p-3 paragraph">
 

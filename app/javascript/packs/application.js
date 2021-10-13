@@ -62,8 +62,8 @@ document.addEventListener("turbolinks:load", () => {
     element.peviousElementSibling.classList.remove("d-none");
   });
 
-  let element = document.getElementById("elements");
-  new Sortable(elements, { animation: 150 });
+  let partElement = document.getElementById("parts-elements");
+  new Sortable(partElement, { animation: 150 });
 });
 
 import "controllers";

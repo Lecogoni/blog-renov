@@ -5,7 +5,7 @@ class PartsReflex < ApplicationReflex
         puts '--------------------------------------------------------'
         puts '--------------------------------------------------------'
 
-        parts = JSON.parse(element.dataset[:elements])
+        parts = JSON.parse(element.dataset[:parts])
 
         parts.each do |part|
             part_record = Part.find(part['id'])

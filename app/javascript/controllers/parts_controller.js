@@ -2,17 +2,17 @@ import ApplicationController from "./application_controller";
 
 export default class extends ApplicationController {
   sort() {
-    let element = document.getElementById("elements");
-    let element_items = Array.from(
-      document.getElementsByClassName("element-item")
+    let part = document.getElementById("parts-elements");
+    let part_items = Array.from(
+      document.getElementsByClassName("part-item")
     );
-    let elements = element_items.map((element, index) => {
-      return { id: element.dataset.id, position: index + 1 };
+    let parts = part_items.map((ele, index) => {
+      return { id: ele.dataset.id, position: index + 1 };
     });
 
-    console.log(elements);
+    //console.log(parts);
 
-    element.dataset.elements = JSON.stringify(elements);
-    this.stimulate("PartsReflex#sort", element);
+    part.dataset.parts = JSON.stringify(parts);
+    this.stimulate("PartsReflex#sort", part);
   }
 }
