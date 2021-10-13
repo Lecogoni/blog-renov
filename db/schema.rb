@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_12_080724) do
+ActiveRecord::Schema.define(version: 2021_10_12_163519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +71,8 @@ ActiveRecord::Schema.define(version: 2021_10_12_080724) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "category_id", null: false
+    t.boolean "published"
+    t.datetime "published_at"
     t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
@@ -106,6 +118,15 @@ ActiveRecord::Schema.define(version: 2021_10_12_080724) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "parts", force: :cascade do |t|
+    t.string "element_type"
+    t.bigint "article_id", null: false
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_parts_on_article_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -113,6 +134,8 @@ ActiveRecord::Schema.define(version: 2021_10_12_080724) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "column_id", null: false
+    t.boolean "published"
+    t.datetime "published_at"
     t.index ["column_id"], name: "index_posts_on_column_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -143,6 +166,7 @@ ActiveRecord::Schema.define(version: 2021_10_12_080724) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "articles"
   add_foreign_key "likes", "users"
+  add_foreign_key "parts", "articles"
   add_foreign_key "posts", "columns"
   add_foreign_key "posts", "users"
 end

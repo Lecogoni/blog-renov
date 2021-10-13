@@ -12,15 +12,22 @@ Rails.application.routes.draw do
 
   get 'comments/create'
   get 'comments/destroy'
-  
-
-  resources :articles do
-    resources :likes
-  end
 
   resources :articles do
     resources :comments
+    resources :likes
+    resources :parts
   end
+  
+    resources :articles do
+        member do
+        #delete :delete_file
+        delete :admin_delete_article
+        end
+    end
+
+
+
 
   resources :posts do
     resources :answers
@@ -36,12 +43,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :articles do
-    member do
-      delete :delete_file
-      delete :admin_delete_article
-    end
-  end
 
   resources :posts do
     member do

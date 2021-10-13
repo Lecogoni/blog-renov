@@ -15,29 +15,33 @@
     
     <%= form.hidden_field :user_id, :value => current_user.id %>
 
-    <div class="form_group form-block mb-2">
-        <p class="text">Catégorie de votre création :</p>
-        <div class="form-control">
-            <%= form.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie :', :class => 'form-control' %>
-        </div>
+    <div class="form_group form-block col-12 text">
+        <%= form.label :Catégorie, class: 'text' %>
+        <%= form.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie :', class: 'form-control' %>
     </div>
 
     <div class="form_group form-block">
         <%= form.label :titre, class: 'text' %>
-        <%= form.text_field :title, required: true, class: "form-control input text mb-2" %>
+        <%= form.text_field :title, required: true, class: "form-control input text mb-2"%>
     </div>
 
     <div class="form_group form-block">
         <%= form.label :description, class: 'text' %>
-        <%= form.text_area :description, required: true, class: "form-control textarea mb-2", :rows => 7 %>
+        <%= form.text_area :description, required: true, class: "form-control text mb-2", :rows => 7 %>
     </div>
 
     <div class="form_group form-block">
+        <%= form.label :image, class: 'text' %>
+
+        <% if @article.header_image.present? %>
+            <%= image_tag @article.header_image, class: "form-control" %>
+        <% end %>
+
         <%= form.file_field :header_image, direct_upload: true, class: "form-control mt-2 mb-2" %>
     </div>
 
     <div class="form-actions mb-2">
-        <%= form.submit 'valider', class: "btn btn-light-pink" %>
+        <%= form.submit 'Mettre à jour', class: "btn btn-light-pink col-12", :title => "Valider l'ensemble des modifications apportées à cet article" %>
     </div>
 
 <% end %>

@@ -11,7 +11,7 @@
     <div class="row">
       <% @articles.each do |article| %>
         <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
-          <%= link_to (article) do %>
+          <%= link_to article do %>
               <div class="card-small">
                 <% if article.header_image.attached? %>
                   <div class="card-img-top">

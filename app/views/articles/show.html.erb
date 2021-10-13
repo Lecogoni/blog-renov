@@ -156,9 +156,9 @@
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
               <%= link_to (article) do %>
                 <div class="card-small">
-                  <% if article.images.attached? %>
+                  <% if article.header_image.attached? %>
                     <div class="card-img-top mb-1">
-                      <%= image_tag crop_portrait_post_picture(article.display_cover_img), class: "img-fluid" %> 
+                      <%= image_tag (article.header_image), class: "img-fluid" %> 
                     </div>
                   <% end %>
                   <div class="card-body">

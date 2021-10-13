@@ -1,13 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
-
-$background-grey: #f9f7f8;
-$color: #210d1b;
-$pink: #cd0f58;
-$light-pink: #ffcbb7;
-$purpley-grey: #6b525e;
-$dark-plum-back: #480032;
-$dark-back: #34001e;
-$orange-cream: #ee7268;
+@import "./variables";
+@import "trix/dist/trix";
+@import "./actiontext";
+@import "./edit-article";
 
 html {
   position: relative;
