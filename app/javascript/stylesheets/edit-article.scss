@@ -8,7 +8,7 @@
   .paragraph {
     transition: background-color 0.5s ease;
     &:hover {
-      background-color: #f8f9fa;
+      background-color: $background-grey;
       cursor: pointer;
     }
   }

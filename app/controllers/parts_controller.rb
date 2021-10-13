@@ -4,7 +4,7 @@ class PartsController < ApplicationController
 
     # GET /parts or /parts.json
     def index
-    @parts = Part.all
+        @parts = Part.all
     end
 
     # GET /parts/1 or /parts/1.json
@@ -26,17 +26,19 @@ class PartsController < ApplicationController
         @part = @article.parts.build(part_params)
 
         if @part.save
-            notice = "Un nouveau paragraphe à été ajouté" 
+            #notice = "Un nouveau paragraphe à été ajouté" 
         else
             notice = @part.errors.full_messages.join(" .") << "."
         end
-        redirect_to edit_article_path(@article), notice: "Un nouveau paragraphe à été ajouté" 
+        redirect_to edit_article_path(@article)
+        #, notice: "Un nouveau paragraphe à été ajouté" 
     end
 
     # PATCH/PUT /parts/1 or /parts/1.json
     def update
         if @part.update(part_params)
-            redirect_to edit_article_path(@article), notice: "Le paragraphe à été enregistré" 
+            redirect_to edit_article_path(@article)
+            #, notice: "Le paragraphe à été enregistré" 
         else
             redirect_to edit_article_path(@article) 
         end
@@ -45,7 +47,8 @@ class PartsController < ApplicationController
     # DELETE /parts/1 or /parts/1.json
     def destroy
         @part.destroy
-        redirect_to edit_article_path(@article), notice: "Part was successfully destroyed."
+        redirect_to edit_article_path(@article)
+        #, notice: "Part was successfully destroyed."
     end
 
     private
