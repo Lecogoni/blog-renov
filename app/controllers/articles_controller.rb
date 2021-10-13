@@ -27,6 +27,7 @@ class ArticlesController < ApplicationController
 
     # GET /articles/1 or /articles/1.json
     def show
+    @article_parts = Part.where(article_id: @article.id).order("position ASC")
     @other_articles = Article.where(user_id: @article.user_id).where.not(id: @article.id)
 
     ## USELESS 

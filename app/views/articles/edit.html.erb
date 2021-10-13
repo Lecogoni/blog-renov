@@ -5,10 +5,8 @@
     <div class="row">
 <!-- LEFT COLUMN : Edite Article-->
         <div class="col-4">
-            <%= link_to 'Annuler / back', @article,  class: 'btn-dark-back mb-4' %> 
+            <%= link_to 'Annuler', @article,  class: 'btn btn-secondary mb-3' %> 
             <div class="card">
-                <div><h4 class="card-title">Editing</h4></div>
-                
                 <div class="card-body">
                     <!-- Render editing article-->
                     <%= render 'form', article: @article %>
