@@ -1,5 +1,5 @@
 <% if @user.id == current_user.id %>
-    <h5>Vous n'avez encore rien publié.</h5>
+    <h4>Vous n'avez encore rien publié.</h4>
 <% else %>
     <h5>Ce membre n'a encore rien publié.</h5>
 <% end %>
@@ -28,10 +28,10 @@
                     <div>
                       <span class="article-badge-full"><%= article.category.name %></span>
                       <% if article.likes.count > 0 %>
-                        <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                        <span class="social-badge"><i class="fas fa-heart info-icon"></i>  <%= article.likes.count %></span>
                       <% end %>
                       <% if article.comments.count > 0 %>
-                        <span><i class="fas fa-comment-alt  info-icon"></i><%= article.comments.count %></span>
+                        <span><i class="fas fa-comment-alt  info-icon"></i>  <%= article.comments.count %></span>
                       <% end %>
                     </div>
                   </div>

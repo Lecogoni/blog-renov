@@ -36,7 +36,8 @@
 
   <div class="form-group form-block">
     <%= form.label :email %>
-    <%= form.text_field :email, required: true, class: "form-control" %>
+    <%= form.text_field :email, required: true, disabled: true, class: "form-control" %>
+    <small class="text text-muted font-weight-light font-italic">si vous souhaitez modifier votre email, et/ou votre mot de passe, allez dans menu Profil et cliquez sur "Modifier email / mot de passe"</small>
   </div>
 
   <div class="field">

@@ -3,11 +3,22 @@
   <!-- ARTICLE -->
 
   <header>
-    <!-- TITLE - CATEGORY - LIKES - COMMENTS -->
+    <!-- TITLE - PUBLISHED - CATEGORY - LIKES - COMMENTS -->
     <div class="mb-4">
       <h1 class='mb-4'><%= @article.upcase_title %></h1>
+
       <div class="text d-flex justify-content-start">
+        <% if user_signed_in? && current_user.id == @article.user.id %>
+            <% if @article.published? %> 
+                <span class="badge bg-info">Publié</span>
+            <% else %>
+                <span class="badge bg-secondary">Non Publié</span>
+            <% end %>
+        <% end %>
+
+
         <div class="article-badge-full"><%= @article.category.name %></div>
+
         <% if user_signed_in? %>
           <% if @article.comments.count > 0 %>
             <div class="article-data">
@@ -52,7 +63,14 @@
                         </div>
                     </div>
                 <% end %>
-               
+
+            
+            <!-- Published info -->   
+            <% if @article.published? %>
+                <div class="text article-data p-2">
+                        publié le <%= l(@article.published_at, format: :date) %>
+                </div>
+            <% end %>
           
             <!-- description -->
             <div class="p-2">
@@ -67,46 +85,38 @@
             </div>
           </div>
 
-            <% if @article.published? %>
-                <div class="text article-data p-2">
-                        publié le <%= l(@article.published_at, format: :date) %>
-                </div>
-            <% end %>
+       
           
 
           <!-- Action Zone -->
             <div class="mt-auto" id="post-index-title-wrapper">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="d-flex justify-content-between">
-                            <% if user_signed_in? %>
+                <div class="d-flex justify-content-start">
+                    <% if user_signed_in? %>
 
-                                <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-outline-primary", method: :post do %>
-                                    <i class="far fa-heart action-icon"></i>
-                                <% end %>
+                        <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-outline-primary social-badge", method: :post do %>
+                            <i class="far fa-heart action-icon"></i>
+                        <% end %>
 
-                                <% if current_user.id != @article.user.id %>
+                        <% if current_user.id != @article.user.id %>
 
-                                    <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-outline-primary", method: :get do %>
-                                        <i class="far fa-user action-icon"></i>
-                                    <% end %>
-                                <% end %>
-
-                                <% if current_user.id == @article.user.id %>
-
-                                    <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-outline-primary", method: :get do %>
-                                        <i class="far fa-edit action-icon"></i>
-                                    <% end %>
-
-                                    <%= button_to @article, class: "btn btn-outline-danger", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
-                                        <i class="far fa-trash-alt action-icon"></i>
-                                    <% end %>
-
-                                <% end %>
-
+                            <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-outline-primary social-badge", method: :get do %>
+                                <i class="far fa-user action-icon"></i>
                             <% end %>
-                        </div>
-                    </div>
+                        <% end %>
+
+                        <% if current_user.id == @article.user.id %>
+
+                            <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-outline-primary social-badge", method: :get do %>
+                                <i class="far fa-edit action-icon"></i>
+                            <% end %>
+
+                            <%= button_to @article, class: "btn btn-outline-danger social-badge", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+                                <i class="far fa-trash-alt action-icon"></i>
+                            <% end %>
+
+                        <% end %>
+
+                    <% end %>
                 </div>
             </div>
 
@@ -119,22 +129,26 @@
   <article>
     <div class="row">
       <!-- ARTICLE CONTENT -->
-      <div class="col-8">
-        <% @article_parts.each do |part| %>
-          <div class="mb-4">
-              <% if part.element_type === 'paragraph' && part.content.present?%>
-                <div class="p-3 text">
-                    <%= part.content %>
-                </div>
-              <% elsif part.element_type === 'image' && part.image.attached? %>
-                    <%= image_tag part.image, class: 'article-img' %>
-              <% end %>
-          </div>
-        <% end %>
-      </div>
+      <% if @article_parts.count > 0 %>
 
-      <!-- COLUMN DE SEPARATION -->
-      <div class="col-1"></div>
+        <div class="col-8">
+            <% @article_parts.each do |part| %>
+            <div class="mb-4">
+                <% if part.element_type === 'paragraph' && part.content.present?%>
+                    <div class="p-3 text">
+                        <%= part.content %>
+                    </div>
+                <% elsif part.element_type === 'image' && part.image.attached? %>
+                        <%= image_tag part.image, class: 'article-img' %>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+
+        <!-- COLUMN DE SEPARATION -->
+        <div class="col-1"></div>
+        
+      <% end %>
       
       <!-- COMMENT -->
       <div class="col-3">

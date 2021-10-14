@@ -84,20 +84,33 @@
     <% if @user.articles.count == 0 && @user.posts.count == 0 %>
       <%= render "users/user_publishing/no-publishing" %>
 
-    <% elsif current_user.id == @user.id && @user.articles.count >= 1 && @user.posts.count == 0 %>
-      <%= render "users/user_publishing/article-no-post_current_user" %>
-    <% elsif current_user.id != @user.id && @user.articles.count >= 1 && @user.posts.count == 0 %>
-      <%= render "users/user_publishing/article-no-post" %>
+
+    <% elsif @user.articles.count >= 1 && @user.posts.count == 0 %>
+        <% if user_signed_in? %>
+            <% if current_user.id == @user.id %>
+                <%= render "users/user_publishing/article-no-post_current_user" %>
+            <% elsif current_user.id != @user.id %>
+                <%= render "users/user_publishing/article-no-post" %>
+            <% end %>
+        <% else %>
+            <%= render "users/user_publishing/article-no-post" %>
+        <% end %>
  
 
     <% elsif @user.articles.count == 0 && @user.posts.count >= 1 %>
       <%= render "users/user_publishing/no-article-post" %>
 
-      
-    <% elsif current_user.id == @user.id && @user.articles.count >= 1 && @user.posts.count >= 1 %>
-      <%= render "users/user_publishing/article-and-post_current_user" %>
-    <% elsif current_user.id != @user.id && @user.articles.count >= 1 && @user.posts.count >= 1 %>
-      <%= render "users/user_publishing/article-and-post" %>
+
+    <% elsif @user.articles.count >= 1 && @user.posts.count >= 1 %>
+        <% if user_signed_in? %>
+            <% if current_user.id == @user.id %>
+                <%= render "users/user_publishing/article-and-post_current_user" %>
+            <% elsif current_user.id != @user.id %>
+                <%= render "users/user_publishing/article-and-post" %>
+            <% end %>
+        <% else %>
+            <%= render "users/user_publishing/article-and-post" %>
+        <% end %>
     <% end %>
   </div>
 

@@ -6,7 +6,7 @@
 
   <div class="form-inputs">
 
-    <div class="field">
+    <div class="field mb-2">
       <% if current_user_is_admin? %>
         <%= f.select :column_id, Column.order(name: :asc).pluck(:name, :id), :prompt => 'choississez la rubrique de votre annonce', required: true %>
       <% else %>
@@ -15,13 +15,13 @@
     </div>
 
     <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.input :title, required: true %>
-    <%= f.input :body, required: true, :input_html => {:rows => 15} %>
+    <%= f.input :title, required: true, label: 'Titre de votre annonce' %>
+    <%= f.input :body, required: true, label: 'Texte de votre annonce',:input_html => {:rows => 7} %>
     <%= f.label :picture %>
-    <%= f.file_field :picture, direct_upload: true, class: "form-control" %>
+    <%= f.file_field :picture, direct_upload: true, label: 'Vous pouvez ajouter une photo à votre annonce', class: "form-control" %>
   </div>
 
   <div class="form-actions mt-2">
-    <%= f.button :submit, 'Poster mon annonce', class: "btn-light-pink mb-2" %>
+    <%= f.button :submit, 'Poster mon annonce', class: "btn btn-primary mb-2" %>
   </div>
 <% end %>

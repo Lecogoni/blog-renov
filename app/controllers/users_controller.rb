@@ -98,7 +98,7 @@ class UsersController < ApplicationController
     def downcase_fields
       user_params[:first_name].downcase!
       user_params[:last_name].downcase!
-      user_params[:email].downcase!
+      #user_params[:email].downcase!
     end
 
 end

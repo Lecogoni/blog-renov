@@ -17,7 +17,7 @@
 
     <div class="form_group form-block col-12 text">
         <%= form.label :Catégorie, class: 'text' %>
-        <%= form.select :category_id, Category.pluck(:name, :id), :include_blank => 'choississez une categorie :', class: 'form-control' %>
+        <%= form.select :category_id, Category.pluck(:name, :id), required: true, :include_blank => 'choississez une categorie :', class: 'form-control' %>
     </div>
 
     <div class="form_group form-block">
@@ -27,7 +27,7 @@
 
     <div class="form_group form-block">
         <%= form.label :description, class: 'text' %>
-        <%= form.text_area :description, required: true, class: "form-control text mb-2", :rows => 7 %>
+        <%= form.text_area :description, required: true, class: "form-control text mb-2", :rows => 4 %>
     </div>
 
     <div class="form_group form-block">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-actions mb-2">
-        <%= form.submit 'Mettre à jour', class: "btn btn-primary col-12", :title => "Valider l'ensemble des modifications apportées à cet article" %>
+        <%= form.submit 'Valider', class: "btn btn-primary col-12", :title => "Valider l'ensemble des modifications apportées à cet article" %>
     </div>
 
 <% end %>

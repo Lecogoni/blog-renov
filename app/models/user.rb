@@ -21,23 +21,40 @@ class User < ApplicationRecord
   end
 
   def user_pluralize_article
-    num = self.articles.count
-    num > 1 ? "#{num} creations" : "#{num} creation"
+    article_num = self.articles.count
+    article_published_num = self.articles.where("published = true").count
+    if article_num == 0
+        return 'aucune création'
+    elsif article_num != 0 && article_num != article_published_num
+        if article_published_num == 1
+            article_num > 1 ? "#{article_num} articles, dont #{article_published_num} publié" : "#{article_num} article, dont #{article_published_num} publié"
+        else
+            article_num > 1 ? "#{article_num} articles, dont #{article_published_num} publiés" : "#{article_num} article, dont #{article_published_num} publiés"
+        end
+    elsif article_num != 0 && article_num == article_published_num
+        return article_num > 1 ? "#{article_num} articles publiés" : "#{article_num} article publié"
+    end
+    
   end
 
   def user_pluralize_post
-    num = self.articles.count
-    num > 1 ? "#{num} annonces" : "#{num} annonce"
+    num = self.posts.count
+    if num == 0
+        return 'aucune annonce'
+    else
+        return num > 1 ? "#{num} annonces" : "#{num} annonce"
+    end
   end
 
+
+  # ==> voir si cette methode est utilisé
   def user_publishing
-    @articles = self.articles
+    @articles_published = self.articles.where("published = true")
     @posts = self.posts
 
-    @creation = "#{@articles.count} création".pluralize if @articles.count != 1
+    @creation = @articles_published.count != 1 ? "#{@articles_published.count} articles publiés" : "#{@articles_published.count} article publié"
     @annonce = @posts.count != 1 ? "#{@posts.count} annonces" : "#{@posts.count} annonce"
-    
-    "#{} annonce"
+
 
     if @articles.count == 0 && @posts.count == 0
       return "aucune publication"
