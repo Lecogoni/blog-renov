@@ -9,29 +9,27 @@ class ArticlesController < ApplicationController
 
     # GET /articles or /articles.json
     def index
+        
     if params.has_key?(:category)
         @category = Category.find_by_name(params[:category])
-        if Article.where(category: @category).count == 0
-        @articles = Article.all.order("created_at DESC")
-        flash.now[:notice] = "Aucune création dans la catégorie : #{params[:category]}. Voici l'ensemble des créations"
-        params[:category] = nil
+        if Article.where("published = true").where(category: @category).count == 0
+            @articles = Article.all.order("created_at DESC").where("published = true")
+            flash.now[:notice] = "Aucune création dans la catégorie : #{params[:category]}. Voici l'ensemble des créations"
+            params[:category] = nil
         else
-        @articles = Article.where(category: @category).order("created_at DESC")
+            @articles = Article.where("published = true").where(category: @category).order("created_at DESC")
         end
         #@articles = Article.where(category: @category).order("created_at DESC")
     else
-        @articles = Article.all.order("created_at DESC")
+        @articles = Article.where("published = true").order("created_at DESC")
     end
     
     end
 
-    # GET /articles/1 or /articles/1.json
+    # GET /articles/
     def show
     @article_parts = Part.where(article_id: @article.id).order("position ASC")
-    @other_articles = Article.where(user_id: @article.user_id).where.not(id: @article.id)
-
-    ## USELESS 
-    @header_image = @article.header_image
+    @other_articles = Article.where("published = true").where(user_id: @article.user_id).where.not(id: @article.id)
     
     @comments = @article.comments.order("created_at ASC")
     @last_articles = Article.order("created_at DESC").first(2)

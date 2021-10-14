@@ -22,10 +22,12 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @published_articles = @user.articles.where("published = true").order("created_at DESC")
     @articles = @user.articles.order("created_at DESC")
+    @last_articles = Article.where("published = true").limit(2).order("created_at DESC")
+    
     @posts = @user.posts.order("created_at DESC")
     @guests = Guest.all.order("first_name ASC")
-    @last_articles = Article.limit(2).order("created_at DESC")
   end
 
   # GET /users/new

@@ -11,12 +11,12 @@
         <% if user_signed_in? %>
           <% if @article.comments.count > 0 %>
             <div class="article-data">
-              <span><i class="fas fa-comment-alt info-icon"></i><%= @article.comments.count %></span>
+              <span><i class="fas fa-comment-alt info-icon"></i>  <%= @article.comments.count %></span>
             </div>
           <% end %>
           <% if @article.article_has_like? %>
             <div class="article-data">
-              <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>"><i class="fas fa-heart info-icon"></i><%= @article.likes.count %></span>
+              <span data-bs-toggle="tooltip" data-bs-placement="right" title="<%= @article.who_likes_article %>"><i class="fas fa-heart info-icon"></i>  <%= @article.likes.count %></span>
             </div>
           <% end %>
         <% end %>
@@ -39,19 +39,20 @@
           <!-- User and Description -->
           <div>
             <!-- user -->
-            <div class="d-flex justify-content-start mb-4">
-              <% if @article.user.avatar.attached? %>
-                <div class="post-avatar">
-                  <%= image_tag @article.user.avatar.variant(resize_to_limit: [70, 70]), class: "rounded-circle" %>
-                </div>
-              <% end %>
-              <div>
-                <h4 class="text">création de <strong><%= @article.user.full_name %></strong></h4>   
-                <div class="text article-data">
-                  publié le <%= l(@article.created_at, format: :date) %>
-                </div>
-              </div>
-            </div>
+                <%= link_to @article.user do %>
+                    <div class="d-flex justify-content-start mb-4">
+                        <% if @article.user.avatar.attached? %>
+                            <div class="post-avatar">
+                                <%= image_tag @article.user.avatar.variant(resize_to_limit: [60, 60]), class: "rounded-circle" %>
+                            </div>
+                        <% end %>
+
+                        <div class="align-self-center">
+                            <h3 class="text"><strong><%= @article.user.full_name %></strong></h3>   
+                        </div>
+                    </div>
+                <% end %>
+               
           
             <!-- description -->
             <div class="p-2">
@@ -65,80 +66,54 @@
               </div>
             </div>
           </div>
+
+            <% if @article.published? %>
+                <div class="text article-data p-2">
+                        publié le <%= l(@article.published_at, format: :date) %>
+                </div>
+            <% end %>
           
 
           <!-- Action Zone -->
-          <div class="mt-auto">
+            <div class="mt-auto" id="post-index-title-wrapper">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="d-flex justify-content-between">
+                            <% if user_signed_in? %>
 
-              <div class="d-flex justify-content-between">
-                <% if user_signed_in? %>
+                                <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-outline-primary", method: :post do %>
+                                    <i class="far fa-heart action-icon"></i>
+                                <% end %>
 
-                  <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-primary", method: :post do %>
-                    <i class="far fa-heart action-icon"></i>
-                  <% end %>
+                                <% if current_user.id != @article.user.id %>
 
-                  <!--
-                    <div>
-                      <span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">j'aime</span>
+                                    <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-outline-primary", method: :get do %>
+                                        <i class="far fa-user action-icon"></i>
+                                    <% end %>
+                                <% end %>
+
+                                <% if current_user.id == @article.user.id %>
+
+                                    <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-outline-primary", method: :get do %>
+                                        <i class="far fa-edit action-icon"></i>
+                                    <% end %>
+
+                                    <%= button_to @article, class: "btn btn-outline-danger", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+                                        <i class="far fa-trash-alt action-icon"></i>
+                                    <% end %>
+
+                                <% end %>
+
+                            <% end %>
+                        </div>
                     </div>
-                  -->
-
-                  <% if current_user.id != @article.user.id %>
-
-                    <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-primary", method: :get do %>
-                      <i class="far fa-user action-icon"></i>
-                    <% end %>
-                  <% end %>
-
-                  <!--
-                      <div>
-                      <span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">profil de <%= @article.user.first_name.capitalize %></span>
-                      </div>
-                  -->
-                      
-                  
-                  <% if current_user.id == @article.user.id %>
-
-                    <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-info", method: :get do %>
-                      <i class="far fa-edit action-icon"></i>
-                    <% end %>
-
-                <!--
-                    <div>
-                      <span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">modifier ma publication</span>
-                    </div>
-                -->
-                    
-                    <%= button_to @article, class: "btn btn-danger", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
-                      <i class="far fa-trash-alt action-icon"></i>
-                    <% end %>
-                      <!--
-                    <div>
-                    <span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">supprimer ma publication</span>
-                    </div>
-                    -->
-
-                  <% end %>
-
-                <% end %>
-              </div>
-          
-          </div>
+                </div>
+            </div>
 
         </div>
       </div>
     </div>
   </header>
-
-  <!-- IMAGES CAROUSEL -->
-
-  <article>
-  </article>
-
-  <!-- DESCRIPTION -->
-
-  <article>
-  </article>
 
   <!-- ARTICLE CONTENT & COMMENT -->
   <article>
@@ -147,39 +122,49 @@
       <div class="col-8">
         <% @article_parts.each do |part| %>
           <div class="mb-4">
-              <% if part.element_type === 'paragraph' %>
-                <%= part.content %>
-              <% elsif part.element_type === 'image' %>
-                <%= image_tag(part.image) %>
+              <% if part.element_type === 'paragraph' && part.content.present?%>
+                <div class="p-3 text">
+                    <%= part.content %>
+                </div>
+              <% elsif part.element_type === 'image' && part.image.attached? %>
+                    <%= image_tag part.image, class: 'article-img' %>
               <% end %>
           </div>
         <% end %>
       </div>
+
+      <!-- COLUMN DE SEPARATION -->
+      <div class="col-1"></div>
+      
       <!-- COMMENT -->
-      <div class="col-4">
+      <div class="col-3">
 
         <% if user_signed_in? %>
           <article>
-            <h3><%= (@article.comments.count) < 2 ? 'Commentaire' : 'Commentaires'%></h3>
+            <div class="p-3">
+                <h3><%= (@article.comments.count) < 2 ? 'Commentaire' : 'Commentaires'%></h3>
+            </div>
+
+            <!-- NEW COMMENT -->
+            <div class="mb-5">
+                <%= form_with(model: [@article, @article.comments.build]) do |f| %>
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                    <div class="form-group col-12 mb-2">
+                        <div class="mb-2">
+                            <%= f.text_area :body, class: 'form-control', required: true %></a>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <%= button_tag type: 'submit', class: "btn btn-outline-primary" do %>
+                                <i class="far fa-comment-alt"></i>  <span>je commente</span></i>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
 
             <!-- DISPLAY COMMENT -->
             <%= render 'comments' %>
 
-            <!-- NEW COMMENT -->
-            <div>
-              <div>
-                <%= form_with(model: [@article, @article.comments.build]) do |f| %>
-                    <%= f.hidden_field :user_id, value: current_user.id %>
-                  <div class="form-group col-12">
-                    <div id="post-index-title-wrapper">
-                    <%= f.text_area :body, class: 'form-control', required: true %></a>
-                  </div>
-                  <%= button_tag type: 'submit', class: "no-btn" do %>
-                    <i class="far fa-comment-alt"></i><span>je commente</span></i>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
           </article>
         <% end %>
 
@@ -211,12 +196,14 @@
     </article>
   <% end %>
 
-
   <!-- OTHER USER ARTICLE -->
 
-  <% if @article.user.articles.count > 1 %>
+  <% if @other_articles.count > 0 %>
+
+  <hr>
+
     <article>
-      <h3><%= (@article.user.articles.count) > 2 ? 'Autres créations' : 'Autre création'%> de <%= @article.user.first_name.capitalize%></h3>
+      <h3 class='mb-4'><%= (@other_articles.count) > 2 ? 'Autres créations' : 'Autre création'%> de <%= @article.user.first_name.capitalize%></h3>
 
       <div class="row">
         <% @other_articles.each do |article| %>
@@ -237,10 +224,10 @@
                       <div>
                         <span class="article-badge-full"><%= article.category.name %></span>
                         <% if article.comments.count > 0 %>
-                          <span><i class="fas fa-comment-alt info-icon"></i><%= article.comments.count %></span>
+                          <span><i class="fas fa-comment-alt info-icon"></i>  <%= article.comments.count %></span>
                         <% end %>
                         <% if article.likes.count > 0 %>
-                          <span class="social-badge"><i class="fas fa-heart info-icon"></i><%= article.likes.count %></span>
+                          <span class="social-badge"><i class="fas fa-heart info-icon"></i>  <%= article.likes.count %></span>
                         <% end %>
                       </div>
                     </div>

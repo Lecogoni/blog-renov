@@ -83,7 +83,9 @@
 
                                             <div class="paragraph-content">
                                                 <% if part.content.present? %>
-                                                    <%= part.content %>
+                                                    <div class="text">
+                                                        <%= part.content %>
+                                                    </div>
                                                 <% else %>
                                                     <div class="paragraph-content-empty">
                                                         <i class="far fa-edit"></i> Paragraphe vide, cliquer pour le modifier
@@ -109,7 +111,7 @@
                                     <% elsif part.image? %> <!-- IMAGE -->
                                         <div class="image mb-4 p-3">
                                             <% if part.image.present? %>
-                                                <%= link_to article_part_path(@article, part), method: :delete, class: 'delete-img-btn btn btn-secondary mt-2 float-end', data: { confirm: 'Êtes vous certain de vouloir supprimer cette image?'}, title: "Supprimer l'image" do %>
+                                                <%= link_to article_part_path(@article, part), method: :delete, class: 'delete-img-btn btn btn-secondary mt-2', data: { confirm: 'Êtes vous certain de vouloir supprimer cette image?'}, title: "Supprimer l'image" do %>
                                                     <i class="fas fa-times"></i>
                                                 <% end %>
                                                 <%= image_tag(part.image) %>
@@ -117,8 +119,8 @@
                                                 <%= form_with(model: [@article, part]) do |form| %>
                                                     <%= form.file_field :image %>
                                                     <div class="mt-3"> 
-                                                        <%= form.submit "Save", class: 'btn btn-primary' %>
-                                                        <a href="#" class="cancel btn btn-secondary">Cancel</a>
+                                                        <%= form.submit "Sauvegarder", class: 'btn btn-primary' %>
+                                                        <a href="#" class="cancel btn btn-secondary">Annuler</a>
                                                     </div>
                                                 <% end %>
                                             <% end %>

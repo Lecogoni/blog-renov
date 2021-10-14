@@ -1,14 +1,20 @@
 
 <div class="row">
 <!-- CREATION -->
-    <h3>Créations de <%= @user.first_name.capitalize%></h3>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-7 col-xl-7">
+    <h3>Mes créations</h3>
     <div class="row">
-        <% @published_articles.each do |article| %>
+        <% @articles.each do |article| %>
         <div class="col-6 col-sm-6 col-md-12 col-lg-6 col-xl-4 col-left">
           <%= link_to article do %>
               <div class="card-small">
                 <% if article.header_image.attached? %>
                   <div class="card-img-top">
+                    <% if article.published? %>
+                        <span class="badge bg-info published-badge">Publié</span>
+                    <% else %>
+                        <span class="badge bg-secondary published-badge">Non Publié</span>
+                    <% end %>
                     <%= image_tag article.header_image, class: "img-fluid" %>
                   </div>
                 <% end %>
@@ -16,7 +22,9 @@
                   <h5><%= article.title.capitalize %></h5>
                   <div class="card-text">
                     <div class="mb-2">
-                      publié le <%= l(article.published_at, format: :date) %>
+                        <% if article.published? %>
+                            publié le <%= l(article.published_at, format: :date) %>
+                        <% end %>
                     </div>
                     <div>
                       <span class="article-badge-full"><%= article.category.name %></span>

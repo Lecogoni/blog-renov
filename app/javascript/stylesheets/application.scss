@@ -221,6 +221,7 @@ article {
 /* ICON
 -------------------------------------------------- */
 
+/*
 .fa-heart,
 .fa-comment-alt,
 .fa-edit,
@@ -232,8 +233,9 @@ article {
 .fa-plus-square,
 .fa-reply,
 .fa-images {
-  margin-right: 0.4rem;
+
 }
+*/
 
 .fa-arrow-circle-left,
 .fa-arrow-circle-right {
@@ -260,6 +262,10 @@ article {
   margin-right: 0.6rem;
 }
 
+.icon-margin {
+  margin-right: 0.4rem;
+}
+
 .article-badge-full {
   @extend .badge;
   color: white;
@@ -270,6 +276,12 @@ article {
 .post-badge {
   @extend .badge;
   color: $dark-plum-back;
+}
+
+.published-badge {
+  position: absolute;
+  right: 5px;
+  top: 1rem;
 }
 
 /* NAVBAR
@@ -434,6 +446,15 @@ article {
   border-radius: 0.25rem;
 }
 
+.article-img {
+  display: block !important;
+  width: 90%;
+  background-size: cover;
+  background-position: center;
+  margin: auto;
+  border-radius: 0.25rem;
+}
+
 /* ARTICLE CAROUSEL
 -------------------------------------------------- */
 
@@ -511,6 +532,7 @@ article {
 }
 
 .comment-body {
+  font-size: 0.9rem;
   color: $pink;
 }
 
@@ -523,6 +545,11 @@ article {
     margin-right: 0.3rem;
     margin-left: 1rem;
   }
+}
+
+.comment-space {
+  margin-right: 0.5rem;
+  font-style: italic;
 }
 
 /* ARTICLE EDIT

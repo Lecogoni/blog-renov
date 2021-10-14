@@ -83,14 +83,25 @@
   <div class="container-fluid">
     <% if @user.articles.count == 0 && @user.posts.count == 0 %>
       <%= render "users/user_publishing/no-publishing" %>
-    <% elsif @user.articles.count >= 1 && @user.posts.count == 0 %>
+
+    <% elsif current_user.id == @user.id && @user.articles.count >= 1 && @user.posts.count == 0 %>
+      <%= render "users/user_publishing/article-no-post_current_user" %>
+    <% elsif current_user.id != @user.id && @user.articles.count >= 1 && @user.posts.count == 0 %>
       <%= render "users/user_publishing/article-no-post" %>
+ 
+
     <% elsif @user.articles.count == 0 && @user.posts.count >= 1 %>
       <%= render "users/user_publishing/no-article-post" %>
-    <% elsif @user.articles.count >= 1 && @user.posts.count >= 1 %>
+
+      
+    <% elsif current_user.id == @user.id && @user.articles.count >= 1 && @user.posts.count >= 1 %>
+      <%= render "users/user_publishing/article-and-post_current_user" %>
+    <% elsif current_user.id != @user.id && @user.articles.count >= 1 && @user.posts.count >= 1 %>
       <%= render "users/user_publishing/article-and-post" %>
     <% end %>
   </div>
+
+
 
 
 
