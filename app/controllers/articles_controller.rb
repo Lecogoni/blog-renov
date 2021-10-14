@@ -1,13 +1,14 @@
 
 class ArticlesController < ApplicationController
-    before_action :set_article, only: %i[ show edit update destroy admin_delete_article]
+    before_action :set_article, only: %i[ show edit update destroy return_to_article admin_delete_article]
     before_action :downcase_fields, only: %i[ create update ]
-
+    before_action :delete_empty_part, only: %i[ return_to_article update ]
+    
     #after_action :define_first_img_as_cover_img, only: %i[ create ]
     #after_action :picture_format, only: %i[ create update ]
     
 
-    # GET /articles or /articles.json
+    # GET /articles 
     def index
         
     if params.has_key?(:category)
@@ -46,7 +47,7 @@ class ArticlesController < ApplicationController
         @element= @article.parts.build
     end
 
-    # POST /articles or /articles.json
+    # POST /articles
     def create
 
         @article = Article.new(article_params)
@@ -62,6 +63,8 @@ class ArticlesController < ApplicationController
 
     # PATCH/PUT /articles/1 or /articles/1.json
     def update
+
+       
     
         if @article.update(article_params)
             redirect_to @article
@@ -85,6 +88,11 @@ class ArticlesController < ApplicationController
 #     redirect_back(fallback_location: edit_article_path(@article_id))
 #   end
 
+
+    def return_to_article
+        redirect_to @article
+    end
+
     def admin_delete_article
     UserMailer.admin_delete_article_email(@article).deliver_now
     @article.destroy
@@ -96,16 +104,29 @@ class ArticlesController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_article
-    @article = Article.find(params[:id])
+        @article = Article.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def article_params
-    params.require(:article).permit(:user_id, :title, :description, :category_id, :header_image)
+        params.require(:article).permit(:user_id, :title, :description, :category_id, :header_image)
     end
 
     def downcase_fields
-    article_params[:title].downcase!
+        article_params[:title].downcase!
+    end
+
+    # If user cancel edit or confirm update, this method delete empty parts - paragrapph or image
+    def delete_empty_part
+
+        @article.parts.each do |part|
+            if part.element_type === 'paragraph' && part.content.empty?
+                part.destroy
+            elsif part.element_type === 'image' && part.image.attached? == false
+                part.destroy
+            end
+        end
+
     end
 
 end

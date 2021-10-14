@@ -56,16 +56,16 @@ class User < ApplicationRecord
     @annonce = @posts.count != 1 ? "#{@posts.count} annonces" : "#{@posts.count} annonce"
 
 
-    if @articles.count == 0 && @posts.count == 0
+    if @articles_published.count == 0 && @posts.count == 0
       return "aucune publication"
       
-    elsif @articles.count > 0 && @posts.count == 0
+    elsif @articles_published.count > 0 && @posts.count == 0
       return @creation.to_s
 
-    elsif @articles.count == 0 && @posts.count > 0
+    elsif @articles_published.count == 0 && @posts.count > 0
       return @annonce.to_s
 
-    elsif @articles.count > 0 && @posts.count > 0
+    elsif @articles_published.count > 0 && @posts.count > 0
       return "#{@creation} et #{@annonce}"
     end
   end

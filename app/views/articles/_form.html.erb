@@ -41,7 +41,10 @@
     </div>
 
     <div class="form-actions mb-2">
-        <%= form.submit 'Valider', class: "btn btn-primary col-12", :title => "Valider l'ensemble des modifications apportées à cet article" %>
+        <%= button_tag( :class => "btn btn-primary col-12") do %>
+            <i class="fas fa-check-circle"></i> Valider
+        <% end %>
+        
     </div>
 
 <% end %>

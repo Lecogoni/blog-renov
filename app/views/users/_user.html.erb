@@ -5,7 +5,7 @@
       <%= image_tag avatar_for(@user), style: "width: 100px; display: block", class: "rounded-circle" %>
     </div>
     <div class="p-2">
-      <div>
+      <div class="text">
         <h3><small> profil de : </small><%= @user.full_name %></h3>
         <span class="">membre depuis le <%= l(@user.created_at, format: :date) %></span><br>
         <%= @user.user_publishing %> 

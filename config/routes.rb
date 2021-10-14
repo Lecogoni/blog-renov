@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         member do
         #delete :delete_file
         delete :admin_delete_article
+        get :return_to_article
         end
     end
 
