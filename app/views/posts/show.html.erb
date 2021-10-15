@@ -1,99 +1,112 @@
 <div class="container main-wrapper">
 
-  <header>
-    <h1><%= @post.title %></h1>
-    <div class="d-flex justify-content-start">
-      <% if @post.user.avatar.attached? %>
-        <div class="post-avatar">
-          <%= image_tag @post.user.avatar.variant(resize_to_limit: [70, 70]), class: "rounded-circle" %>
+    <header>
+        <h1><%= @post.title %></h1>
+        <div class="d-flex justify-content-start">
+            <span class="badge bg-secondary"><%= @post.column.name %></span><span class="text muted"><small>posté il y a <%= time_ago_in_words(@post.created_at) %></small></span>
         </div>
-      <% end %>
-      <div>
-        <h3 class="text">annonce de <strong><%= @post.user.full_name %></strong></h3>
-        <span class="filter-post"><%= @post.column.name %></span>
-        <span class="text">posté il y a <%= time_ago_in_words(@post.created_at) %></span>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <article>
-    <div class="d-flex flex-row">
-      <% if @post.picture.attached? %>
-        <div class="col-5">
-          <%= image_tag @post.picture, class: "img-fluid" %>
-        </div>
-      <% end %> 
-      <div class="post-text">
-        <%= @post.body %>
-      </div>
-    </div>
-  </article>
-
-<!-- ACTION ZONE -->
-  <% if user_signed_in? %>
     <article>
-      <hr>
-        <div class="article-action d-flex justify-content-around">
-
-          <% if current_user.id == @post.user.id %>
-            <div>
-              <%= button_to edit_post_path(@post), :title => 'modifier mon annonce', class: "no-btn", method: :get do %>
-                <i class="far fa-edit action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">modifier mon annonce</span>
-              <% end %>
-            </div>
-          <% end %>
-
-          <% if current_user.id != @post.user.id %>
-            <div>
-              <%= button_to user_path(@post.user_id), :title => 'profil', class: "no-btn", method: :get do %>
-                <i class="far fa-user action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">profil de <%= @post.user.first_name.capitalize %></span>
-              <% end %>
-            </div>
-          <% end %>
-
-          <% if current_user.id == @post.user.id %>
-            <div>
-              <%= button_to @post, class: "no-btn", :title => 'supprimer mon annonce', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette annonce ?' } do %>
-                <i class="far fa-trash-alt action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">supprimer mon annonce</span>
-              <% end %>
-            </div>
-          <% end %>
-
-          <div>
-            <%= link_to posts_path, class: "no-btn", :title => 'retour aux annonces', method: :get do %>
-              <i class="far fa-caret-square-left action-icon" alt="Accueil"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">retour aux annonces</span>
+        <div class="row">
+            <!-- left image -->
+            <% if @post.user.avatar.attached? %>
+                <div class="col-4">
+                    <%= image_tag @post.picture, class: "article-img" %>
+                </div>
             <% end %>
-          </div>
 
+            <!-- right content -->
+            <% if @post.user.avatar.attached? %>
+                <div class="col-8">
+            <% else %>
+                <div class="col-12">
+            <% end %>
+
+                <div class="d-flex align-items-start flex-column" style="height:100%">
+
+                    <%= link_to @post.user do %>
+                        <div class="d-flex justify-content-start mb-4">
+                            <% if @post.user.avatar.attached? %>
+                                <div class="post-avatar">
+                                    <%= image_tag @post.user.avatar.variant(resize_to_limit: [60, 60]), class: "rounded-circle" %>
+                                </div>
+                            <% end %>
+
+                            <div class="align-self-center">
+                                <h3 class="text">annonce de <strong><%= @post.user.full_name %></strong></h3>
+                                <!--<span class="text muted"><small>posté il y a <%= time_ago_in_words(@post.created_at) %></small></span>-->
+                            </div>
+                        </div>
+                    <% end %>
+
+                    <div class="post-text">
+                        <%= @post.body %>
+                    </div>
+                    <!-- ACTION ZONE -->
+                    <div class="mt-auto" id="post-index-title-wrapper">
+                        <div class="d-flex justify-content-start p-3">
+
+                            <% if user_signed_in? %>
+                                    <div class="article-action d-flex justify-content-around">
+
+                                    <% if current_user.id == @post.user.id %>
+                                        <%= button_to edit_post_path(@post), :title => 'modifier mon annonce', class: "btn btn-secondary social-badge", method: :get do %>
+                                            <i class="far fa-edit action-icon"></i>
+                                        <% end %>
+
+                                        <%= button_to @post, class: "btn btn-danger social-badge", :title => 'supprimer mon annonce', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cette annonce ?' } do %>
+                                            <i class="far fa-trash-alt action-icon"></i></span>
+                                        <% end %>
+                                    <% end %>
+
+                                    <% if current_user.id != @post.user.id %>
+                                        <%= button_to user_path(@post.user_id), :title => 'profil', class: "btn btn-secondary social-badge", method: :get do %>
+                                            <i class="far fa-user action-icon"></i>
+                                        <% end %>
+                                    <% end %>
+
+                                    <%= link_to posts_path, class: "btn btn-secondary social-badge", :title => 'retour aux annonces', method: :get do %>
+                                        <i class="far fa-caret-square-left action-icon" alt="Accueil"></i>
+                                    <% end %>
+
+                                    </div>
+                            <% end %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      <hr>
     </article>
-  <% end %>
+
+    <hr class="m-4">
 
 
 <!-- ANSWER SECTION : see answers-->
   <% if user_signed_in? %>
-    <article>
+      <!-- ANSWER SECTION : post answer -->
+    <article  class="p-4">
+        <div class="mb-4">
+          <%= form_with(model: [@post, Answer.new]) do |f| %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+            <div class="form-group col-9 mb-2">
+              <%= f.text_area :body, class: 'form-control', placeholder: "répondre à l'annonce de #{@post.user.first_name.capitalize}", required: true %>
+            </div>
+            <div class="col-9 d-flex justify-content-end">
+                <%= button_tag type: 'submit', class: "btn btn-outline-secondary" do %>
+                <i class="far fa-comment-alt"></i>  <span>répondre</span></i>
+                <% end %>
+            </div>
+          <% end %>
+        </div>
+
       <% if @post.answers.count > 0 %>
         <h3><%= (@post.answers.count) < 2 ? 'Réponse' : 'Réponses'%></h3>
         <ul>
           <%= render @post.answers %>
         </ul>
       <% end %>
-      <!-- ANSWER SECTION : post answer -->
-      <div>
-        <div>
-          <%= form_with(model: [@post, Answer.new]) do |f| %>
-              <%= f.hidden_field :user_id, value: current_user.id %>
-            <div class="form-group col-12">
-              <%= f.text_area :body, class: 'form-control', placeholder: "répondre à l'annonce de #{@post.user.first_name.capitalize}", required: true %>
-            </div>
-            <%= button_tag type: 'submit', class: "no-btn" do %>
-              <i class="far fa-comment-alt"></i><span>poster une réponse</span></i>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
     </article>
   <% end %>
 

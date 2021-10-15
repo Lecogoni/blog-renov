@@ -61,6 +61,10 @@ a:visited {
   text-decoration: none;
 }
 
+li {
+  list-style: none;
+}
+
 .text {
   font-family: "Roboto", sans-serif;
   color: $purpley-grey;
@@ -589,12 +593,6 @@ table {
 
 /* POST INDEX
 -------------------------------------------------- */
-
-.rails-inner-button {
-  display: inline-block;
-  min-width: 40px;
-  max-width: 186px;
-}
 
 #post-index-title-wrapper {
   min-width: 100% !important;

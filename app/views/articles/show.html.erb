@@ -93,24 +93,24 @@
                 <div class="d-flex justify-content-start">
                     <% if user_signed_in? %>
 
-                        <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-outline-primary social-badge", method: :post do %>
+                        <%= button_to article_likes_path(@article), :title => 'liker', class: "btn btn-primary social-badge", method: :post do %>
                             <i class="far fa-heart action-icon"></i>
                         <% end %>
 
                         <% if current_user.id != @article.user.id %>
 
-                            <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-outline-primary social-badge", method: :get do %>
+                            <%= button_to user_path(@article.user_id), :title => 'profil', class: "btn btn-primary social-badge", method: :get do %>
                                 <i class="far fa-user action-icon"></i>
                             <% end %>
                         <% end %>
 
                         <% if current_user.id == @article.user.id %>
 
-                            <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-outline-primary social-badge", method: :get do %>
+                            <%= button_to edit_article_path(@article), :title => 'modifier ma publication', class: "btn btn-primary social-badge", method: :get do %>
                                 <i class="far fa-edit action-icon"></i>
                             <% end %>
 
-                            <%= button_to @article, class: "btn btn-outline-danger social-badge", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+                            <%= button_to @article, class: "btn btn-danger social-badge", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
                                 <i class="far fa-trash-alt action-icon"></i>
                             <% end %>
 
@@ -169,7 +169,7 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <%= button_tag type: 'submit', class: "btn btn-outline-primary" do %>
-                                <i class="far fa-comment-alt"></i>  <span>je commente</span></i>
+                                <i class="far fa-comment-alt"></i>  <span>commenter</span></i>
                             <% end %>
                         </div>
                     </div>

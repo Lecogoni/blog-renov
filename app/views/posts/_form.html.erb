@@ -1,5 +1,3 @@
-
-
 <%= simple_form_for(@post) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -8,14 +6,14 @@
 
     <div class="field mb-2">
       <% if current_user_is_admin? %>
-        <%= f.select :column_id, Column.order(name: :asc).pluck(:name, :id), :prompt => 'choississez la rubrique de votre annonce', required: true %>
+        <%= f.select(:column_id, options_for_select(Column.order(name: :asc).pluck(:name, :id)), {:prompt => 'Choississez la rubrique de votre annonce :'}, { :class => 'form-control text', :style => '', required: true }) %>
       <% else %>
-        <%= f.select :column_id, Column.where.not(name: "annonce club").order("name ASC").map { |c| [c.name, c.id]}, :include_blank => 'choississez la rubrique de votre annonce', required: true %>
+        <%= f.select(:column_id, options_for_select(Column.where.not(name: "annonce club").order("name ASC").map { |c| [c.name, c.id]}), {:prompt => 'Choississez la rubrique de votre annonce :'}, { :class => 'form-control text', :style => '', required: true, }) %>
       <% end %>
     </div>
 
     <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.input :title, required: true, label: 'Titre de votre annonce' %>
+    <%= f.input :title, required: true, label: 'Titre de votre annonce', :input_html => { :class => 'text' } %>
     <%= f.input :body, required: true, label: 'Texte de votre annonce',:input_html => {:rows => 7} %>
     <%= f.label :picture %>
     <%= f.file_field :picture, direct_upload: true, label: 'Vous pouvez ajouter une photo à votre annonce', class: "form-control" %>

@@ -8,7 +8,7 @@
   <hr>
 
   <div class="d-flex justify-content-between">
-    <div id="d-flex justify-content-between">
+    <div id="d-flex align-items-center flex-wrap">
       <% if params[:column] == nil %>
         <div id="post-filter-wrapper">
           <%= link_to 'Tout', posts_path, class: "filter-post-active" %>
@@ -34,8 +34,8 @@
     
     <% if user_signed_in? %>
       <div class="align-self-center">
-        <%= button_to new_post_path, :title => 'nouvelle annonce', class: "btn btn-secondary rails-inner-button", method: :get do %>
-          <i class="far fa-plus-square action-icon"></i><span class="dark-color d-none d-sm-none d-md-none d-lg-inline d-xl-inline">nouvelle annonce</span>
+        <%= button_to new_post_path, :title => 'nouvelle annonce', class: "btn btn-secondary", method: :get do %>
+          <i class="fas fa-bullhorn"></i>
         <% end %>
       </div>
     <% end %>
@@ -94,11 +94,11 @@
                             <% end %>
                             </div>
                             <div class="post-publish-info">
-                            <%= post.user.full_name %>
+                                <strong><%= post.user.full_name %></strong>
                             <div>
                                 <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
                                 <% if post.answers.count > 0 %>
-                                <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
+                                <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i>  <%= post.answers.count %></span>
                                 <% end %>
                             </div>
                             </div>
@@ -112,7 +112,7 @@
         <% end %>
     </div>
   <% else %>
-    <p>Aucune annonce est publié à ce jour</p>
+    <p>Aucune annonce est publiée à ce jour</p>
   <% end %>
 
 </div>
