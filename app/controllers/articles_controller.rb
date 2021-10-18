@@ -29,16 +29,16 @@ class ArticlesController < ApplicationController
 
     # GET /articles/
     def show
-    @article_parts = Part.where(article_id: @article.id).order("position ASC")
-    @other_articles = Article.where("published = true").where(user_id: @article.user_id).where.not(id: @article.id)
-    
-    @comments = @article.comments.order("created_at ASC")
-    @last_articles = Article.order("created_at DESC").first(2)
+        @article_parts = Part.where(article_id: @article.id).order("position ASC")
+        @other_articles = Article.where("published = true").where(user_id: @article.user_id).where.not(id: @article.id)
+        
+        @comments = @article.comments.order("created_at ASC")
+        @last_articles = Article.order("created_at DESC").first(2)
     end
 
     # GET /articles/new
     def new
-    @article = Article.new
+        @article = Article.new
     end
 
     # GET /articles/1/edit

@@ -7,7 +7,6 @@ class Article < ApplicationRecord
   has_many :parts, dependent: :destroy
   
   has_one_attached :header_image, dependent: :purge_later
-  #has_many_attached :images, dependent: :purge_later
   
   validates :header_image, presence: true
 

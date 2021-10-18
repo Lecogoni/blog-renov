@@ -331,8 +331,10 @@ article {
 /* =>  NE SERT A RIEN NORMALEMENT */
 
 .card-img-top {
-  overflow: auto;
-  max-width: 100%;
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .img-index {
@@ -349,6 +351,11 @@ article {
 .card-title {
   font-size: 1.6rem;
   min-height: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
 .article-user {

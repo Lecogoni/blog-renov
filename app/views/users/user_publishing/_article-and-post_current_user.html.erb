@@ -86,7 +86,7 @@
                     <div class="post-publish-info">
                       <span class="post-publish">posté il y a <%= time_ago_in_words(post.created_at) %></span>
                       <% if post.answers.count > 0 %>
-                        <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i><%= post.answers.count %></span>
+                        <span class="post-badge"><i class="dark-plum fas fa-comment-alt info-icon"></i>  <%= post.answers.count %></span>
                       <% end %>
                     </div>
                   </div>
