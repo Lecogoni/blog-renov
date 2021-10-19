@@ -1,8 +1,9 @@
 
 class ArticlesController < ApplicationController
-    before_action :set_article, only: %i[ show edit update destroy return_to_article admin_delete_article]
+    before_action :set_article, only: %i[ show edit update destroy return_to_article admin_delete_article check_active_storage_blob_compatibility]
     before_action :downcase_fields, only: %i[ create update ]
     before_action :delete_empty_part, only: %i[ return_to_article update ]
+    #after_action :check_active_storage_blob_compatibility, only: %i[ create update ]
     
     #after_action :define_first_img_as_cover_img, only: %i[ create ]
     #after_action :picture_format, only: %i[ create update ]
@@ -64,13 +65,32 @@ class ArticlesController < ApplicationController
     # PATCH/PUT /articles/1 or /articles/1.json
     def update
 
-       
-    
-        if @article.update(article_params)
-            redirect_to @article
-        else
-            render :edit, status: :unprocessable_entity
+        header_image_image_size(params[:article][:header_image])
+
+        @article.update(article_params)
+
+        @head_img = @article.header_image
+        
+        if params[:article][:header_image].present?
+            puts '-----------------------PARAMS IMG TRUE --------------------------------'
         end
+
+        if !@head_img.content_type.start_with? 'image/'
+            @head_img.purge_later
+            redirect_to edit_article_path(@article)
+            flash[:alert] = "Le fichier joint comme image principale n'est pas une image"  
+            
+        elsif !@head_img.variable?
+            
+            redirect_to edit_article_path(@article)
+            puts '-----------------------FILE IS NOT VARIABLE --------------------------------'
+        else 
+            redirect_to @article
+            flash[:success] = "votre publication a été mise à jour"  
+        end
+
+        @article.update(article_params)
+
     end
 
     # DELETE articles
@@ -94,10 +114,10 @@ class ArticlesController < ApplicationController
     end
 
     def admin_delete_article
-    UserMailer.admin_delete_article_email(@article).deliver_now
-    @article.destroy
-    redirect_to articles_url
-    flash[:alert] = "Cette publication a été supprimé. Un email a été envoyé à son créateur pour l'avertir"  
+        UserMailer.admin_delete_article_email(@article).deliver_now
+        @article.destroy
+        redirect_to articles_url
+        flash[:alert] = "Cette publication a été supprimé. Un email a été envoyé à son créateur pour l'avertir"  
     end
 
     private
@@ -126,7 +146,26 @@ class ArticlesController < ApplicationController
                 part.destroy
             end
         end
+    end
 
+    def header_image_image_size(image)
+        puts '----------------------- GET IN RESIZE --------------------------------'
+        resize_size = 200
+        meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+
+        if meta[:width] >= resize_size || meta[:height] >= resize_size 
+            puts '----------------------- PROCESS RESIZE --------------------------------'
+            blob = image.blob
+            blob.open do |picture|
+              ImageProcessing::MiniMagick.source(picture.path)
+                .resize_to_limit(resize_size, resize_size)
+                .quality(80)
+                .call(destination: picture.path) #picture seulement marche aussi
+              new_data = File.binread(picture.path)
+              @article.send(:header_image).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
+              image.purge
+            end
+        end
     end
 
 end

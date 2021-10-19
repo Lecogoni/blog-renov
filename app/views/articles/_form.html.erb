@@ -17,7 +17,7 @@
 
     <div class="form_group form-block col-12 text">
         <%= form.label :Catégorie, class: 'text' %>
-        <%= form.select(:category_id, options_for_select(Category.pluck(:name, :id)), {:include_blank => 'choississez une categorie :'}, { :class => 'form-control text', :style => '', required: true }) %>
+        <%= form.select(:category_id, options_for_select(Category.pluck(:name, :id), selected: form.object.category_id), {:include_blank => 'choississez une categorie :'}, { :class => 'form-control text', :style => '', required: true }) %>
     </div>
 
     <div class="form_group form-block">
@@ -31,13 +31,18 @@
     </div>
 
     <div class="form_group form-block">
-        <%= form.label :image, class: 'text' %>
+        <%= form.label :image, 'image principale :', class: 'text' %>
 
         <% if @article.header_image.present? %>
             <%= image_tag @article.header_image, class: "form-control" %>
         <% end %>
 
-        <%= form.file_field :header_image, direct_upload: true, class: "form-control mt-2 mb-2" %>
+        <% if @article.header_image.present? %>
+            <%= form.file_field :header_image, direct_upload: true, class: "form-control mt-2 mb-2" %>
+        <% else %>
+            <%= form.file_field :header_image, required: true, direct_upload: true, class: "form-control mt-2 mb-2" %>
+        <% end %>
+        
     </div>
 
     <div class="form-actions mb-2">

@@ -244,7 +244,6 @@ if number_of_images == 0
                     <span><%= link_to 'supprimer', delete_file_article_path(image.id, article_id: @article.id), method: :delete, class: 'delete-img', confirm: 'Êtes vous certain de vouloir supprimer cette image ?'  %></span>
                   </div>
                   <div>
-                    <%= image.variable? %>
                   </div>
                 </div>
               </div>
