@@ -65,31 +65,51 @@ class ArticlesController < ApplicationController
     # PATCH/PUT /articles/1 or /articles/1.json
     def update
 
-        header_image_image_size(params[:article][:header_image])
-
+        @head_img = @article.header_image
         @article.update(article_params)
 
-        @head_img = @article.header_image
-        
+        delete_not_image_file(@head_img)
+
+        # if !@head_img.content_type.start_with? 'image/'
+        #     @head_img.purge_later
+        #     redirect_to edit_article_path(@article)
+        #     flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
+        # end
+
         if params[:article][:header_image].present?
             puts '-----------------------PARAMS IMG TRUE --------------------------------'
+            puts '-----------------------PARAMS IMG TRUE --------------------------------'
+            
+        
+            # path = 'ok'
+            # blob = @head_img.blob
+            # blob.open do |picture|
+            #     path = picture.path
+            # end
+            
+            image = MiniMagick::Image.open(@head_img)
+            image.resize "40x40"
+            image.quality(80)
+            @head_img.attach(io: File.open(image.path), filename: 'file.jpg')
         end
 
-        if !@head_img.content_type.start_with? 'image/'
-            @head_img.purge_later
-            redirect_to edit_article_path(@article)
-            flash[:alert] = "Le fichier joint comme image principale n'est pas une image"  
-            
-        elsif !@head_img.variable?
-            
-            redirect_to edit_article_path(@article)
-            puts '-----------------------FILE IS NOT VARIABLE --------------------------------'
-        else 
-            redirect_to @article
-            flash[:success] = "votre publication a été mise à jour"  
-        end
+        
 
-        @article.update(article_params)
+        # if !@head_img.content_type.start_with? 'image/'
+        #     @head_img.purge_later
+        #     redirect_to edit_article_path(@article)
+        #     flash[:alert] = "Le fichier joint comme image principale n'est pas une image"  
+            
+        # elsif !@head_img.variable?
+            
+        #     redirect_to edit_article_path(@article)
+        #     puts '-----------------------FILE IS NOT VARIABLE --------------------------------'
+        # else 
+        #     #header_image_image_size(@head_img)
+        #     redirect_to @article
+        #     flash[:success] = "votre publication a été mise à jour"  
+        # end
+
 
     end
 
@@ -148,24 +168,60 @@ class ArticlesController < ApplicationController
         end
     end
 
-    def header_image_image_size(image)
-        puts '----------------------- GET IN RESIZE --------------------------------'
-        resize_size = 200
-        meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+    # def header_image_image_size(image)
+    #     puts '----------------------- GET IN RESIZE --------------------------------'
+    #     puts image
+    #     resize_size = 200
+    #     meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+    #     puts '----'
+    #     puts meta
 
-        if meta[:width] >= resize_size || meta[:height] >= resize_size 
-            puts '----------------------- PROCESS RESIZE --------------------------------'
-            blob = image.blob
-            blob.open do |picture|
-              ImageProcessing::MiniMagick.source(picture.path)
-                .resize_to_limit(resize_size, resize_size)
-                .quality(80)
-                .call(destination: picture.path) #picture seulement marche aussi
-              new_data = File.binread(picture.path)
-              @article.send(:header_image).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
-              image.purge
-            end
-        end
+
+    #     if meta[:width] >= resize_size || meta[:height] >= resize_size 
+    #         puts '----------------------- PROCESS RESIZE --------------------------------'
+    #         blob = image.blob
+    #         blob.open do |picture|
+    #             puts picture
+    #             puts picture.path
+
+    #             pipeline = ImageProcessing::MiniMagick.source(picture.path) # 600x800
+
+    #             result = pipeline.resize_to_limit!(200, 200)
+    #             puts '$$$$$$$$$$$$$$$$'
+    #             MiniMagick::Image.new(result.path).dimensions
+
+    #     #       ImageProcessing::MiniMagick.source(picture.path)
+    #     #         .resize_to_limit(resize_size, resize_size)
+    #     #         .quality(80)
+    #     #         .call(destination: picture.path) #picture seulement marche aussi
+    #           new_data = File.binread(result.path)
+    #           @article.send(:header_image).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
+    #     #       image.purge
+    #         end
+    #     end
+    # end
+
+
+    def header_image_rezise(header_image)
+        puts '-----------------------INSIDE RESIZE --------------------------------'
+        return unless header_image.attached?
+        return unless header_image.content_type.start_with? 'image/'
+        resized_image = MiniMagick::Image.read(header_image.download)
+        resized_image = resized_image.resize "40x40"
+        v_filename = header_image.filename
+        v_content_type = header_image.content_type
+        header_image.purge
+        header_image.attach(io: File.open(resized_image.path), filename:  v_filename, content_type: v_content_type)
+    end
+    
+    def delete_not_image_file(header_image)
+
+        puts ' --------------------- inside delete ------------------'
+        return unless !header_image.content_type.start_with? 'image/'
+        @head_img.purge_later
+        redirect_to edit_article_path(@article)
+        flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
+        puts ' --------------------- END  deleting------------------'
     end
 
 end
