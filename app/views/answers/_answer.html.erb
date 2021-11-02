@@ -28,7 +28,7 @@
 
       <div class="p-2">
         <%= form_with(model: [answer, Answer.new]) do |f| %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
+          c
           <div class="d-flex align-items-start">
             <div class="form-group col-8 text">
               <%= f.text_area :body, class: 'form-control text-area', placeholder: "répondre à #{answer.user.first_name.capitalize}", cols: 100, rows: 1, required: true %>

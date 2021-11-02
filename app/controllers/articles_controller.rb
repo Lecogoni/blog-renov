@@ -50,11 +50,23 @@ class ArticlesController < ApplicationController
 
     # POST /articles
     def create
-
-        @article = Article.new(article_params)
+      
+      @article = Article.new(article_params)
+      @head_img = @article.header_image
 
         if @article.save
-            redirect_to @article
+
+          if !@head_img.content_type.start_with? 'image/'
+            delete_attachment(@head_img)
+            render :new
+            #redirect_to edit_article_path(@article)
+            flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
+          else
+            resize_attachement_img(@head_img)
+            redirect_to edit_article_path(@article)
+            #flash[:success] = "Votre publication a été correctement mise à jour" 
+          end
+
         else
             render :new, status: :unprocessable_entity
             flash[:error] = "votre publication n'a pas été enregistrée"
@@ -68,49 +80,15 @@ class ArticlesController < ApplicationController
         @head_img = @article.header_image
         @article.update(article_params)
 
-        delete_not_image_file(@head_img)
-
-        # if !@head_img.content_type.start_with? 'image/'
-        #     @head_img.purge_later
-        #     redirect_to edit_article_path(@article)
-        #     flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
-        # end
-
-        if params[:article][:header_image].present?
-            puts '-----------------------PARAMS IMG TRUE --------------------------------'
-            puts '-----------------------PARAMS IMG TRUE --------------------------------'
-            
-        
-            # path = 'ok'
-            # blob = @head_img.blob
-            # blob.open do |picture|
-            #     path = picture.path
-            # end
-            
-            image = MiniMagick::Image.open(@head_img)
-            image.resize "40x40"
-            image.quality(80)
-            @head_img.attach(io: File.open(image.path), filename: 'file.jpg')
+        if !@head_img.content_type.start_with? 'image/'
+          delete_attachment(@head_img)
+          redirect_to edit_article_path(@article)
+          flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
+        else
+          resize_attachement_img(@head_img)
+          redirect_to @article
+          flash[:success] = "Votre publication a été correctement mise à jour" 
         end
-
-        
-
-        # if !@head_img.content_type.start_with? 'image/'
-        #     @head_img.purge_later
-        #     redirect_to edit_article_path(@article)
-        #     flash[:alert] = "Le fichier joint comme image principale n'est pas une image"  
-            
-        # elsif !@head_img.variable?
-            
-        #     redirect_to edit_article_path(@article)
-        #     puts '-----------------------FILE IS NOT VARIABLE --------------------------------'
-        # else 
-        #     #header_image_image_size(@head_img)
-        #     redirect_to @article
-        #     flash[:success] = "votre publication a été mise à jour"  
-        # end
-
-
     end
 
     # DELETE articles
@@ -119,14 +97,6 @@ class ArticlesController < ApplicationController
         redirect_to articles_url
         flash[:success] = "L'article a été supprimé"
     end
-
-    # allow to purge active storage files
-#   def delete_file
-#     file = ActiveStorage::Attachment.find(params[:id])
-#     @article_id = params[:article_id]
-#     file.purge
-#     redirect_back(fallback_location: edit_article_path(@article_id))
-#   end
 
 
     def return_to_article
@@ -149,80 +119,45 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-        params.require(:article).permit(:user_id, :title, :description, :category_id, :header_image)
+      params.require(:article).permit(:user_id, :title, :description, :category_id, :header_image)
     end
 
     def downcase_fields
-        article_params[:title].downcase!
+      article_params[:title].downcase!
     end
 
     # If user cancel edit or confirm update, this method delete empty parts - paragrapph or image
     def delete_empty_part
-
-        @article.parts.each do |part|
-            if part.element_type === 'paragraph' && part.content.empty?
-                part.destroy
-            elsif part.element_type === 'image' && part.image.attached? == false
-                part.destroy
-            end
+      @article.parts.each do |part|
+        if part.element_type === 'paragraph' && part.content.empty?
+            part.destroy
+        elsif part.element_type === 'image' && part.image.attached? == false
+            part.destroy
         end
+      end
     end
 
-    # def header_image_image_size(image)
-    #     puts '----------------------- GET IN RESIZE --------------------------------'
-    #     puts image
-    #     resize_size = 200
-    #     meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
-    #     puts '----'
-    #     puts meta
+    def delete_attachment(blob)
+      blob.purge   
+    end
 
 
-    #     if meta[:width] >= resize_size || meta[:height] >= resize_size 
-    #         puts '----------------------- PROCESS RESIZE --------------------------------'
-    #         blob = image.blob
-    #         blob.open do |picture|
-    #             puts picture
-    #             puts picture.path
-
-    #             pipeline = ImageProcessing::MiniMagick.source(picture.path) # 600x800
-
-    #             result = pipeline.resize_to_limit!(200, 200)
-    #             puts '$$$$$$$$$$$$$$$$'
-    #             MiniMagick::Image.new(result.path).dimensions
-
-    #     #       ImageProcessing::MiniMagick.source(picture.path)
-    #     #         .resize_to_limit(resize_size, resize_size)
-    #     #         .quality(80)
-    #     #         .call(destination: picture.path) #picture seulement marche aussi
-    #           new_data = File.binread(result.path)
-    #           @article.send(:header_image).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
-    #     #       image.purge
-    #         end
-    #     end
-    # end
-
-
-    def header_image_rezise(header_image)
-        puts '-----------------------INSIDE RESIZE --------------------------------'
-        return unless header_image.attached?
-        return unless header_image.content_type.start_with? 'image/'
-        resized_image = MiniMagick::Image.read(header_image.download)
-        resized_image = resized_image.resize "40x40"
-        v_filename = header_image.filename
-        v_content_type = header_image.content_type
-        header_image.purge
-        header_image.attach(io: File.open(resized_image.path), filename:  v_filename, content_type: v_content_type)
+    def resize_attachement_img(img)
+      image = MiniMagick::Image.open(img)
+      image.resize "40x40"
+      image.quality(80)
+      delete_attachment(img)
+      img.attach(io: File.open(image.path), filename: 'file.jpg')
     end
     
-    def delete_not_image_file(header_image)
-
-        puts ' --------------------- inside delete ------------------'
-        return unless !header_image.content_type.start_with? 'image/'
-        @head_img.purge_later
-        redirect_to edit_article_path(@article)
-        flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
-        puts ' --------------------- END  deleting------------------'
-    end
+    # def delete_not_image_file(header_image)
+    #     puts ' --------------------- inside delete ------------------'
+    #     return unless !header_image.content_type.start_with? 'image/'
+    #     @head_img.purge_later
+    #     redirect_to edit_article_path(@article)
+    #     flash[:alert] = "Le fichier joint comme image principale n'est pas une image" 
+    #     puts ' --------------------- END  deleting------------------'
+    # end
 
 end
 

@@ -184,6 +184,16 @@ if number_of_images == 0
       end
     
 
+        # allow to purge active storage files
+  #   def delete_file
+  #     file = ActiveStorage::Attachment.find(params[:id])
+  #     @article_id = params[:article_id]
+  #     file.purge
+  #     redirect_back(fallback_location: edit_article_path(@article_id))
+  #   end
+
+
+
 
 
         # blob.open do |picture|
@@ -254,5 +264,36 @@ if number_of_images == 0
   <% end %>
 
 
+  
+  # def header_image_image_size(image)
+  #     puts '----------------------- GET IN RESIZE --------------------------------'
+  #     puts image
+  #     resize_size = 200
+  #     meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+  #     puts '----'
+  #     puts meta
 
 
+  #     if meta[:width] >= resize_size || meta[:height] >= resize_size 
+  #         puts '----------------------- PROCESS RESIZE --------------------------------'
+  #         blob = image.blob
+  #         blob.open do |picture|
+  #             puts picture
+  #             puts picture.path
+
+  #             pipeline = ImageProcessing::MiniMagick.source(picture.path) # 600x800
+
+  #             result = pipeline.resize_to_limit!(200, 200)
+  #             puts '$$$$$$$$$$$$$$$$'
+  #             MiniMagick::Image.new(result.path).dimensions
+
+  #     #       ImageProcessing::MiniMagick.source(picture.path)
+  #     #         .resize_to_limit(resize_size, resize_size)
+  #     #         .quality(80)
+  #     #         .call(destination: picture.path) #picture seulement marche aussi
+  #           new_data = File.binread(result.path)
+  #           @article.send(:header_image).attach io: StringIO.new(new_data), filename: blob.filename.to_s, content_type: 'image'
+  #     #       image.purge
+  #         end
+  #     end
+  # end
