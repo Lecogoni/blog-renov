@@ -3,5 +3,11 @@
 
   <%= render 'form', user: @user %>
 
-  <%= link_to 'Annuler', @user, class: 'btn btn-secondary mt-2' %>
+  
+  <div class="d-flex flex-row-reverse">
+    <div class="actions mt-2">
+      <%= link_to 'Annuler', @user, class: 'btn btn-secondary mt-2' %>
+    </div>
+  </div>
+
 </div>

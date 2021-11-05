@@ -13,31 +13,73 @@
 
   <div>
     <%= image_tag avatar_for(user), style: "width: 150px; display: block", class: "rounded-circle" %>
-    <br>
-    <%= form.file_field :avatar, direct_upload: true %>
+    <div class="row">
+      <div class="col-6">
+        <%= form.file_field :avatar, direct_upload: true, class: "form-control mt-2 mb-2" %>
+      </div>
+    </div>
   </div>
 
   <br>
 
-  <div class="form_group form-block">
-    <%= form.label :prénom %>
-    <%= form.text_field :first_name, required: true, class: "form-control" %>
-  </div>
+  <div class="row">
 
-  <div class="form-group form-block">
-    <%= form.label :nom %>
-    <%= form.text_field :last_name, required: true, class: "form-control" %>
-  </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="form_group form-block">
+        <%= form.label :prénom %>
+        <%= form.text_field :first_name, required: true, class: "form-control" %>
+      </div>
+    </div>
 
-  <div class="form-group form-block">
-    <%= form.label :téléphone %>
-    <%= form.text_field :phone_number, class: "form-control" %>
-  </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group form-block">
+        <%= form.label :nom %>
+        <%= form.text_field :last_name, required: true, class: "form-control" %>
+      </div>
+    </div>
 
-  <div class="form-group form-block">
-    <%= form.label :email %>
-    <%= form.text_field :email, required: true, disabled: true, class: "form-control" %>
-    <small class="text text-muted font-weight-light font-italic">si vous souhaitez modifier votre email, et/ou votre mot de passe, allez dans menu Profil et cliquez sur "Modifier email / mot de passe"</small>
+  </div>
+ 
+  <div class="row">
+
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group form-block">
+        <%= form.label :email %>
+        <%= form.text_field :email, required: true, disabled: true, class: "form-control" %>
+        <small class="text text-muted font-weight-light font-italic">pour modifier votre email, et/ou mot de passe, allez au menu Profil et cliquez sur "Modifier email / mot de passe"</small>
+      </div>
+    </div>
+  
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group form-block">
+        <%= form.label :téléphone %>
+        <%= form.text_field :phone_number, class: "form-control" %>
+      </div>
+    </div>
+
+  </div>
+ 
+  <div class="row">
+  
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group form-block">
+        <%= form.label :show_data, "Afficher mes coordonnées" %><br>
+        <div class="form-control">
+            <%= form.label :show_data, "oui", :value => "true"  %>
+            <%= form.radio_button :show_data, true %>
+            <%= form.label :show_data, "non", :value => "false" %>
+            <%= form.radio_button :show_data, false %>
+        </div>
+        <small class="text text-muted font-weight-light font-italic">rend visible votre numéro de téléphone et email dans l'annuaire</small>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
+      <div class="actions mt-2 d-flex align-items-end">
+        <%= form.submit 'modifier mon profil', class: "btn btn-primary"  %>
+      </div>
+    </div>
+
   </div>
 
   <div class="field">
@@ -48,20 +90,9 @@
     <%= form.hidden_field :show_data, :value => true %>
   </div>
 
-  <div class="form-group form-block">
-    <%= form.label :show_data, "Afficher mes coordonnées" %><br>
-    <div class="form-control">
-        <%= form.label :show_data, "oui", :value => "true"  %>
-        <%= form.radio_button :show_data, true %>
-        <%= form.label :show_data, "non", :value => "false" %>
-        <%= form.radio_button :show_data, false %>
-    </div>
-    <small class="text text-muted font-weight-light font-italic">permet de rendre visible aux autres utilisateurs votre numéro de téléphone et email dans l'annuaire</small>
-  </div>
   
-  <div class="actions mt-2">
-    <%= form.submit 'modifier mon profil', class: "btn btn-primary"  %>
-  </div>
+  
+  
 
 <% end %>
 
