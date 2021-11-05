@@ -110,9 +110,13 @@
                                 <i class="far fa-edit action-icon"></i>
                             <% end %>
 
-                            <%= button_to @article, class: "btn btn-danger social-badge", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
+                            <%
+=begin%>
+ <%= button_to @article, class: "btn btn-danger social-badge", :title => 'supprimer ma publication', method: :delete, data: { confirm: 'Êtes vous certain de vouloir supprimer cet article ?' } do %>
                                 <i class="far fa-trash-alt action-icon"></i>
-                            <% end %>
+                            <% end %> 
+<%
+=end%>
 
                         <% end %>
 

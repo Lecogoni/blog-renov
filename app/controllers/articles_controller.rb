@@ -94,7 +94,7 @@ class ArticlesController < ApplicationController
     # DELETE articles
     def destroy
         @article.destroy
-        redirect_to articles_url
+        redirect_to user_path(current_user)
         flash[:success] = "L'article a été supprimé"
     end
 

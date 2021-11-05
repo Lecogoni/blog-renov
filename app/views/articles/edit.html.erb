@@ -35,7 +35,7 @@
                         <!-- data-post-id => use to provide extra info -->
                     <% end %>
                     <!-- Delete button-->
-                    <%= button_to article_path(@article), class: "btn btn-danger col-12 mb-4", method: :delete, :title => 'Supprimer définitivement cet article et son contenu' do %>
+                    <%= button_to article_path(@article), class: "btn btn-danger col-12 mb-4", method: :delete, :title => 'Supprimer définitivement cet article et son contenu', data: { confirm: 'Êtes vous certain de vouloir supprimer cet article et son contenu ?' }  do %>
                         <i class="fas fa-trash"></i><span class=""> Supprimer cet article</span>
                     <% end %>
 
