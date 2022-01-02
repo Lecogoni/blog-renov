@@ -144,7 +144,7 @@ class ArticlesController < ApplicationController
 
     def resize_attachement_img(img)
       image = MiniMagick::Image.open(img)
-      image.resize "40x40"
+      image.resize "900x900"
       image.quality(80)
       delete_attachment(img)
       img.attach(io: File.open(image.path), filename: 'file.jpg')

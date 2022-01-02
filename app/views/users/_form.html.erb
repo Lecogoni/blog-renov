@@ -74,12 +74,12 @@
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
-      <div class="actions mt-2 d-flex align-items-end">
-        <%= form.submit 'modifier mon profil', class: "btn btn-primary"  %>
-      </div>
-    </div>
+  </div>
 
+  <div class="d-flex flex-row-reverse">
+    <%= button_tag( :class => "btn btn-primary col-12 col-md-12 mb-2") do %>
+        <i class="fas fa-check-circle"></i> Valider
+    <% end %>
   </div>
 
   <div class="field">
