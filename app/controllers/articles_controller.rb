@@ -14,16 +14,16 @@ class ArticlesController < ApplicationController
         
     if params.has_key?(:category)
         @category = Category.find_by_name(params[:category])
-        if Article.where("published = true").where(category: @category).count == 0
-            @articles = Article.all.order("created_at DESC").where("published = true")
+        if Article.where(published: true).where(category: @category).count == 0
+            @articles = Article.all.order("created_at DESC").where(published: true)
             flash.now[:notice] = "Aucune création dans la catégorie : #{params[:category]}. Voici l'ensemble des créations"
             params[:category] = nil
         else
-            @articles = Article.where("published = true").where(category: @category).order("created_at DESC")
+            @articles = Article.where(published: true).where(category: @category).order("created_at DESC")
         end
         #@articles = Article.where(category: @category).order("created_at DESC")
     else
-        @articles = Article.where("published = true").order("created_at DESC")
+        @articles = Article.where(published: true).order("created_at DESC")
     end
     
     end
@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
     # GET /articles/
     def show
         @article_parts = Part.where(article_id: @article.id).order("position ASC")
-        @other_articles = Article.where("published = true").where(user_id: @article.user_id).where.not(id: @article.id)
+        @other_articles = Article.where(published: true).where(user_id: @article.user_id).where.not(id: @article.id)
         
         @comments = @article.comments.order("created_at ASC")
         @last_articles = Article.order("created_at DESC").first(2)
